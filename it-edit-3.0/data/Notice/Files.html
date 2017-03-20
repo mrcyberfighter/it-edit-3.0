@@ -1,0 +1,379 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Files &#8212; it-edit 3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="it-edit 3.0 documentation" href="index.html" />
+    <link rel="next" title="Spell check" href="Spell-check.html" />
+    <link rel="prev" title="Terminals" href="Terminals.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Spell-check.html" title="Spell check"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Terminals.html" title="Terminals"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">it-edit 3.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="files">
+<span id="id1"></span><h1>Files<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="new-file">
+<h2>New file<a class="headerlink" href="#new-file" title="Permalink to this headline">¶</a></h2>
+<p>You can open a New file, this will create a random named <code class="docutils literal"><span class="pre">New_XXXXXX</span></code> file into your <strong>TEMPDIR</strong> folder, and erase it immediately but the file-path is kept.</p>
+<p>You will surely write inside the new create buffer and surely save it after (surely not into the <strong>TEMPDIR</strong> folder).</p>
+<p>Use the menu item <span class="menuselection">Files ‣ New file</span> or the shortcut <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">N</span></code> to create a new buffer as describe above.</p>
+</div>
+<div class="section" id="file-s-opening">
+<h2>File(s) opening<a class="headerlink" href="#file-s-opening" title="Permalink to this headline">¶</a></h2>
+<p>They are several ways for opening file(s) into <strong class="program">it-edit</strong>:</p>
+<ul class="simple">
+<li>By using the open file(s)<ul>
+<li>The menu item: <span class="menuselection">Files ‣ Open file</span>.</li>
+<li>The button.</li>
+<li>The shortcut <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">O</span></code>.</li>
+</ul>
+</li>
+</ul>
+<p>This will present you a file selector to open the wanted file(s).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The current tab influate the file-selector behaviour:</p>
+<ul class="last">
+<li><p class="first">The active editor page will influence into which folder the file-selector gets open.</p>
+<p>Because the file-selector will be launched into the folder from the current edited file location.</p>
+<blockquote>
+<div><p>You can held the mouse over the tab (which content the current filename) to sea the absolute file path in a tool-tip.</p>
+<p>The same mechanic is by placing the mouse over the filename into the bottom bar.</p>
+</div></blockquote>
+</li>
+<li><p class="first">You can configure to get the current edited file selected (highlighted into the file-selector) into the editor or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">This can be practice if per example you want to open the header file from a source file or inversed.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+<ul class="simple">
+<li>By using the <span class="menuselection">recent file</span> menu-item to open a recent used file.</li>
+</ul>
+<ul>
+<li><p class="first">You can open the last registered files, most often the files opened in the last session, by using the the menu item <span class="menuselection">Reload Session ‣ Reload last files</span>.</p>
+<p>This will open automatically all the last registered files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">This can be practice if you work on a single project during some time.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+<div class="section" id="saving-files">
+<h2>Saving files<a class="headerlink" href="#saving-files" title="Permalink to this headline">¶</a></h2>
+<p>They are several ways of saving files into <strong class="program">it-edit</strong>:</p>
+<ol class="arabic simple">
+<li>You can save the current file simply using:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>The menu item: <span class="menuselection">Files ‣ Save file</span>.</li>
+<li>The button.</li>
+<li>The shortcut <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">S</span></code></li>
+</ul>
+<p>This will save the file at is current location.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>You can save a &#8220;<code class="docutils literal"><span class="pre">New</span></code>&#8221; file or the edited file into another location by using:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>The menu item: <span class="menuselection">Files ‣ Save file as</span>.</li>
+<li>The button.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">warning:</th><td class="field-body">They is no shortcut for this purpose, but if you save (<span class="menuselection">Save file</span> <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">S</span></code>) simply a &#8220;<code class="docutils literal"><span class="pre">New</span></code>&#8221; file this will act as a <span class="menuselection">Save file as</span>.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>You can save all the open files using:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>The menu item: <span class="menuselection">Files ‣ Save all files</span>.</li>
+<li>The button.</li>
+<li>The shortcut <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">S</span></code></li>
+</ul>
+<p>This will save all the unsaved files at their current location.</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>You can distinguish if a file is currently save or modified by looking at the <strong>name</strong> <em>in the tab</em>:</p>
+<p class="last">if their is an <strong>asterisk</strong> &#8216;<code class="docutils literal"><span class="pre">*</span></code>&#8216; <em>before</em> the <strong>file name</strong> this mean that the <em>file</em> is currently <strong>not saved</strong> on the <em>disk</em>.</p>
+</div>
+</div>
+<div class="section" id="reload-file">
+<h2>Reload file<a class="headerlink" href="#reload-file" title="Permalink to this headline">¶</a></h2>
+<p>You can reload a file from disk with <strong class="program">it-edit</strong> by using:</p>
+<ul class="simple">
+<li>The menu item: <span class="menuselection">Files ‣ Reload current file</span>.</li>
+<li>The shortcut <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">R</span></code>.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">This can be practice if per example you have redirect you compilation process to a file for debugging compilation errors.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="file-informations">
+<h2>File informations<a class="headerlink" href="#file-informations" title="Permalink to this headline">¶</a></h2>
+<p>You can get and change files informations by using the menu item <span class="menuselection">Files ‣ File informations</span> <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">I</span></code>.</p>
+<p>This will display a <strong>top-level window</strong> presenting following <strong>informations</strong> and <strong>action</strong> to <em>process</em> on the <em>file</em>:</p>
+<ol class="arabic simple">
+<li>A frame named: <code class="docutils literal"><span class="pre">Main</span> <span class="pre">informations</span></code> will display:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>A nice image from the <strong>mime type</strong> of your current edited file.</li>
+<li>The programming <strong>language</strong> of the file.</li>
+<li>The <strong>mime type</strong> verbatim.</li>
+<li>The file <strong>extension</strong>.</li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li>A frame named: <code class="docutils literal"><span class="pre">Mode</span></code> will display a file <strong>permissions</strong> table like this:</li>
+</ol>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+---+---+---+---+</span>
+<span class="o">|</span>   <span class="o">|</span> <span class="n">R</span> <span class="o">|</span> <span class="n">W</span> <span class="o">|</span> <span class="n">X</span> <span class="o">|</span>
+<span class="o">+---+---+---+---+</span>
+<span class="o">|</span> <span class="n">U</span> <span class="o">|</span> <span class="o">*</span> <span class="o">|</span> <span class="o">*</span> <span class="o">|</span>   <span class="o">|</span>
+<span class="o">+---+---+---+---+</span>
+<span class="o">|</span> <span class="n">G</span> <span class="o">|</span> <span class="o">*</span> <span class="o">|</span> <span class="o">*</span> <span class="o">|</span>   <span class="o">|</span>
+<span class="o">+---+---+---+---+</span>
+<span class="o">|</span> <span class="n">O</span> <span class="o">|</span> <span class="o">*</span> <span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>
+<span class="o">+---+---+---+---+</span>
+
+<span class="n">U</span> <span class="o">-&gt;</span> <span class="n">User</span><span class="o">.</span>      <span class="n">R</span> <span class="o">-&gt;</span> <span class="n">Read</span><span class="o">.</span>
+
+<span class="n">G</span> <span class="o">-&gt;</span> <span class="n">Group</span><span class="o">.</span>     <span class="n">W</span> <span class="o">-&gt;</span> <span class="n">Write</span><span class="o">.</span>
+
+<span class="n">O</span> <span class="o">-&gt;</span> <span class="n">Others</span><span class="o">.</span>    <span class="n">X</span> <span class="o">-&gt;</span> <span class="n">Execute</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>The cells of the table contains <strong>check-boxes</strong> representing the current <strong>permissions</strong> of the file.</p>
+<p>By simply (un)checking the <strong>check-boxes</strong> you change the <strong>permissions</strong> of the file on disk.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">warning:</th><td class="field-body">By saving your file you will set the permissions according to your configuration into <strong class="program">it-edit</strong> for files saving.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>A frame named: <code class="docutils literal"><span class="pre">File</span> <span class="pre">counts</span></code> display some few statistics of the file:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><em>The number</em> of <strong>lines</strong>.</li>
+<li><em>The number</em> of <strong>characters</strong>.</li>
+<li><em>The number</em> of <strong>words</strong>.</li>
+</ul>
+<p>Of the file on the disk.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body"><strong class="program">it-edit</strong> use the program <strong class="program">wc</strong> to gets this informations.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">warning:</th><td class="field-body">The number of line(s) and character(s) into your current edited buffer is visible into the bottom bar.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>A frame named: <code class="docutils literal"><span class="pre">Timestamps</span></code> display the:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><strong>Last status change</strong> <em>date and time</em>.</li>
+<li><strong>Last access</strong> <em>date and time</em>.</li>
+<li><strong>Last modification</strong> <em>date and time</em>.</li>
+</ul>
+<p>Of the file on the disk.</p>
+<p>Near of every information is a button named <code class="docutils literal"><span class="pre">Modify</span></code> which permit you to change the timestamps.</p>
+<p>Which will present you a <strong>calendar</strong> for the date</p>
+<p>and <strong>3</strong> <em>spin buttons</em>:</p>
+<ul class="simple">
+<li><strong>Hours</strong></li>
+<li><strong>Minutes</strong></li>
+<li><strong>Seconds</strong></li>
+</ul>
+<p>Which permit you to change the timestamps easily.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">This can be useful per example if you have change your system clock and you use the <strong class="program">make</strong> tool,...</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li>A frame named: <code class="docutils literal"><span class="pre">Checksum</span></code> will display the:</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><strong>MD 5</strong> hash.</li>
+<li><strong>SHA 1</strong> hash.</li>
+<li><strong>SHA 256</strong> hash.</li>
+<li><strong>SHA 512</strong> hash.</li>
+</ul>
+<p>of your file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">The <em>checksums</em> are displayed into <strong>hexadecimal</strong> values.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li>A frame named: <code class="docutils literal"><span class="pre">File</span> <span class="pre">actions</span></code> will present you:</li>
+</ol>
+<blockquote>
+<div><p>The file name and 4 buttons, named:</p>
+<ul class="simple">
+<li>Rename file</li>
+<li>Copy file</li>
+<li>Compress file</li>
+<li>Copy file-path to clipboard</li>
+</ul>
+<p>The functionalities of this buttons are clear as their name.</p>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/it-edit_icon.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Files</a><ul>
+<li><a class="reference internal" href="#new-file">New file</a></li>
+<li><a class="reference internal" href="#file-s-opening">File(s) opening</a></li>
+<li><a class="reference internal" href="#saving-files">Saving files</a></li>
+<li><a class="reference internal" href="#reload-file">Reload file</a></li>
+<li><a class="reference internal" href="#file-informations">File informations</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Terminals.html"
+                        title="previous chapter">Terminals</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Spell-check.html"
+                        title="next chapter">Spell check</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Files.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Spell-check.html" title="Spell check"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Terminals.html" title="Terminals"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">it-edit 3.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2015-2017, Brüggemann Eddie.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    </div>
+  </body>
+</html>

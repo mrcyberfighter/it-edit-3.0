@@ -1,0 +1,507 @@
+it-edit (3.0) All; urgency=low
+
+  * Changes into the configure program window.
+
+    * Addings:
+  
+      * the File(s) tab.
+
+  * Configuration settings added to it-edit.
+
+    * Show all spaces.
+  
+    * Spell check language.
+  
+    * Warning the user if:
+  
+      * A file is already loaded into the editor.
+    
+      * A file is a read-only file.
+    
+    * Save file(s) despite timestamp.
+  
+    * Used charset by saving (default to UTF-8).
+  
+    * Used newline type (default to linefeed -> '\n').
+  
+    * File permissions by saving.
+  
+    * Warn the user by closing a file if the file is not saved.
+  
+    * Session management:
+  
+      * Automatic.
+    
+      * Ask at exit.
+    
+      * Disabled the session registering.
+       
+        
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Sat, 18 Mar 2017 18:40:08 +0100
+
+it-edit (3.0) All; urgency=low
+
+  * Adding a menu item and shortcut for copying the current edited filepath and folderpath to clipboard.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Mon, 20 Feb 2017 03:04:47 +0100
+
+it-edit (3.0) All; urgency=low
+
+  * Adding notfications by starting and quitting it-edit.
+
+  * -> Not used into the final it-edit-3.0 version.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Mon, 20 Feb 2017 03:04:47 +0100
+
+it-edit (3.0) All; urgency=low
+
+  * Reformatting and adding functionnalities to the "File informations" Window.
+
+  * Adding of a field named "File Actions" containing 4 functionalities:
+
+    * Rename file.
+
+    * Copy file.
+
+    * Compress file.
+
+    * Copy filepath to clipboard.
+
+  * The window is wider but less higher than before and the changes into the:
+
+    * Permissions field.
+
+    * Timestamps field.
+
+      * Have been reimplemented to work well know by using the corresponding functions:
+   
+        * g_chmod(...)
+   
+        * g_utime(...)
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Fri, 03 Feb 2017 04:21:02 +0100
+
+it-edit (3.0) All; urgency=low
+
+  * Addint to it-edit of a "Memo (todo) reminder", named mini text editor, window.
+
+  * With some configuration possiblities (scheme, language,...),
+  * providing the minimal required as undo/redo, cut, copy, paste, and so on as edition possiblities.
+
+  * You can use it for the purpose you want as example:
+
+    * Make a plan for your program at start.
+
+    * Make a todo file.
+
+    * Write your ChangeLog file apart, And so on...
+
+  * You can simply store the content of the mini additionnal text editor, without using a separate file.
+
+  * Or export it content as file.
+
+  * You can import a file as content if you want so.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 25 Jan 2017 21:03:22 +0100
+
+it-edit (3.0) All; urgency=low
+
+  * it-edit provide the absolute path of the current loaded file into
+
+    * The editor notebook tabs as tooltip.
+
+    * Into the bottom bar as tooltip mouse over the filename.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Sun, 22 Jan 2017 04:50:16 +0100
+
+it-edit (3.0) All; urgency=low
+
+  * Implementing more user asking simple and practical functionalities.
+
+    * Note that all are configurable from the user, as you want your editor behaves:
+
+
+  * You can be warn if a file is currently loaded into the editor and you try to load it again.
+
+      * you can choose to load it or not.
+
+
+  * You can be warn by closing an unsaved file !
+
+      * That's nothing special but personaly I dislike this behaviour strangely.
+
+      * So it's configurable to enable or disable this feature.
+
+  * You can be warn before "really quit" when you quit using the shortcut or the menu item.
+
+    * You can choose to really quit the application or not, because the shortcut (Ctrl + Q)
+    * Can be dangerous in some circumstances (the 'Q' is aside the 'S' on an AZERTY keyboard).
+
+  * You can be warn when you open a file which is "read-only" for the user which open it.
+
+    * The file can be "read-only" for many reasons but the consequence is
+    * that the user won't be able to save tthe file as it's opened location.
+
+
+  * I failed to implement a warning when a file is modified from an extern process.
+
+    * In fact I success to implement it but it has strange behaviour what,
+    * I don't really understand and what can be very disturbing.
+
+    * I think the library isn't able to reconize that your process has change the file.
+
+  * The warning by closing the application when files still unsaved is already present.       
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Sun, 22 Jan 2017 02:01:17 +0100
+
+it-edit (3.0) All; urgency=high
+
+  * it-edit implement now 2 own gobject types:
+
+    * The GtkItTerm type, which cannot be reused as is.
+
+      * On which the it-edit terminals are based on.
+
+    * The GtkSmartMenuItem, which I hearten you of reusing !
+
+      * On which the menu items are based on.
+
+        * Either a simple menu item or a chekc menu item. Radio menu items were not necessary.
+    
+    * The GtkSmartIconButton, which I hearten you of reusing !
+
+      * On which the simple icon buttons are based on.
+
+        * A button contains only a image and a optional shortcut formatted tooltip.
+    
+    * The GtkSmartTooltip, which I hearten you of reusing with changes !
+
+      * Which aren't use into it-edit but I hope it will make your happyness.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Sun, 22 Jan 2017 02:01:17 +0100
+
+it-edit (3.0) All; urgency=high
+
+  * Integration of a spell checker using the library gspell-1.
+
+    * Marking all misspell words into the editor.
+
+    * Display a dialog for correct all misppelled words.
+
+  * @NOTES -> The gspell-1 library present 2 major problems for me:
+
+      * gspell-1 is a young library so it will not be present on every distribution.
+
+      * gspell-1 provides no version MACRO so i I can't include some code conditionally.
+      * Currently I get the version on 1.0 but the version 1.1
+      * provides a language chooser into the Dialog for spellchecking.
+
+    * The gspell library has the advantages to be fully compatible with the libgtksourceview-3.0 library.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Tue, 10 Jan 2017 22:34:50 +0100
+
+it-edit (3.0) All; urgency=low
+
+  * Implementation of a reload last session functionality.
+
+    * Reload all.
+
+    * Reload last files.
+
+    * Reload last documentation. (WARNING -> This functionality can have unwanted behavior by failing for some files.)
+
+    * Reload last applications.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Tue, 10 Jan 2017 22:34:50 +0100
+
+it-edit (3.0) All; urgency=low
+
+  * Using a GtkSourceFileSaver for file saving.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 28 Dec 2016 22:51:46 +0100
+
+it-edit (3.0) All; urgency=low
+
+  * Usage of a GtkApplication instead of the pair:
+
+    * gtk_init(...) / gtk_main(...).
+
+  * What implie many things into others that the file(s) given as argument are in form of a GFile.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 28 Dec 2016 22:51:46 +0100
+
+it-edit (2.91) ; urgency=low
+
+  * replace the Copy and Paste icons.
+
+  * Remove the text from the buttons from the buttonbar so that any resolution match.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com> Tue, 12 Jul 2016 02:53:36 +000
+
+it-edit (2.91) ; urgency=low
+
+  * BUGFIX Updating the editor notebook menu label when you save a "New" file.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com> Tue, 12 Jul 2016 02:53:36 +000
+
+it-edit (2.91) ; urgency=low
+
+  * Updating the Program configuration dialog window, for the dialog appearence.
+
+  * Because image background is not yet supported, removing the:
+
+    * Predefine textures.
+
+    * Texture file chooser.
+
+    * Background image chooser.
+
+  * Set configurable:
+
+    * Font scale.
+
+    * Cursor color.
+
+    * Cursor blnk mode.
+
+    * Bold settings.
+
+    * Pointer autohide.
+
+    * Bell audible.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com> Mon, 02 May 2016 0:02:51 +000
+
+it-edit (2.91) ; urgency=low
+
+  * Pop the text from the buttons from the buttonbar.
+
+  * Change the Copy and Paste icons.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com> Mon, 02 May 2016 0:02:51 +000
+
+it-edit (2.91) ; urgency=low
+
+  * remove the usleep call for the command at start,
+
+  * replaced by an execute command function which is clever enough to execute the starting command
+
+  * before gtk+ show all the interface and so the terminals are up-to-date at start.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com> Sun, 01 May 2016 23:06:55 +000
+
+it-edit (2.91) ; urgency=low
+
+  * Fixing the Undo/redo functionalities from the menu item and so their callbacks.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com> Sat, 30 Apr 2016 21:02:00 +000
+
+it-edit (2.91) ; urgency=low
+
+  * Implementation of the GtkSourceFileLoader in it-edit for files loading.
+
+    * This permit to load files which are not encoded in UTF-8.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com> Sat, 30 Apr 2016 20:58:32 +000
+
+it-edit (2.91) ; urgency=high
+
+  * Reformat it-edit to use the livte-2.91 (which has no background image capabilities).
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com> Fri, 29 Apr 2016 16:44:37 +000
+
+it-edit (2.0) ; urgency=high
+
+  * BUGFIX
+
+       Now you can open and save following files without problems:
+
+       * Makefile.am
+
+       * GNUmakefile.am
+
+       * CMakeLists.txt
+
+       * *.cmake
+
+       * *.cmake.in
+
+       * *.ctest
+
+       * *.ctest.in
+
+       And all the others for which the program had bugging because the
+       bug is fixed now !
+
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 02 Mar 2016 23:16:34 +0100
+
+it-edit (2.0) ; urgency=low
+
+  * Settings
+
+       * Define the ratio main-interface and sidebar in form of a floating-point value between 0.0-1.0,
+
+         representing the surface the sidebar will cover and so the width of the sidebar terminals.
+
+       * Show | hide the sidebar terminals at start.
+
+       * Show | hide the big terminal at start.
+
+       * Choosing to divide the big terminal in 4.
+
+       * Toggle to fullscreen at start.
+
+       * Launch a command in the terminals at start.
+
+       * Set it-edit as your default editor or reset the settings.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 02 Mar 2016 23:16:00 +0100
+
+it-edit (2.0) ; urgency=low
+
+  * Terminals settings
+
+      * Appearance
+
+        Now you can set a background image which will fill the entire terminal or a texture repeating itself.
+
+      * Settings
+
+        * You can set the shell you want to use.
+
+        * You can define the starting directory from the terminals.
+
+        * You can define the select-by-word-char regex.
+
+        * You can choose to scrolling down on output and or by keystroke.
+
+        * You can set the Backspace and delete sequence to send to terminal.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 02 Mar 2016 23:15:03 +0100
+
+it-edit (2.0) ; urgency=low
+
+  * Editor settings
+
+       You can choose to enable or to disable trailing space removing at
+       file saving.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 02 Mar 2016 23:14:00 +0100
+
+it-edit (2.0) ; urgency=low
+
+  * Schemes
+
+       New schemes have been added:
+
+       * build
+
+       * emacs
+
+       * matrix
+
+       * slate
+
+       * turbo
+
+       * vsdark
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 02 Mar 2016 23:13:08 +0100
+
+it-edit (2.0) ; urgency=low
+
+  * View
+
+       * Show | hide big terminal.
+
+       * Show | hide sidebar.
+
+       * Show | hide the buttonbar.
+
+       * Toggle to fullscreen.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 02 Mar 2016 23:12:22 +0100
+
+it-edit (2.0) ; urgency=low
+
+  * Applications
+
+       You can register useful GUI application to launch it directly from the editor.
+
+       Per example: A GUI Diff tool, a GUI debugger interface, a smart python
+       interpreter, a calculator, a dictionary, a color-picker, and so soon...
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 02 Mar 2016 23:11:51 +0100
+
+it-edit (2.0) ; urgency=low
+
+  * Actions
+
+       1. Add terminals to sidebar.
+
+       2. Switch to big terminal.
+
+          * either one big terminal or one big terminal divided into 4
+            terminals.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 02 Mar 2016 23:10:54 +0100
+
+it-edit (2.0) ; urgency=low
+
+  * Edition
+
+       1. Add find next and find previous shortcuts.
+
+       2. Replace and replace all shortcuts.
+
+       3. Switching using tabs immediately by button or shortcut (Ctrl + P).
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 02 Mar 2016 23:09:54 +0100
+
+it-edit (2.0) ; urgency=low
+
+  * Files
+
+       1. Reload file functionality.
+
+       2. file informations functionality.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 02 Mar 2016 23:09:02 +0100
+
+it-edit (2.0) ; urgency=low
+
+  * Terminals
+
+       Now you can add as many sidebar terminals as you want.
+
+       Now you can reorder your terminals as wanted by drag and drop the
+       terminals tabs.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 02 Mar 2016 23:08:03 +0100
+
+it-edit (2.0) ; urgency=low
+
+  * Editor
+
+       Now you can easily navigate into your open files by using the pop- up menu or by clicking on the file tab.
+
+       Now you can reorder your open files as wanted by drag and drop the files tabs.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 02 Mar 2016 23:07:25 +0100
+
+it-edit (1.0.1) ; urgency=low
+
+  * Second release. Corrections of some imperfections in the source code.
+
+  * Second release. Update of the *.desktop file to provide the "open with" functionality.
+
+   * If you some bugs occurs with IT-Edit thank's to contact me.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Fri, 08 May 2015 00:00:11 +0200
+
+it-edit (1.0.0) Ubuntu; urgency=low
+
+  * First release. If you some bugs occurs with IT-Edit thank's to contact me.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Thu, 09 Apr 2015 09:13:52 +0200

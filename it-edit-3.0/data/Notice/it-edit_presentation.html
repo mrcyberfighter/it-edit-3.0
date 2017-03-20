@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>it-edit (Integrated Terminal Editor) &#8212; it-edit 3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="it-edit 3.0 documentation" href="index.html" />
+    <link rel="next" title="Editor" href="Editor.html" />
+    <link rel="prev" title="Welcome to it-edit’s documentation!" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Editor.html" title="Editor"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to it-edit’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">it-edit 3.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="it-edit-integrated-terminal-editor">
+<h1>it-edit (Integrated Terminal Editor)<a class="headerlink" href="#it-edit-integrated-terminal-editor" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">program:</th><td class="field-body">it-edit</td>
+</tr>
+<tr class="field-even field"><th class="field-name">version:</th><td class="field-body">3.0</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">author:</th><td class="field-body">Brüggemann Eddie</td>
+</tr>
+<tr class="field-even field"><th class="field-name">contact:</th><td class="field-body">&lt;<a class="reference external" href="mailto:mrcyberfighter&#37;&#52;&#48;gmail&#46;com">mrcyberfighter<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">license:</th><td class="field-body">GPLv3</td>
+</tr>
+<tr class="field-even field"><th class="field-name">website:</th><td class="field-body">&lt;<a class="reference external" href="http://www.open-source-projects.net/it-edit/it-edit">http://www.open-source-projects.net/it-edit/it-edit</a>&gt;</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">release:</th><td class="field-body">Mar 19, 2017</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="motivation-for-writing-it-edit">
+<h2>Motivation for writing it-edit<a class="headerlink" href="#motivation-for-writing-it-edit" title="Permalink to this headline">¶</a></h2>
+<p>I think they are 2 sort of programmers in their habits of writing programs:</p>
+<blockquote>
+<div><ul class="simple">
+<li>They which use an <abbr title="Integrated Development Environment">I.D.E</abbr> with full integrated functionalities, and master it to respond to most of their requirements.</li>
+<li>They which use an text editor to write their programs and a terminal to compile, debug or launch them and some other tools separately.</li>
+</ul>
+</div></blockquote>
+<p>Because I&#8217;m an programmer from the second category and because i remark that i often use additional tools than the editor and the terminal.</p>
+<p>I decide to write my own text editor program which provide me all the functionalities that i need to get a development environment fully adapt to my requirement.</p>
+<p>So in fact <strong class="program">it-edit</strong> is more than a basic programming text editor, but a powerful tool which I hope you will agree the concept.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>In fact in conjunction with my project generator <a class="reference external" href="http://www.open-source-projects.net/mk-project/mk-project">mk-project</a> which generate me a big <strong>do all</strong> <code class="docutils literal"><span class="pre">Makefile</span></code>.</p>
+<p>I enjoy using it-edit every time !</p>
+<p>Even when I only to type few targets like (make, make exec, make ddebug, make gdb,...) <strong class="program">it-edit</strong> is useful for all task to do in a terminal.</p>
+<p>All this with an accompanied editor.</p>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">By the way <a class="reference external" href="http://www.open-source-projects.net/mk-project/mk-project">mk-project</a> can be useful for every <strong class="program">vim</strong> or <abbr title="Terminal User Interface">T.U.I</abbr> editor user.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="requirement-of-it-edit">
+<h2>Requirement of <strong class="program">it-edit</strong><a class="headerlink" href="#requirement-of-it-edit" title="Permalink to this headline">¶</a></h2>
+<p><strong class="program">it-edit</strong> requires</p>
+<ul class="simple">
+<li>gtk-3 as <abbr title="Graphical User Interface">G.U.I</abbr></li>
+<li>gtksourceview-3.</li>
+<li>vte-2.91 for the virtual terminals emulation as a gtk-3 widget.</li>
+<li>Optionally gspell-1 as <a class="reference internal" href="Spell-check.html#spell-check"><span class="std std-ref">spell checker</span></a>.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">warning:</th><td class="field-body">You must install the development packages of all required library because it will be compiled and installed on the target host.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="what-it-edit-does-for-me">
+<h2>What <strong class="program">it-edit</strong> does for me !<a class="headerlink" href="#what-it-edit-does-for-me" title="Permalink to this headline">¶</a></h2>
+<p><strong class="program">it-edit</strong> consist of a basic programming text editor with all basic functionalities with</p>
+<p>intelligently integrated terminals the best positioned so that they are <code class="docutils literal"><span class="pre">easy</span> <span class="pre">to</span> <span class="pre">reach</span></code> into the main interface of the program.</p>
+<p>With many others practices functionalities.</p>
+<p>&#8212;</p>
+<p><strong class="program">it-edit</strong> integrated terminals in the best way I have thought for me.</p>
+<p>A side bar terminal which you can add and remove items, a big full-screen terminal, the same divided into 4 terminals and as many top-level terminals as you want.</p>
+<p>&#8212;</p>
+<p><strong class="program">it-edit</strong> provide an easy file access...</p>
+<p>In fact it was thought for registering <strong>HTML</strong> documentation and so accessing it <strong>easily</strong>.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>But you can register your winner song if you want when you have terminate all your assertions well,</p>
+<p>to celebrate your victory <strong>!</strong></p>
+<p><strong class="program">it-edit</strong> will open the registered file with the default program for it if any available.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<blockquote>
+<div><p>Saving and restoring your file(s) list.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ cp /usr/local/share/it-edit/Files_handler/Files_handler.conf <span class="nv">$HOME</span>
+</pre></div>
+</div>
+<p>To restore your file(s) list after upgrade per example.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ cp <span class="nv">$HOME</span>/Files_handler.conf /usr/local/share/it-edit/Files_handler/Files_handler.conf
+</pre></div>
+</div>
+</div></blockquote>
+<p>&#8212;</p>
+<p>You can launch graphical applications with <strong class="program">it-edit</strong> very easily:</p>
+<ul>
+<li><p class="first">At first it-edit will check your system, at first start, for some predefined applications and register it into their related category.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">You can change the application(s), if found or not, as you want.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">Then you can choose to register and delete the applications you want, into the category <code class="docutils literal"><span class="pre">Other</span></code>.</p>
+</li>
+</ul>
+<p>&#8212;</p>
+<p>The version <strong>3</strong>.**0** of <strong class="program">it-edit</strong> embedded a configurable spell checker utility which you can use to write documentations</p>
+<p>reachable as</p>
+<ul class="simple">
+<li><strong>in-line spell-check</strong> (<em>the misspelled words are underline</em>)</li>
+</ul>
+<p>or</p>
+<ul class="simple">
+<li>through launching a <strong>dialog spell-check</strong> window which permit you to correct all misspelled words of the current document.</li>
+</ul>
+</div>
+<div class="section" id="it-edit-spirit">
+<h2><strong class="program">it-edit</strong> spirit<a class="headerlink" href="#it-edit-spirit" title="Permalink to this headline">¶</a></h2>
+<p><strong class="program">it-edit</strong> offers:</p>
+<div class="section" id="a-programming-editor">
+<h3>A programming editor<a class="headerlink" href="#a-programming-editor" title="Permalink to this headline">¶</a></h3>
+<p>A text-editor without favoring any language.</p>
+<p>With all the basic text editor functionalities and overall useful <a class="reference internal" href="Shortcuts_memo.html#shortcuts-table"><span class="std std-ref">shortcuts</span></a> which you didn&#8217;t have to know all.</p>
+<p>And some unusual like <strong>duplicate text</strong> or <strong>copy to clipboard</strong> the current edited absolute <strong>file-path</strong> (<code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">Y</span></code>).</p>
+<p>You will be able to open, open a recent, save, save as, save all, file(s).</p>
+<p>Or reload your last session file(s) as documentation and launched applications.</p>
+<p><strong class="program">it-edit</strong> provides some informations like:</p>
+<ul class="simple">
+<li>Line</li>
+<li>Column</li>
+<li>Total lines</li>
+<li>Total characters</li>
+<li>The filename (hold the mouse over  the notebook tab, you will know the absolute file-path).</li>
+</ul>
+<p>By opening the file informations you will get more informations and can do some basic functions on (and strictly over) the file on disk (<strong>not</strong> the current edited buffer):</p>
+<ul class="simple">
+<li>The file base-name.</li>
+<li>Language, Mime-type and Extension.</li>
+<li>Lines, Words and Chars count.</li>
+<li>MD5, SHA1, SHA256 and SHA512 checksum in hexadecimal notation.</li>
+</ul>
+<p>You will be able to see and to modify:</p>
+<ul class="simple">
+<li>The file permissions.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">warning:</th><td class="field-body">:By saving the <code class="docutils literal"><span class="pre">configured</span> <span class="pre">mask</span></code> will overwrite your changes.</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>The last<ul>
+<li>Access time</li>
+<li>Modification time (can be useful with make and system clock disturbing).</li>
+<li>Last status change time (this one isn&#8217;t modifiable).</li>
+</ul>
+</li>
+<li><span class="guilabel"><span class="accelerator">R</span>ename</span>, <span class="guilabel"><span class="accelerator">C</span>opy</span>, <span class="guilabel"><span class="accelerator">C</span>ompress</span> (<em>using the gzip algorithm</em>), <span class="guilabel"><span class="accelerator">C</span>opy file-path to clipboard</span>.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="terminal-integration">
+<h2>Terminal integration<a class="headerlink" href="#terminal-integration" title="Permalink to this headline">¶</a></h2>
+<p><strong class="program">it-edit</strong> provides the best terminals integration for everyone:</p>
+<ul class="simple">
+<li>The <strong>sidebar terminals</strong> can be useful by editing and requiring immediately a terminal in the same window.</li>
+<li>The <strong>single &#8220;Big Terminal&#8221;</strong> can be useful if you need space: you can mask the button bar and made it full-screen.</li>
+<li>The <strong>4 divided &#8220;Big Terminal&#8221;</strong> can be useful if you need severals terminals on the screen.</li>
+<li>The <strong>top level terminal</strong> is re-sizable and in a separate window.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">It&#8217;s recommended to use <strong class="program">it-edit</strong> with a <code class="docutils literal"><span class="pre">Makefile</span></code> (easy self-build or not) for compiled languages, else enjoy the terminals for launching your scripts and commands.</td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">make</span> <span class="pre">makes</span> <span class="pre">the</span> <span class="pre">life</span> <span class="pre">easier</span> <span class="pre">!</span></code></p>
+<p>All this terminals have a good contextual menu and I had problems to add some items, as <code class="docutils literal"><span class="pre">sync</span> <span class="pre">current</span> <span class="pre">directory</span></code> in every terminal, and so on.</p>
+</div>
+<div class="section" id="it-edit-writing-spirit">
+<h2><strong class="program">it-edit</strong> writing spirit<a class="headerlink" href="#it-edit-writing-spirit" title="Permalink to this headline">¶</a></h2>
+<p><strong class="program">it-edit</strong> is written in C (-std=c99) using gtk-3 and related libraries.</p>
+<p><strong class="program">it-edit</strong> writing style takes cares of:</p>
+<blockquote>
+<div><ul class="simple">
+<li>structure variables order: so that no unneeded padding is added from the compiler.</li>
+<li>cache optimizing: so that we get the best cache-hits we can.</li>
+</ul>
+</div></blockquote>
+<p><strong class="program">it-edit</strong> make strong usage of the gtk-3 types.</p>
+<p><strong class="program">it-edit</strong> provide an optional spell checker useful for writing documentation or simply comments.</p>
+<p><strong class="program">it-edit</strong> make usage of <code class="docutils literal"><span class="pre">/**</span> <span class="pre">**/</span></code> comments so for commenting out a code section, by hacking it-edit, use the preprocessor: <code class="docutils literal"><span class="pre">#if</span> <span class="pre">0</span> <span class="pre">...</span> <span class="pre">#endif</span></code>.</p>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>Control all your system with <strong class="program">it-edit</strong> and show us that you can dialog with it through the best medium: the terminal.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/it-edit_icon.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">it-edit (Integrated Terminal Editor)</a><ul>
+<li><a class="reference internal" href="#motivation-for-writing-it-edit">Motivation for writing it-edit</a></li>
+<li><a class="reference internal" href="#requirement-of-it-edit">Requirement of <strong class="program">it-edit</strong></a></li>
+<li><a class="reference internal" href="#what-it-edit-does-for-me">What <strong class="program">it-edit</strong> does for me !</a></li>
+<li><a class="reference internal" href="#it-edit-spirit"><strong class="program">it-edit</strong> spirit</a><ul>
+<li><a class="reference internal" href="#a-programming-editor">A programming editor</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#terminal-integration">Terminal integration</a></li>
+<li><a class="reference internal" href="#it-edit-writing-spirit"><strong class="program">it-edit</strong> writing spirit</a></li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to it-edit&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Editor.html"
+                        title="next chapter">Editor</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/it-edit_presentation.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Editor.html" title="Editor"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to it-edit’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">it-edit 3.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2015-2017, Brüggemann Eddie.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    </div>
+  </body>
+</html>

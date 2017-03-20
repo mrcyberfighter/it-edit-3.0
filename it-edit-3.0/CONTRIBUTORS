@@ -1,0 +1,18 @@
+Author: Eddie Brüggemann
+
+Contact: <mrcyberfighter@gmail.com>
+
+Corrector: Thanks to Gerald Dumas <http://linechec.sourceforge.net/, http://m3dlib.tuxfamily.org/>
+           for his hard rereading of the source code from it-edit-1.0.0
+           which permit the correction of some imperfections in the source code from IT-Edit-1.0.1.
+           And newly help me to develop self-build widgets. 
+
+Bug-fix: Thanks to Mickaël S <mickael@jmsinfo.co> for his little bug-fix with big effects and
+         the trailing spaces auto-removing idea (<= it-edit-2.91).
+
+Thanks to all GThaKtivist especially Sébastien Wilmet (I had communicate with him)
+which is the author of the Texilla Latex editor and
+maintainer of the gtksourceview-3 library and
+participate in many other projects like gedit.
+
+

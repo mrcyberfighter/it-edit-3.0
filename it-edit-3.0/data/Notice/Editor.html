@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Editor &#8212; it-edit 3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="it-edit 3.0 documentation" href="index.html" />
+    <link rel="next" title="Terminals" href="Terminals.html" />
+    <link rel="prev" title="it-edit (Integrated Terminal Editor)" href="it-edit_presentation.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Terminals.html" title="Terminals"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="it-edit_presentation.html" title="it-edit (Integrated Terminal Editor)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">it-edit 3.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="editor">
+<h1>Editor<a class="headerlink" href="#editor" title="Permalink to this headline">¶</a></h1>
+<p>The editor has other functionalities like:</p>
+<div class="section" id="files-management">
+<h2><a class="reference internal" href="Files.html#files"><span class="std std-ref">Files management</span></a>.<a class="headerlink" href="#files-management" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>New file.</li>
+<li>Open file(s) or a recent file.</li>
+<li>Save file(s).</li>
+<li>Close file.</li>
+<li>Close all file(s).</li>
+<li>File informations.</li>
+<li>Reload file (from disk).</li>
+</ul>
+</div>
+<div class="section" id="text-edition-functionalities">
+<h2>Text edition functionalities.<a class="headerlink" href="#text-edition-functionalities" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Undo/Redo.</li>
+<li>Search and Replace.</li>
+<li>Go to line number.</li>
+<li>Cut/Copy/Paste.</li>
+<li>Duplicate text.</li>
+<li>Use spaces instead of tabs.</li>
+<li>Enable/Disable in-line spell-check.</li>
+</ul>
+</div>
+<div class="section" id="spell-check-functionality">
+<h2><a class="reference internal" href="Spell-check.html#spell-check"><span class="std std-ref">Spell-check</span></a> functionality<a class="headerlink" href="#spell-check-functionality" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>In-line spell-check (<code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">w</span></code>) : the misspelled words are highlight.</li>
+<li>Spell-check dialog (<code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Maj</span> <span class="pre">+</span> <span class="pre">w</span></code>) : scan all the text buffer for misspelled words, with a dialog window for correct them or not.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">warning:</th><td class="field-body">Install the optional <strong class="program">gspell-1</strong> <code class="docutils literal"><span class="pre">-dev</span></code> or <code class="docutils literal"><span class="pre">-devel</span></code> package, before installing <strong class="program">it-edit</strong>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="go-to-line-number">
+<h2>Go to line number<a class="headerlink" href="#go-to-line-number" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Use the menu item, the button or the shortcut: <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">g</span></code>.</p>
+<p>A window will appear asking you for a valid line number.</p>
+<p>Enter a valid line number and press <code class="kbd docutils literal"><span class="pre">Enter</span></code> or the <span class="guilabel"><span class="accelerator">A</span>pply</span> button to move the editor to the wanted line,</p>
+<p>which will be highlight according to the current scheme.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">This is very useful to go to a specific line.</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+<div class="section" id="find-and-replace">
+<h2>Find and replace<a class="headerlink" href="#find-and-replace" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">You can <em>show</em> | <em>hide</em> the <code class="docutils literal"><span class="pre">Find</span> <span class="pre">and</span> <span class="pre">replace</span></code> bar by using the toggle button.</p>
+<p>The <code class="docutils literal"><span class="pre">Search</span> <span class="pre">and</span> <span class="pre">Replace</span></code> bar has following functionalities:</p>
+<ul>
+<li><p class="first"><strong>Search</strong> button: this will highlight all the matching occurrences from the search term and moving the editor to the first occurrence position.</p>
+</li>
+<li><p class="first"><strong>Next</strong> button: highlight the next matching occurrence from the search term.</p>
+<p>Pressing <strong>Enter</strong> when the search entry field has the focus has the same effect.</p>
+<p>The search will start at selection or at the cursor position.</p>
+<p>If you select some text with the mouse and using the shortcut <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">f</span></code>.</p>
+<p>The search field will toggle on if not visible and will contains the selected text as search term.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">You can use the shortcut <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">+</span> <span class="pre">(KP)</span></code> to activate the <strong>Next</strong> functionality.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first"><strong>Previous</strong> button: highlight the previous matching occurrence from the search term.</p>
+<p>The search will start at selection or at the cursor position.</p>
+<p>If you select some text with the mouse and use the shortcut <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">f</span></code>.</p>
+<p>The search field will toggle on if not visible and will contains the selected text as search term.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">You can use the shortcut <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">-</span> <span class="pre">(KP)</span></code> to activate the <strong>Previous</strong> functionality.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first"><strong>Replace</strong> button: replace the current matching occurrence, which is highlight, with the content of the replace field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">You can use the shortcut <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Enter</span> <span class="pre">(KP)</span></code>: instead of the button.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first"><strong>Replace all</strong> button: replace all the matching occurrence in the current file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">You can use the shortcut <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">Enter</span> <span class="pre">(KP)</span></code> instead of the button.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first"><strong>Mode</strong>: You can select how your search term(s) will be interpreted.</p>
+<ul class="simple">
+<li><strong>Raw text</strong>: all search terms matching.</li>
+<li><strong>Word boundary</strong>: The search term must be a complete word, not a part but an variable with separators like underscores or points will work too.</li>
+<li><strong>Regular expression</strong>: <em>Perl</em> compatible regular expression (<strong>REGEX</strong>).</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">For <strong>REGEX</strong> read the <strong>GLib Regex</strong> documentation which is contains into the <code class="docutils literal"><span class="pre">gtk-doc</span></code> directory.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first"><strong>Close</strong> button: hide the search and replace bar and clear the highlight.</p>
+</li>
+</ul>
+</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body"><p class="first">If you select some text with the mouse and use the <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">f</span></code> shortcut, then:</p>
+<ul class="simple">
+<li>The search and replace bar will be show.</li>
+<li>The search field will be filled with your selection.</li>
+</ul>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">The search will begin at your selection position if you hit the <strong>Next</strong> or <strong>Previous</strong> button.</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p><strong>The search terms history:</strong></p>
+<p>Every search term you make a search for will be register into the history.</p>
+<ul class="simple">
+<li>You can use the <code class="kbd docutils literal"><span class="pre">Up</span></code> key to start the history search from the beginning.</li>
+<li>You can use the <code class="kbd docutils literal"><span class="pre">Down</span></code> key to start the history search from the end.</li>
+</ul>
+<p class="last">It will flow through the search terms history but not wrap around, simply end at the other end.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/it-edit_icon.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Editor</a><ul>
+<li><a class="reference internal" href="#files-management"><code class="docutils literal"><span class="pre">Files</span> <span class="pre">management</span></code>.</a></li>
+<li><a class="reference internal" href="#text-edition-functionalities">Text edition functionalities.</a></li>
+<li><a class="reference internal" href="#spell-check-functionality"><code class="docutils literal"><span class="pre">Spell-check</span></code> functionality</a></li>
+<li><a class="reference internal" href="#go-to-line-number">Go to line number</a></li>
+<li><a class="reference internal" href="#find-and-replace">Find and replace</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="it-edit_presentation.html"
+                        title="previous chapter">it-edit (Integrated Terminal Editor)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Terminals.html"
+                        title="next chapter">Terminals</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Editor.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Terminals.html" title="Terminals"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="it-edit_presentation.html" title="it-edit (Integrated Terminal Editor)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">it-edit 3.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2015-2017, Brüggemann Eddie.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    </div>
+  </body>
+</html>

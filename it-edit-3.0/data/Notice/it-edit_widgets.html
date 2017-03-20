@@ -1,0 +1,394 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>it-edit smart widgets &#8212; it-edit 3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="it-edit 3.0 documentation" href="index.html" />
+    <link rel="prev" title="Supported languages" href="languages.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="languages.html" title="Supported languages"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">it-edit 3.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="it-edit-smart-widgets">
+<h1>it-edit smart widgets<a class="headerlink" href="#it-edit-smart-widgets" title="Permalink to this headline">¶</a></h1>
+<p><strong class="program">it-edit</strong> implement some few self build widget:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If you get interest into Gtk-3 widget building</p>
+<p class="last">you can broad the source to understand How-To build GtkWidget(s) for Gtk-3 from your own.</p>
+</div>
+<div class="section" id="gtksmartmenuitem">
+<h2>GtkSmartMenuItem<a class="headerlink" href="#gtksmartmenuitem" title="Permalink to this headline">¶</a></h2>
+<p>A simple menu item containing:</p>
+<ul class="simple">
+<li>An icon.</li>
+<li>A label.</li>
+<li>An universal shortcut text.</li>
+</ul>
+<div class="section" id="constructors">
+<h3>Constructors<a class="headerlink" href="#constructors" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt>
+<code class="descname">GtkWidget* gtk_smart_menu_item_new_all(const gchar *label, const gchar *icon_filepath, GtkAccelGroup *accel_group, const GdkModifierType accel_modifier, const guint accel_key) ;</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>label</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">gchar</span> <span class="pre">*</span></code>) &#8211; The label to display into the menu item.</li>
+<li><strong>icon_filepath</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">gchar</span> <span class="pre">*</span></code>) &#8211; The menu item icon file-path.</li>
+<li><strong>accel_group</strong> (<code class="xref c c-type docutils literal"><span class="pre">GtkAccelGroup</span> <span class="pre">*</span></code>) &#8211; The shortcut accelerator group.</li>
+<li><strong>accel_modifier</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">GdkModifierType</span></code>) &#8211; The shortcut modifier.</li>
+<li><strong>accel_key</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">guint</span></code>) &#8211; The shortcut accelerator key.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><code class="xref c c-type docutils literal"><span class="pre">GtkWidget</span> <span class="pre">*</span></code></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A pointer to the <code class="xref c c-type docutils literal"><span class="pre">GtkSmartMenuItem</span></code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descname">GtkWidget* gtk_smart_check_menu_item_new_all(const gchar *label, const gboolean draw_as_radio, const gchar *icon_filepath, GtkAccelGroup *accel_group, const GdkModifierType accel_modifier, const guint accel_key) ;</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>label</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">gchar</span> <span class="pre">*</span></code>) &#8211; The label to display into the menu item.</li>
+<li><strong>draw_as_radio</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">gboolean</span></code>) &#8211; draw_as_radio</li>
+<li><strong>icon_filepath</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">gchar</span> <span class="pre">*</span></code>) &#8211; The menu item icon file-path.</li>
+<li><strong>accel_group</strong> (<code class="xref c c-type docutils literal"><span class="pre">GtkAccelGroup</span> <span class="pre">*</span></code>) &#8211; The shortcut accelerator group.</li>
+<li><strong>accel_modifier</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">GdkModifierType</span></code>) &#8211; The shortcut modifier.</li>
+<li><strong>accel_key</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">guint</span></code>) &#8211; The shortcut accelerator key.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><code class="xref c c-type docutils literal"><span class="pre">GtkWidget</span> <span class="pre">*</span></code></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A pointer to the <code class="xref c c-type docutils literal"><span class="pre">GtkSmartMenuItem</span></code> check button.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>You can pass a <code class="xref c c-type docutils literal"><span class="pre">NULL</span></code> pointer or <code class="docutils literal"><span class="pre">0</span></code> to the parameters :</p>
+<ul class="last simple">
+<li>icon_filepath</li>
+<li>accel_group</li>
+<li>accel_modifier</li>
+<li>accel_key.</li>
+</ul>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">You can build others constructors if you have understand How-To build this kind of widgets.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="getters">
+<h3>Getters<a class="headerlink" href="#getters" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt>
+<code class="descname">GtkWidget* gtk_smart_menu_item_get_image(GtkWidget *smart_menu_item) ;</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>smart_menu_item</strong> (<code class="xref c c-type docutils literal"><span class="pre">GtkWidget</span> <span class="pre">*</span></code>) &#8211; The return value from the constructors.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><code class="xref c c-type docutils literal"><span class="pre">GtkWidget</span> <span class="pre">*</span></code></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A pointer to the <code class="xref c c-type docutils literal"><span class="pre">GtkImage</span></code> widget.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descname">GtkWidget* gtk_smart_menu_item_get_menuitem(GtkWidget *smart_menu_item) ;</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>smart_menu_item</strong> (<code class="xref c c-type docutils literal"><span class="pre">GtkWidget</span> <span class="pre">*</span></code>) &#8211; The return value from the constructors.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><code class="xref c c-type docutils literal"><span class="pre">GtkWidget</span> <span class="pre">*</span></code></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A pointer to the <code class="xref c c-type docutils literal"><span class="pre">GtkMenuItem</span></code> widget.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descname">GtkWidget* gtk_smart_menu_item_get_label(GtkWidget *smart_menu_item) ;</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>smart_menu_item</strong> (<code class="xref c c-type docutils literal"><span class="pre">GtkWidget</span> <span class="pre">*</span></code>) &#8211; The return value from the constructors.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><code class="xref c c-type docutils literal"><span class="pre">GtkWidget</span> <span class="pre">*</span></code></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A pointer to the <code class="xref c c-type docutils literal"><span class="pre">GtkLabel</span></code> widget.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descname">GtkWidget* gtk_smart_menu_item_get_accel_label(GtkWidget *smart_menu_item) ;</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>smart_menu_item</strong> (<code class="xref c c-type docutils literal"><span class="pre">GtkWidget</span> <span class="pre">*</span></code>) &#8211; The return value from the constructors.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><code class="xref c c-type docutils literal"><span class="pre">GtkWidget</span> <span class="pre">*</span></code></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A pointer to the <code class="xref c c-type docutils literal"><span class="pre">GtkAccelLabel</span></code> widget.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="gtksmarticonbutton">
+<h2>GtkSmartIconButton<a class="headerlink" href="#gtksmarticonbutton" title="Permalink to this headline">¶</a></h2>
+<p>A simple button with an icon without label and tool-tip which embed an universal short-cut text.</p>
+<div class="section" id="id1">
+<h3>Constructors<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt>
+<code class="descname">GtkWidget* gtk_smart_icon_button_new_all(const gchar *filepath, const gchar *tooltip_text, const guint accel_key, const GdkModifierType accel_modifier) ;</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filepath</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">gchar</span> <span class="pre">*</span></code>) &#8211; The filepath to the image to use as icon.</li>
+<li><strong>tooltip_text</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">gchar</span> <span class="pre">*</span></code>) &#8211; The tool-tip text without the accelerator label.</li>
+<li><strong>accel_key</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">guint</span></code>) &#8211; The shortcut accelerator key.</li>
+<li><strong>accel_modifier</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">GdkModifierType</span></code>) &#8211; The shortcut modifier.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><code class="xref c c-type docutils literal"><span class="pre">GtkWidget</span> <span class="pre">*</span></code></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A pointer to the <code class="xref c c-type docutils literal"><span class="pre">GtkSmartIconButton</span></code> widget.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descname">GtkWidget* gtk_smart_icon_toggle_button_new_all(const gchar *filepath, const gchar *tooltip_text, const guint accel_key, const GdkModifierType accel_modifier) ;</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filepath</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">gchar</span> <span class="pre">*</span></code>) &#8211; The filepath to the image to use as icon.</li>
+<li><strong>tooltip_text</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">gchar</span> <span class="pre">*</span></code>) &#8211; The tool-tip text without the accelerator label.</li>
+<li><strong>accel_key</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">guint</span></code>) &#8211; The shortcut accelerator key.</li>
+<li><strong>accel_modifier</strong> (<code class="xref c c-type docutils literal"><span class="pre">const</span> <span class="pre">GdkModifierType</span></code>) &#8211; The shortcut modifier.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><code class="xref c c-type docutils literal"><span class="pre">GtkWidget</span> <span class="pre">*</span></code></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A pointer to the <code class="xref c c-type docutils literal"><span class="pre">GtkSmartIconButton</span></code> toggle button widget.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="id2">
+<h3>Getters<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt>
+<code class="descname">GtkWidget* gtk_smart_icon_button_get_image(GtkWidget *smart_icon_button) ;</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>smart_icon_button</strong> (<code class="xref c c-type docutils literal"><span class="pre">GtkWidget</span> <span class="pre">*</span></code>) &#8211; The return value from the constructor of a <code class="xref c c-type docutils literal"><span class="pre">GtkSmartIconButton</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><code class="xref c c-type docutils literal"><span class="pre">GtkWidget</span> <span class="pre">*</span></code></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A pointer to the <code class="xref c c-type docutils literal"><span class="pre">GtkImage</span></code> widget.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="gtkitterm">
+<h2>GtkItTerm<a class="headerlink" href="#gtkitterm" title="Permalink to this headline">¶</a></h2>
+<p>Not reusable like this.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>I&#8217;ve learned how to implement self builded Gtk-3 widgets</p>
+<p class="last">If you get interest in building widgets take a look at the source for basics.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/it-edit_icon.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">it-edit smart widgets</a><ul>
+<li><a class="reference internal" href="#gtksmartmenuitem">GtkSmartMenuItem</a><ul>
+<li><a class="reference internal" href="#constructors">Constructors</a></li>
+<li><a class="reference internal" href="#getters">Getters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gtksmarticonbutton">GtkSmartIconButton</a><ul>
+<li><a class="reference internal" href="#id1">Constructors</a></li>
+<li><a class="reference internal" href="#id2">Getters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gtkitterm">GtkItTerm</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="languages.html"
+                        title="previous chapter">Supported languages</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/it-edit_widgets.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="languages.html" title="Supported languages"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">it-edit 3.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2015-2017, Brüggemann Eddie.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    </div>
+  </body>
+</html>

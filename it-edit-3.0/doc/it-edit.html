@@ -1,0 +1,4704 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- it-edit 3.0, Mar 19, 2017
+
+Brüggemann Eddie
+
+Copyright (C) 2015-2017, Brüggemann Eddie
+ -->
+<!-- Created by GNU Texinfo 6.1, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>it-edit Documentation</title>
+
+<meta name="description" content="it-edit Documentation">
+<meta name="keywords" content="it-edit Documentation">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="dir.html#Top" rel="up" title="(dir)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<h1 class="settitle" align="center">it-edit Documentation</h1>
+
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-it_002dedit-_0028Integrated-Terminal-Editor_0029" href="#it_002dedit-Integrated-Terminal-Editor">1 it-edit (Integrated Terminal Editor)</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Motivation-for-writing-it_002dedit-1" href="#Motivation-for-writing-it_002dedit">1.1 Motivation for writing it-edit</a></li>
+    <li><a name="toc-Requirement-of-it_002dedit-1" href="#Requirement-of-it_002dedit">1.2 Requirement of <code>it-edit</code></a></li>
+    <li><a name="toc-What-it_002dedit-does-for-me-_0021-1" href="#What-it_002dedit-does-for-me-_0021">1.3 What <code>it-edit</code> does for me !</a></li>
+    <li><a name="toc-it_002dedit-spirit-1" href="#it_002dedit-spirit">1.4 <code>it-edit</code> spirit</a>
+    <ul class="no-bullet">
+      <li><a name="toc-A-programming-editor-1" href="#A-programming-editor">1.4.1 A programming editor</a></li>
+    </ul></li>
+    <li><a name="toc-Terminal-integration-1" href="#Terminal-integration">1.5 Terminal integration</a></li>
+    <li><a name="toc-it_002dedit-writing-spirit-1" href="#it_002dedit-writing-spirit">1.6 <code>it-edit</code> writing spirit</a></li>
+    <li><a name="toc-Conclusion-1" href="#Conclusion">1.7 Conclusion</a></li>
+  </ul></li>
+  <li><a name="toc-Editor-1" href="#Editor">2 Editor</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Files-management_002e" href="#Files-management">2.1 Files management.</a></li>
+    <li><a name="toc-Text-edition-functionalities_002e" href="#Text-edition-functionalities">2.2 Text edition functionalities.</a></li>
+    <li><a name="toc-Spell_002dcheck-functionality-1" href="#Spell_002dcheck-functionality">2.3 Spell-check functionality</a></li>
+    <li><a name="toc-Go-to-line-number-1" href="#Go-to-line-number">2.4 Go to line number</a></li>
+    <li><a name="toc-Find-and-replace-1" href="#Find-and-replace">2.5 Find and replace</a></li>
+  </ul></li>
+  <li><a name="toc-Terminals-1" href="#Terminals">3 Terminals</a>
+  <ul class="no-bullet">
+    <li><a name="toc-A-sidebar-terminals-1" href="#A-sidebar-terminals">3.1 A sidebar terminals</a></li>
+    <li><a name="toc-A-full_002dscreen-terminal-1" href="#A-full_002dscreen-terminal">3.2 A full-screen terminal</a></li>
+    <li><a name="toc-Top_002dlevel-terminals-1" href="#Top_002dlevel-terminals">3.3 Top-level terminals</a></li>
+  </ul></li>
+  <li><a name="toc-Files-1" href="#Files">4 Files</a>
+  <ul class="no-bullet">
+    <li><a name="toc-New-file-1" href="#New-file">4.1 New file</a></li>
+    <li><a name="toc-File_0028s_0029-opening" href="#File-s-opening">4.2 File(s) opening</a></li>
+    <li><a name="toc-Saving-files-1" href="#Saving-files">4.3 Saving files</a></li>
+    <li><a name="toc-Reload-file-1" href="#Reload-file">4.4 Reload file</a></li>
+    <li><a name="toc-File-informations-1" href="#File-informations">4.5 File informations</a></li>
+  </ul></li>
+  <li><a name="toc-Spell-check-1" href="#Spell-check">5 Spell check</a>
+  <ul class="no-bullet">
+    <li><a name="toc-it_002dedit-spell-check-features-1" href="#it_002dedit-spell-check-features">5.1 <code>it-edit</code> spell check features</a></li>
+    <li><a name="toc-Using-it_002dedit-spell-check-1" href="#Using-it_002dedit-spell-check">5.2 Using <code>it-edit</code> spell check</a></li>
+    <li><a name="toc-it_002dedit-spell-check-support-1" href="#it_002dedit-spell-check-support">5.3 <code>it-edit</code> spell check support</a></li>
+    <li><a name="toc-Thanks-1" href="#Thanks">5.4 Thanks</a></li>
+  </ul></li>
+  <li><a name="toc-Sessions-1" href="#Sessions">6 Sessions</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Configure-your-sessions-recovering-1" href="#Configure-your-sessions-recovering">6.1 Configure your sessions recovering</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Files_002c-documentation_002c-applications-registering_003a" href="#Files-documentation-applications-registering">6.1.1 Files, documentation, applications registering:</a></li>
+    </ul></li>
+    <li><a name="toc-The-automatic-session-mechanism-1" href="#The-automatic-session-mechanism">6.2 The `automatic' <code>session</code> mechanism</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Registering_003a" href="#Registering">6.2.1 Registering:</a></li>
+      <li><a name="toc-Reloading-a-session-1" href="#Reloading-a-session">6.2.2 Reloading a session</a></li>
+      <li><a name="toc-Clear-a-session-1" href="#Clear-a-session">6.2.3 Clear a session</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a name="toc-Shortcuts-table-1" href="#Shortcuts-table">7 Shortcuts table</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Application-shortcuts_003a" href="#Application-shortcuts">7.1 Application shortcuts:</a></li>
+    <li><a name="toc-Terminals-shortcuts_003a" href="#Terminals-shortcuts">7.2 Terminals shortcuts:</a></li>
+  </ul></li>
+  <li><a name="toc-Supported-charset-1" href="#Supported-charset">8 Supported charset</a></li>
+  <li><a name="toc-Supported-languages-1" href="#Supported-languages">9 Supported languages</a></li>
+  <li><a name="toc-it_002dedit-smart-widgets-1" href="#it_002dedit-smart-widgets">10 it-edit smart widgets</a>
+  <ul class="no-bullet">
+    <li><a name="toc-GtkSmartMenuItem-1" href="#GtkSmartMenuItem">10.1 GtkSmartMenuItem</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Constructors-1" href="#Constructors">10.1.1 Constructors</a></li>
+      <li><a name="toc-Getters-1" href="#Getters">10.1.2 Getters</a></li>
+    </ul></li>
+    <li><a name="toc-GtkSmartIconButton-1" href="#GtkSmartIconButton">10.2 GtkSmartIconButton</a>
+    <ul class="no-bullet">
+      <li><a name="toc-Constructors-2" href="#Constructors_003c2_003e">10.2.1 Constructors</a></li>
+      <li><a name="toc-Getters-2" href="#Getters_003c2_003e">10.2.2 Getters</a></li>
+    </ul></li>
+    <li><a name="toc-GtkItTerm-1" href="#GtkItTerm">10.3 GtkItTerm</a></li>
+  </ul></li>
+  <li><a name="toc-Indices-and-tables-1" href="#Indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+
+
+
+
+<a name="Top"></a>
+<div class="header">
+<p>
+Next: <a href="#it_002dedit-Integrated-Terminal-Editor" accesskey="n" rel="next">it-edit Integrated Terminal Editor</a>, Up: <a href="dir.html#Top" accesskey="u" rel="up">(dir)</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit-Documentation"></a>
+<h1 class="top">it-edit Documentation</h1>
+<blockquote>
+<p>it-edit 3.0, Mar 19, 2017
+</p>
+<p>Brüggemann Eddie
+</p>
+<p>Copyright &copy; 2015-2017, Brüggemann Eddie
+</p></blockquote>
+
+
+
+<a name="index-doc"></a><a name="g_t0"></a>
+<p>Contents:
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#it_002dedit-Integrated-Terminal-Editor" accesskey="1">it-edit (Integrated Terminal Editor)</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Editor" accesskey="2">Editor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Terminals" accesskey="3">Terminals</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Files" accesskey="4">Files</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Spell-check" accesskey="5">Spell check</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Sessions" accesskey="6">Sessions</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Shortcuts-table" accesskey="7">Shortcuts table</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Supported-charset" accesskey="8">Supported charset</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Supported-languages" accesskey="9">Supported languages</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#it_002dedit-smart-widgets">it-edit smart widgets</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Indices-and-tables">Indices and tables</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr><tr><th colspan="3" align="left" valign="top"><pre class="menu-comment"> &mdash; The Detailed Node Listing &mdash;
+
+it-edit (Integrated Terminal Editor)
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Motivation-for-writing-it_002dedit">Motivation for writing it-edit</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Requirement-of-it_002dedit">Requirement of it-edit</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#What-it_002dedit-does-for-me-_0021">What it-edit does for me !</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#it_002dedit-spirit">it-edit spirit</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Terminal-integration">Terminal integration</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#it_002dedit-writing-spirit">it-edit writing spirit</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Conclusion">Conclusion</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+it-edit spirit
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#A-programming-editor">A programming editor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+Editor
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Files-management">Files management.</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Text-edition-functionalities">Text edition functionalities.</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Spell_002dcheck-functionality">Spell-check functionality</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Go-to-line-number">Go to line number</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Find-and-replace">Find and replace</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+Terminals
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#A-sidebar-terminals">A sidebar terminals</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#A-full_002dscreen-terminal">A full-screen terminal</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Top_002dlevel-terminals">Top-level terminals</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+Files
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#New-file">New file</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#File-s-opening">File(s) opening</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Saving-files">Saving files</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Reload-file">Reload file</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#File-informations">File informations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+Spell check
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#it_002dedit-spell-check-features">it-edit spell check features</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Using-it_002dedit-spell-check">Using it-edit spell check</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#it_002dedit-spell-check-support">it-edit spell check support</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Thanks">Thanks</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+Sessions
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Configure-your-sessions-recovering">Configure your sessions recovering</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-automatic-session-mechanism">The automatic session mechanism</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+Configure your sessions recovering
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Files-documentation-applications-registering">Files, documentation, applications registering;</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+The automatic session mechanism
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Registering">Registering;</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Reloading-a-session">Reloading a session</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Clear-a-session">Clear a session</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+Shortcuts table
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Application-shortcuts">Application shortcuts;</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Terminals-shortcuts">Terminals shortcuts;</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+it-edit smart widgets
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#GtkSmartMenuItem">GtkSmartMenuItem</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#GtkSmartIconButton">GtkSmartIconButton</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#GtkItTerm">GtkItTerm</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+GtkSmartMenuItem
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Constructors">Constructors</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Getters">Getters</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+GtkSmartIconButton
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Constructors_003c2_003e">Constructors</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Getters_003c2_003e">Getters</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr></table>
+
+<hr>
+<a name="it_002dedit-Integrated-Terminal-Editor"></a>
+<div class="header">
+<p>
+Next: <a href="#Editor" accesskey="n" rel="next">Editor</a>, Previous: <a href="#Top" accesskey="p" rel="prev">Top</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fpresentation-doc"></a><a name="g_t1"></a><a name="it_002dedit_005fpresentation-welcome_002dto_002dit_002dedit_002ds_002ddocumentation"></a><a name="g_t2"></a><a name="it_002dedit_005fpresentation-it_002dedit_002dintegrated_002dterminal_002deditor"></a><a name="g_t3"></a><a name="it_002dedit-_0028Integrated-Terminal-Editor_0029"></a>
+<h2 class="chapter">1 it-edit (Integrated Terminal Editor)</h2>
+
+
+<br><p>program: 
+it-edit
+</p>
+
+<br><p>version: 
+3.0
+</p>
+
+<br><p>author: 
+Brüggemann Eddie
+</p>
+
+<br><p>contact: 
+&lt;<a href="mailto:mrcyberfighter@gmail.com">mrcyberfighter@gmail.com</a>&gt;
+</p>
+
+<br><p>license: 
+GPLv3
+</p>
+
+<br><p>website: 
+&lt;&lsquo;<code>http://www.open-source-projects.net/it-edit/it-edit</code>&rsquo;&gt;
+</p>
+
+<br><p>release: 
+Mar 19, 2017
+</p>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Motivation-for-writing-it_002dedit" accesskey="1">Motivation for writing it-edit</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Requirement-of-it_002dedit" accesskey="2">Requirement of it-edit</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#What-it_002dedit-does-for-me-_0021" accesskey="3">What it-edit does for me !</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#it_002dedit-spirit" accesskey="4">it-edit spirit</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Terminal-integration" accesskey="5">Terminal integration</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#it_002dedit-writing-spirit" accesskey="6">it-edit writing spirit</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Conclusion" accesskey="7">Conclusion</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr></table>
+
+<hr>
+<a name="Motivation-for-writing-it_002dedit"></a>
+<div class="header">
+<p>
+Next: <a href="#Requirement-of-it_002dedit" accesskey="n" rel="next">Requirement of it-edit</a>, Up: <a href="#it_002dedit-Integrated-Terminal-Editor" accesskey="u" rel="up">it-edit Integrated Terminal Editor</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fpresentation-motivation_002dfor_002dwriting_002dit_002dedit"></a><a name="g_t4"></a><a name="Motivation-for-writing-it_002dedit-1"></a>
+<h3 class="section">1.1 Motivation for writing it-edit</h3>
+
+
+<p>I think they are 2 sort of programmers in their habits of writing programs:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>* They which use an <abbr title="Integrated Development Environment">I.D.E</abbr> (Integrated Development Environment) with full integrated functionalities, and master it to respond to most of their requirements.
+
+</li><li>* They which use an text editor to write their programs and a terminal to compile, debug or launch them and some other tools separately.
+</li></ul>
+</blockquote>
+
+<p>Because I&rsquo;m an programmer from the second category and because i remark that i often use additional tools than the editor and the terminal.
+</p>
+<p>I decide to write my own text editor program which provide me all the functionalities that i need to get a development environment fully adapt to my requirement.
+</p>
+<p>So in fact <code>it-edit</code> is more than a basic programming text editor, but a powerful tool which I hope you will agree the concept.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<blockquote>
+<p><b>Note:</b> In fact in conjunction with my project generator mk-project<a name="DOCF1" href="#FOOT1"><sup>1</sup></a> which generate me a big `do all' <code>Makefile</code>.
+</p>
+<p>I enjoy using it-edit every time !
+</p>
+<p>Even when I only to type few targets like (make, make exec, make ddebug, make gdb,...) <code>it-edit</code> is useful for all task to do in a terminal.
+</p>
+<p>All this with an accompanied editor.
+</p>
+<br><p>note: 
+By the way mk-project<a name="DOCF2" href="#FOOT2"><sup>2</sup></a> can be useful for every <code>vim</code> or <abbr title="Terminal User Interface">T.U.I</abbr> (Terminal User Interface) editor user.
+</p>
+</blockquote>
+</td></tr></table>
+
+<hr>
+<a name="Requirement-of-it_002dedit"></a>
+<div class="header">
+<p>
+Next: <a href="#What-it_002dedit-does-for-me-_0021" accesskey="n" rel="next">What it-edit does for me !</a>, Previous: <a href="#Motivation-for-writing-it_002dedit" accesskey="p" rel="prev">Motivation for writing it-edit</a>, Up: <a href="#it_002dedit-Integrated-Terminal-Editor" accesskey="u" rel="up">it-edit Integrated Terminal Editor</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fpresentation-requirement_002dof_002dit_002dedit"></a><a name="g_t5"></a><a name="Requirement-of-it_002dedit-1"></a>
+<h3 class="section">1.2 Requirement of <code>it-edit</code></h3>
+
+
+<p><code>it-edit</code> requires
+</p>
+
+<ul class="no-bullet">
+<li>+ gtk-3 as <abbr title="Graphical User Interface">G.U.I</abbr> (Graphical User Interface)
+
+</li><li>+ gtksourceview-3.
+
+</li><li>+ vte-2.91 for the virtual terminals emulation as a gtk-3 widget.
+
+</li><li>+ Optionally gspell-1 as <a href="#g_t6">spell checker</a>.
+</li></ul>
+
+<br><p>warning: 
+You must install the development packages of all required library because it will be compiled and installed on the target host.
+</p>
+
+<hr>
+<a name="What-it_002dedit-does-for-me-_0021"></a>
+<div class="header">
+<p>
+Next: <a href="#it_002dedit-spirit" accesskey="n" rel="next">it-edit spirit</a>, Previous: <a href="#Requirement-of-it_002dedit" accesskey="p" rel="prev">Requirement of it-edit</a>, Up: <a href="#it_002dedit-Integrated-Terminal-Editor" accesskey="u" rel="up">it-edit Integrated Terminal Editor</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fpresentation-what_002dit_002dedit_002ddoes_002dfor_002dme"></a><a name="g_t7"></a><a name="What-it_002dedit-does-for-me-_0021-1"></a>
+<h3 class="section">1.3 What <code>it-edit</code> does for me !</h3>
+
+
+<p><code>it-edit</code> consist of a basic programming text editor with all basic functionalities with
+</p>
+<p>intelligently integrated terminals the best positioned so that they are <code>easy to reach</code> into the main interface of the program.
+</p>
+<p>With many others practices functionalities.
+</p>
+
+<p>&mdash;
+</p>
+<p><code>it-edit</code> integrated terminals in the best way I have thought for me.
+</p>
+<p>A side bar terminal which you can add and remove items, a big full-screen terminal, the same divided into 4 terminals and as many top-level terminals as you want.
+</p>
+<p>&mdash;
+</p>
+<p><code>it-edit</code> provide an easy file access...
+</p>
+<p>In fact it was thought for registering `HTML' documentation and so accessing it `easily'.
+</p>
+
+<div class="display">
+<pre class="display"> <!-- /@w -->
+</pre></div>
+
+
+
+<p>But you can register your winner song if you want when you have terminate all your assertions well,
+</p>
+<p>to celebrate your victory `!'
+</p>
+<p><code>it-edit</code> will open the registered file with the default program for it if any available.
+</p>
+
+<div class="display">
+<pre class="display"> <!-- /@w -->
+</pre></div>
+
+
+
+<blockquote>
+
+<p>Saving and restoring your file(s) list.
+</p>
+<div class="example">
+<pre class="example">$ cp /usr/local/share/it-edit/Files_handler/Files_handler.conf $HOME
+</pre></div>
+
+<p>To restore your file(s) list after upgrade per example.
+</p>
+<div class="example">
+<pre class="example">$ cp $HOME/Files_handler.conf /usr/local/share/it-edit/Files_handler/Files_handler.conf
+</pre></div>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>You can launch graphical applications with <code>it-edit</code> very easily:
+</p>
+
+<ul class="no-bullet">
+<li>+ At first it-edit will check your system, at first start, for some predefined applications and register it into their related category.
+
+<br><p>note: 
+You can change the application(s), if found or not, as you want.
+</p>
+
+</li><li>+ Then you can choose to register and delete the applications you want, into the category <code>Other</code>.
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>The version `3'.**0** of <code>it-edit</code> embedded a configurable spell checker utility which you can use to write documentations
+</p>
+<p>reachable as
+</p>
+
+<ul class="no-bullet">
+<li>+ `in-line spell-check' (`the misspelled words are underline')
+</li></ul>
+
+<p>or
+</p>
+
+<ul class="no-bullet">
+<li>+ through launching a `dialog spell-check' window which permit you to correct all misspelled words of the current document.
+</li></ul>
+
+
+
+
+
+
+
+
+<hr>
+<a name="it_002dedit-spirit"></a>
+<div class="header">
+<p>
+Next: <a href="#Terminal-integration" accesskey="n" rel="next">Terminal integration</a>, Previous: <a href="#What-it_002dedit-does-for-me-_0021" accesskey="p" rel="prev">What it-edit does for me !</a>, Up: <a href="#it_002dedit-Integrated-Terminal-Editor" accesskey="u" rel="up">it-edit Integrated Terminal Editor</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fpresentation-it_002dedit_002dspirit"></a><a name="g_t8"></a><a name="it_002dedit-spirit-1"></a>
+<h3 class="section">1.4 <code>it-edit</code> spirit</h3>
+
+
+<p><code>it-edit</code> offers:
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#A-programming-editor" accesskey="1">A programming editor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr></table>
+
+<hr>
+<a name="A-programming-editor"></a>
+<div class="header">
+<p>
+Up: <a href="#it_002dedit-spirit" accesskey="u" rel="up">it-edit spirit</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fpresentation-a_002dprogramming_002deditor"></a><a name="g_t9"></a><a name="A-programming-editor-1"></a>
+<h4 class="subsection">1.4.1 A programming editor</h4>
+
+
+<p>A text-editor without favoring any language.
+</p>
+<p>With all the basic text editor functionalities and overall useful <a href="#a">shortcuts</a> which you didn&rsquo;t have to know all.
+</p>
+<p>And some unusual like `duplicate text' or `copy to clipboard' the current edited absolute `file-path' (<code>Ctrl + Shift + Y</code>).
+</p>
+<p>You will be able to open, open a recent, save, save as, save all, file(s).
+</p>
+<p>Or reload your last session file(s) as documentation and launched applications.
+</p>
+<p><code>it-edit</code> provides some informations like:
+</p>
+
+<ul class="no-bullet">
+<li>+ Line
+
+</li><li>+ Column
+
+</li><li>+ Total lines
+
+</li><li>+ Total characters
+
+</li><li>+ The filename (hold the mouse over  the notebook tab, you will know the absolute file-path).
+</li></ul>
+
+<p>By opening the file informations you will get more informations and can do some basic functions on (and strictly over) the file on disk (`not' the current edited buffer):
+</p>
+
+<ul class="no-bullet">
+<li>+ The file base-name.
+
+</li><li>+ Language, Mime-type and Extension.
+
+</li><li>+ Lines, Words and Chars count.
+
+</li><li>+ MD5, SHA1, SHA256 and SHA512 checksum in hexadecimal notation.
+</li></ul>
+
+<p>You will be able to see and to modify:
+</p>
+
+<ul class="no-bullet">
+<li>+ The file permissions.
+</li></ul>
+
+<br><p>warning: 
+:By saving the <code>configured mask</code> will overwrite your changes.
+</p>
+
+
+<ul class="no-bullet">
+<li>+ The last
+
+
+<ul class="no-bullet">
+<li>+ Access time
+
+</li><li>+ Modification time (can be useful with make and system clock disturbing).
+
+</li><li>+ Last status change time (this one isn&rsquo;t modifiable).
+</li></ul>
+
+</li><li>+ Rename, Copy, Compress (`using the gzip algorithm'), Copy file-path to clipboard.
+</li></ul>
+
+<hr>
+<a name="Terminal-integration"></a>
+<div class="header">
+<p>
+Next: <a href="#it_002dedit-writing-spirit" accesskey="n" rel="next">it-edit writing spirit</a>, Previous: <a href="#it_002dedit-spirit" accesskey="p" rel="prev">it-edit spirit</a>, Up: <a href="#it_002dedit-Integrated-Terminal-Editor" accesskey="u" rel="up">it-edit Integrated Terminal Editor</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fpresentation-terminal_002dintegration"></a><a name="b"></a><a name="Terminal-integration-1"></a>
+<h3 class="section">1.5 Terminal integration</h3>
+
+
+<p><code>it-edit</code> provides the best terminals integration for everyone:
+</p>
+
+<ul class="no-bullet">
+<li>+ The `sidebar terminals' can be useful by editing and requiring immediately a terminal in the same window.
+
+</li><li>+ The `single &quot;Big Terminal&quot;' can be useful if you need space: you can mask the button bar and made it full-screen.
+
+</li><li>+ The `4 divided &quot;Big Terminal&quot;' can be useful if you need severals terminals on the screen.
+
+</li><li>+ The `top level terminal' is re-sizable and in a separate window.
+</li></ul>
+
+<br><p>note: 
+It&rsquo;s recommended to use <code>it-edit</code> with a <code>Makefile</code> (easy self-build or not) for compiled languages, else enjoy the terminals for launching your scripts and commands.
+</p>
+
+<p><code>make makes the life easier !</code>
+</p>
+<p>All this terminals have a good contextual menu and I had problems to add some items, as <code>sync current directory</code> in every terminal, and so on.
+</p>
+<hr>
+<a name="it_002dedit-writing-spirit"></a>
+<div class="header">
+<p>
+Next: <a href="#Conclusion" accesskey="n" rel="next">Conclusion</a>, Previous: <a href="#Terminal-integration" accesskey="p" rel="prev">Terminal integration</a>, Up: <a href="#it_002dedit-Integrated-Terminal-Editor" accesskey="u" rel="up">it-edit Integrated Terminal Editor</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fpresentation-it_002dedit_002dwriting_002dspirit"></a><a name="c"></a><a name="it_002dedit-writing-spirit-1"></a>
+<h3 class="section">1.6 <code>it-edit</code> writing spirit</h3>
+
+
+<p><code>it-edit</code> is written in C (-std=c99) using gtk-3 and related libraries.
+</p>
+<p><code>it-edit</code> writing style takes cares of:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>* structure variables order: so that no unneeded padding is added from the compiler.
+
+</li><li>* cache optimizing: so that we get the best cache-hits we can.
+</li></ul>
+</blockquote>
+
+<p><code>it-edit</code> make strong usage of the gtk-3 types.
+</p>
+<p><code>it-edit</code> provide an optional spell checker useful for writing documentation or simply comments.
+</p>
+<p><code>it-edit</code> make usage of <code>/** **/</code> comments so for commenting out a code section, by hacking it-edit, use the preprocessor: <code>#if 0 ... #endif</code>.
+</p>
+<hr>
+<a name="Conclusion"></a>
+<div class="header">
+<p>
+Previous: <a href="#it_002dedit-writing-spirit" accesskey="p" rel="prev">it-edit writing spirit</a>, Up: <a href="#it_002dedit-Integrated-Terminal-Editor" accesskey="u" rel="up">it-edit Integrated Terminal Editor</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fpresentation-conclusion"></a><a name="d"></a><a name="Conclusion-1"></a>
+<h3 class="section">1.7 Conclusion</h3>
+
+
+<p>Control all your system with <code>it-edit</code> and show us that you can dialog with it through the best medium: the terminal.
+</p>
+<hr>
+<a name="Editor"></a>
+<div class="header">
+<p>
+Next: <a href="#Terminals" accesskey="n" rel="next">Terminals</a>, Previous: <a href="#it_002dedit-Integrated-Terminal-Editor" accesskey="p" rel="prev">it-edit Integrated Terminal Editor</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Editor-doc"></a><a name="e"></a><a name="Editor-editor"></a><a name="f"></a><a name="Editor-1"></a>
+<h2 class="chapter">2 Editor</h2>
+
+
+<p>The editor has other functionalities like:
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Files-management" accesskey="1">Files management.</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Text-edition-functionalities" accesskey="2">Text edition functionalities.</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Spell_002dcheck-functionality" accesskey="3">Spell-check functionality</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Go-to-line-number" accesskey="4">Go to line number</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Find-and-replace" accesskey="5">Find and replace</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr></table>
+
+<hr>
+<a name="Files-management"></a>
+<div class="header">
+<p>
+Next: <a href="#Text-edition-functionalities" accesskey="n" rel="next">Text edition functionalities</a>, Up: <a href="#Editor" accesskey="u" rel="up">Editor</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Editor-files_002dmanagement"></a><a name="g_t10"></a><a name="Files-management_002e"></a>
+<h3 class="section">2.1 Files management.</h3>
+
+
+
+<ul class="no-bullet">
+<li>+ New file.
+
+</li><li>+ Open file(s) or a recent file.
+
+</li><li>+ Save file(s).
+
+</li><li>+ Close file.
+
+</li><li>+ Close all file(s).
+
+</li><li>+ File informations.
+
+</li><li>+ Reload file (from disk).
+</li></ul>
+
+<hr>
+<a name="Text-edition-functionalities"></a>
+<div class="header">
+<p>
+Next: <a href="#Spell_002dcheck-functionality" accesskey="n" rel="next">Spell-check functionality</a>, Previous: <a href="#Files-management" accesskey="p" rel="prev">Files management</a>, Up: <a href="#Editor" accesskey="u" rel="up">Editor</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Editor-text_002dedition_002dfunctionalities"></a><a name="g_t11"></a><a name="Text-edition-functionalities_002e"></a>
+<h3 class="section">2.2 Text edition functionalities.</h3>
+
+
+
+<ul class="no-bullet">
+<li>+ Undo/Redo.
+
+</li><li>+ Search and Replace.
+
+</li><li>+ Go to line number.
+
+</li><li>+ Cut/Copy/Paste.
+
+</li><li>+ Duplicate text.
+
+</li><li>+ Use spaces instead of tabs.
+
+</li><li>+ Enable/Disable in-line spell-check.
+</li></ul>
+
+<hr>
+<a name="Spell_002dcheck-functionality"></a>
+<div class="header">
+<p>
+Next: <a href="#Go-to-line-number" accesskey="n" rel="next">Go to line number</a>, Previous: <a href="#Text-edition-functionalities" accesskey="p" rel="prev">Text edition functionalities</a>, Up: <a href="#Editor" accesskey="u" rel="up">Editor</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Editor-spell_002dcheck_002dfunctionality"></a><a name="g_t12"></a><a name="Spell_002dcheck-functionality-1"></a>
+<h3 class="section">2.3 Spell-check functionality</h3>
+
+
+
+<ul class="no-bullet">
+<li>+ In-line spell-check (<code>Ctrl + w</code>) : the misspelled words are highlight.
+
+</li><li>+ Spell-check dialog (<code>Ctrl + Maj + w</code>) : scan all the text buffer for misspelled words, with a dialog window for correct them or not.
+</li></ul>
+
+<br><p>warning: 
+Install the optional <code>gspell-1</code> <code>-dev</code> or <code>-devel</code> package, before installing <code>it-edit</code>.
+</p>
+
+<hr>
+<a name="Go-to-line-number"></a>
+<div class="header">
+<p>
+Next: <a href="#Find-and-replace" accesskey="n" rel="next">Find and replace</a>, Previous: <a href="#Spell_002dcheck-functionality" accesskey="p" rel="prev">Spell-check functionality</a>, Up: <a href="#Editor" accesskey="u" rel="up">Editor</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Editor-go_002dto_002dline_002dnumber"></a><a name="g_t13"></a><a name="Go-to-line-number-1"></a>
+<h3 class="section">2.4 Go to line number</h3>
+
+
+
+<ul class="no-bullet">
+<li>+ Use the menu item, the button or the shortcut: <code>Ctrl + g</code>.
+
+<p>A window will appear asking you for a valid line number.
+</p>
+<p>Enter a valid line number and press <code>Enter</code> or the Apply button to move the editor to the wanted line,
+</p>
+<p>which will be highlight according to the current scheme.
+</p>
+<br><p>note: 
+This is very useful to go to a specific line.
+</p>
+</li></ul>
+
+<hr>
+<a name="Find-and-replace"></a>
+<div class="header">
+<p>
+Previous: <a href="#Go-to-line-number" accesskey="p" rel="prev">Go to line number</a>, Up: <a href="#Editor" accesskey="u" rel="up">Editor</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Editor-find_002dand_002dreplace"></a><a name="g_t14"></a><a name="Find-and-replace-1"></a>
+<h3 class="section">2.5 Find and replace</h3>
+
+
+
+<ul class="no-bullet">
+<li>+ You can `show' | `hide' the <code>Find and replace</code> bar by using the toggle button.
+
+<p>The <code>Search and Replace</code> bar has following functionalities:
+</p>
+
+<ul class="no-bullet">
+<li>+ `Search' button: this will highlight all the matching occurrences from the search term and moving the editor to the first occurrence position.
+
+</li><li>+ `Next' button: highlight the next matching occurrence from the search term.
+
+<p>Pressing `Enter' when the search entry field has the focus has the same effect.
+</p>
+<p>The search will start at selection or at the cursor position.
+</p>
+<p>If you select some text with the mouse and using the shortcut <code>Ctrl + f</code>.
+</p>
+<p>The search field will toggle on if not visible and will contains the selected text as search term.
+</p>
+<br><p>note: 
+You can use the shortcut <code>Ctrl + + (KP)</code> to activate the `Next' functionality.
+</p>
+
+</li><li>+ `Previous' button: highlight the previous matching occurrence from the search term.
+
+<p>The search will start at selection or at the cursor position.
+</p>
+<p>If you select some text with the mouse and use the shortcut <code>Ctrl + f</code>.
+</p>
+<p>The search field will toggle on if not visible and will contains the selected text as search term.
+</p>
+<br><p>note: 
+You can use the shortcut <code>Ctrl + - (KP)</code> to activate the `Previous' functionality.
+</p>
+
+</li><li>+ `Replace' button: replace the current matching occurrence, which is highlight, with the content of the replace field.
+
+<br><p>note: 
+You can use the shortcut <code>Ctrl + Enter (KP)</code>: instead of the button.
+</p>
+
+</li><li>+ `Replace all' button: replace all the matching occurrence in the current file.
+
+<br><p>note: 
+You can use the shortcut <code>Ctrl + Shift + Enter (KP)</code> instead of the button.
+</p>
+
+</li><li>+ `Mode': You can select how your search term(s) will be interpreted.
+
+
+<ul class="no-bullet">
+<li>+ `Raw text': all search terms matching.
+
+</li><li>+ `Word boundary': The search term must be a complete word, not a part but an variable with separators like underscores or points will work too.
+
+</li><li>+ `Regular expression': `Perl' compatible regular expression (`REGEX').
+</li></ul>
+
+<br><p>note: 
+For `REGEX' read the `GLib Regex' documentation which is contains into the <code>gtk-doc</code> directory.
+</p>
+
+</li><li>+ `Close' button: hide the search and replace bar and clear the highlight.
+</li></ul>
+</li></ul>
+
+<br><p>note: 
+If you select some text with the mouse and use the <code>Ctrl + f</code> shortcut, then:
+</p>
+
+<ul class="no-bullet">
+<li>+ The search and replace bar will be show.
+
+</li><li>+ The search field will be filled with your selection.
+</li></ul>
+
+<br><p>note: 
+The search will begin at your selection position if you hit the `Next' or `Previous' button.
+</p>
+
+
+<table class="cartouche" border="1"><tr><td>
+<blockquote>
+<p><b>Note:</b> `The search terms history:'
+</p>
+<p>Every search term you make a search for will be register into the history.
+</p>
+
+<ul class="no-bullet">
+<li>+ You can use the <code>Up</code> key to start the history search from the beginning.
+
+</li><li>+ You can use the <code>Down</code> key to start the history search from the end.
+</li></ul>
+
+<p>It will flow through the search terms history but not wrap around, simply end at the other end.
+</p></blockquote>
+</td></tr></table>
+
+<hr>
+<a name="Terminals"></a>
+<div class="header">
+<p>
+Next: <a href="#Files" accesskey="n" rel="next">Files</a>, Previous: <a href="#Editor" accesskey="p" rel="prev">Editor</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Terminals-doc"></a><a name="g_t15"></a><a name="Terminals-terminals"></a><a name="g_t16"></a><a name="Terminals-1"></a>
+<h2 class="chapter">3 Terminals</h2>
+
+
+<p><code>it-edit</code> provides:
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#A-sidebar-terminals" accesskey="1">A sidebar terminals</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#A-full_002dscreen-terminal" accesskey="2">A full-screen terminal</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Top_002dlevel-terminals" accesskey="3">Top-level terminals</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr></table>
+
+<hr>
+<a name="A-sidebar-terminals"></a>
+<div class="header">
+<p>
+Next: <a href="#A-full_002dscreen-terminal" accesskey="n" rel="next">A full-screen terminal</a>, Up: <a href="#Terminals" accesskey="u" rel="up">Terminals</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Terminals-a_002dsidebar_002dterminals"></a><a name="g_t17"></a><a name="A-sidebar-terminals-1"></a>
+<h3 class="section">3.1 A sidebar terminals</h3>
+
+
+<p><code>it-edit</code> provides `terminals in the same window as the editor', as a sidebar, which can easily `shown', `hidden' and `pull' as you want.
+</p>
+<p>You can `add' and `remove' as many terminals as you want to the sidebar.
+</p>
+<hr>
+<a name="A-full_002dscreen-terminal"></a>
+<div class="header">
+<p>
+Next: <a href="#Top_002dlevel-terminals" accesskey="n" rel="next">Top-level terminals</a>, Previous: <a href="#A-sidebar-terminals" accesskey="p" rel="prev">A sidebar terminals</a>, Up: <a href="#Terminals" accesskey="u" rel="up">Terminals</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Terminals-a_002dfull_002dscreen_002dterminal"></a><a name="g_t18"></a><a name="A-full_002dscreen-terminal-1"></a>
+<h3 class="section">3.2 A full-screen terminal</h3>
+
+
+<p><code>it-edit</code> provides a `big terminal' occupying the full interface, `dividable' into `4 re-sizable terminals', to which you can `easy toggle' from the main window.
+</p>
+<hr>
+<a name="Top_002dlevel-terminals"></a>
+<div class="header">
+<p>
+Previous: <a href="#A-full_002dscreen-terminal" accesskey="p" rel="prev">A full-screen terminal</a>, Up: <a href="#Terminals" accesskey="u" rel="up">Terminals</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Terminals-top_002dlevel_002dterminals"></a><a name="g_t19"></a><a name="Top_002dlevel-terminals-1"></a>
+<h3 class="section">3.3 Top-level terminals</h3>
+
+
+<p><code>it-edit</code> provides a `top-level terminal window' (so it can be `resize', `minimize', `maximize' and `closed'),
+</p>
+<p>At first you will be prompt to enter a command.
+</p>
+<p>After the execution of the command the top-level terminal is yours and can continue to enter commands.
+</p>
+<hr>
+<a name="Files"></a>
+<div class="header">
+<p>
+Next: <a href="#Spell-check" accesskey="n" rel="next">Spell check</a>, Previous: <a href="#Terminals" accesskey="p" rel="prev">Terminals</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Files-doc"></a><a name="g_t1a"></a><a name="Files-files"></a><a name="g_t1b"></a><a name="Files-id1"></a><a name="g_t1c"></a><a name="Files-1"></a>
+<h2 class="chapter">4 Files</h2>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#New-file" accesskey="1">New file</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#File-s-opening" accesskey="2">File(s) opening</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Saving-files" accesskey="3">Saving files</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Reload-file" accesskey="4">Reload file</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#File-informations" accesskey="5">File informations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr></table>
+
+<hr>
+<a name="New-file"></a>
+<div class="header">
+<p>
+Next: <a href="#File-s-opening" accesskey="n" rel="next">File s opening</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Files-new_002dfile"></a><a name="g_t1d"></a><a name="New-file-1"></a>
+<h3 class="section">4.1 New file</h3>
+
+
+<p>You can open a New file, this will create a random named <code>New_XXXXXX</code> file into your `TEMPDIR' folder, and erase it immediately but the file-path is kept.
+</p>
+<p>You will surely write inside the new create buffer and surely save it after (surely not into the `TEMPDIR' folder).
+</p>
+<p>Use the menu item Files ‣ New file or the shortcut <code>Ctrl + N</code> to create a new buffer as describe above.
+</p>
+<hr>
+<a name="File-s-opening"></a>
+<div class="header">
+<p>
+Next: <a href="#Saving-files" accesskey="n" rel="next">Saving files</a>, Previous: <a href="#New-file" accesskey="p" rel="prev">New file</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Files-file_002ds_002dopening"></a><a name="g_t1e"></a><a name="File_0028s_0029-opening"></a>
+<h3 class="section">4.2 File(s) opening</h3>
+
+
+<p>They are several ways for opening file(s) into <code>it-edit</code>:
+</p>
+
+<ul class="no-bullet">
+<li>+ By using the open file(s)
+
+
+<ul class="no-bullet">
+<li>+ The menu item: Files ‣ Open file.
+
+</li><li>+ The button.
+
+</li><li>+ The shortcut <code>Ctrl + O</code>.
+</li></ul>
+</li></ul>
+
+<p>This will present you a file selector to open the wanted file(s).
+</p>
+<table class="cartouche" border="1"><tr><td>
+<blockquote>
+<p><b>Note:</b> The current tab influate the file-selector behaviour:
+</p>
+
+<ul class="no-bullet">
+<li>+ The active editor page will influence into which folder the file-selector gets open.
+
+<p>Because the file-selector will be launched into the folder from the current edited file location.
+</p>
+<blockquote>
+
+<p>You can held the mouse over the tab (which content the current filename) to sea the absolute file path in a tool-tip.
+</p>
+<p>The same mechanic is by placing the mouse over the filename into the bottom bar.
+</p></blockquote>
+
+</li><li>+ You can configure to get the current edited file selected (highlighted into the file-selector) into the editor or not.
+
+<br><p>note: 
+This can be practice if per example you want to open the header file from a source file or inversed.
+</p>
+</li></ul>
+</blockquote>
+</td></tr></table>
+
+
+<ul class="no-bullet">
+<li>+ By using the recent file menu-item to open a recent used file.
+</li></ul>
+
+
+
+<ul class="no-bullet">
+<li>+ You can open the last registered files, most often the files opened in the last session, by using the the menu item Reload Session ‣ Reload last files.
+
+<p>This will open automatically all the last registered files.
+</p>
+<br><p>note: 
+This can be practice if you work on a single project during some time.
+</p>
+</li></ul>
+
+<hr>
+<a name="Saving-files"></a>
+<div class="header">
+<p>
+Next: <a href="#Reload-file" accesskey="n" rel="next">Reload file</a>, Previous: <a href="#File-s-opening" accesskey="p" rel="prev">File s opening</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Files-saving_002dfiles"></a><a name="g_t1f"></a><a name="Saving-files-1"></a>
+<h3 class="section">4.3 Saving files</h3>
+
+
+<p>They are several ways of saving files into <code>it-edit</code>:
+</p>
+
+<ol>
+<li> You can save the current file simply using:
+</li></ol>
+
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ The menu item: Files ‣ Save file.
+
+</li><li>+ The button.
+
+</li><li>+ The shortcut <code>Ctrl + S</code>
+</li></ul>
+
+<p>This will save the file at is current location.
+</p></blockquote>
+
+
+<ol start="2">
+<li> You can save a &quot;<code>New</code>&quot; file or the edited file into another location by using:
+</li></ol>
+
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ The menu item: Files ‣ Save file as.
+
+</li><li>+ The button.
+</li></ul>
+
+<br><p>warning: 
+They is no shortcut for this purpose, but if you save (Save file <code>Ctrl + S</code>) simply a &quot;<code>New</code>&quot; file this will act as a Save file as.
+</p>
+</blockquote>
+
+
+<ol start="3">
+<li> You can save all the open files using:
+</li></ol>
+
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ The menu item: Files ‣ Save all files.
+
+</li><li>+ The button.
+
+</li><li>+ The shortcut <code>Ctrl + Shift + S</code>
+</li></ul>
+
+<p>This will save all the unsaved files at their current location.
+</p></blockquote>
+
+<table class="cartouche" border="1"><tr><td>
+<blockquote>
+<p><b>Note:</b> You can distinguish if a file is currently save or modified by looking at the `name' `in the tab':
+</p>
+<p>if their is an `asterisk' &rsquo;<code>*</code>&rsquo; `before' the `file name' this mean that the `file' is currently `not saved' on the `disk'.
+</p></blockquote>
+</td></tr></table>
+
+<hr>
+<a name="Reload-file"></a>
+<div class="header">
+<p>
+Next: <a href="#File-informations" accesskey="n" rel="next">File informations</a>, Previous: <a href="#Saving-files" accesskey="p" rel="prev">Saving files</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Files-reload_002dfile"></a><a name="g_t20"></a><a name="Reload-file-1"></a>
+<h3 class="section">4.4 Reload file</h3>
+
+
+<p>You can reload a file from disk with <code>it-edit</code> by using:
+</p>
+
+<ul class="no-bullet">
+<li>+ The menu item: Files ‣ Reload current file.
+
+</li><li>+ The shortcut <code>Ctrl + R</code>.
+</li></ul>
+
+<br><p>note: 
+This can be practice if per example you have redirect you compilation process to a file for debugging compilation errors.
+</p>
+
+<hr>
+<a name="File-informations"></a>
+<div class="header">
+<p>
+Previous: <a href="#Reload-file" accesskey="p" rel="prev">Reload file</a>, Up: <a href="#Files" accesskey="u" rel="up">Files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Files-file_002dinformations"></a><a name="g_t21"></a><a name="File-informations-1"></a>
+<h3 class="section">4.5 File informations</h3>
+
+
+<p>You can get and change files informations by using the menu item Files ‣ File informations <code>Ctrl + I</code>.
+</p>
+<p>This will display a `top-level window' presenting following `informations' and `action' to `process' on the `file':
+</p>
+
+<ol>
+<li> A frame named: <code>Main informations</code> will display:
+</li></ol>
+
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ A nice image from the `mime type' of your current edited file.
+
+</li><li>+ The programming `language' of the file.
+
+</li><li>+ The `mime type' verbatim.
+
+</li><li>+ The file `extension'.
+</li></ul>
+</blockquote>
+
+
+<ol start="2">
+<li> A frame named: <code>Mode</code> will display a file `permissions' table like this:
+</li></ol>
+
+<blockquote>
+
+<div class="example">
+<pre class="example">+---+---+---+---+
+|   | R | W | X |
++---+---+---+---+
+| U | * | * |   |
++---+---+---+---+
+| G | * | * |   |
++---+---+---+---+
+| O | * |   |   |
++---+---+---+---+
+
+U -&gt; User.      R -&gt; Read.
+
+G -&gt; Group.     W -&gt; Write.
+
+O -&gt; Others.    X -&gt; Execute.
+</pre></div>
+
+<p>The cells of the table contains `check-boxes' representing the current `permissions' of the file.
+</p>
+<p>By simply (un)checking the `check-boxes' you change the `permissions' of the file on disk.
+</p>
+
+<br><p>warning: 
+By saving your file you will set the permissions according to your configuration into <code>it-edit</code> for files saving.
+</p>
+</blockquote>
+
+
+<ol start="3">
+<li> A frame named: <code>File counts</code> display some few statistics of the file:
+</li></ol>
+
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ `The number' of `lines'.
+
+</li><li>+ `The number' of `characters'.
+
+</li><li>+ `The number' of `words'.
+</li></ul>
+
+<p>Of the file on the disk.
+</p>
+<br><p>note: 
+<code>it-edit</code> use the program <code>wc</code> to gets this informations.
+</p>
+
+<br><p>warning: 
+The number of line(s) and character(s) into your current edited buffer is visible into the bottom bar.
+</p>
+</blockquote>
+
+
+<ol start="4">
+<li> A frame named: <code>Timestamps</code> display the:
+</li></ol>
+
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ `Last status change' `date and time'.
+
+</li><li>+ `Last access' `date and time'.
+
+</li><li>+ `Last modification' `date and time'.
+</li></ul>
+
+<p>Of the file on the disk.
+</p>
+<p>Near of every information is a button named <code>Modify</code> which permit you to change the timestamps.
+</p>
+<p>Which will present you a `calendar' for the date
+</p>
+<p>and `3' `spin buttons':
+</p>
+
+<ul class="no-bullet">
+<li>+ `Hours'
+
+</li><li>+ `Minutes'
+
+</li><li>+ `Seconds'
+</li></ul>
+
+<p>Which permit you to change the timestamps easily.
+</p>
+<br><p>note: 
+This can be useful per example if you have change your system clock and you use the <code>make</code> tool,...
+</p>
+</blockquote>
+
+
+<ol start="5">
+<li> A frame named: <code>Checksum</code> will display the:
+</li></ol>
+
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ `MD 5' hash.
+
+</li><li>+ `SHA 1' hash.
+
+</li><li>+ `SHA 256' hash.
+
+</li><li>+ `SHA 512' hash.
+</li></ul>
+
+<p>of your file.
+</p>
+<br><p>note: 
+The `checksums' are displayed into `hexadecimal' values.
+</p>
+</blockquote>
+
+
+<ol start="6">
+<li> A frame named: <code>File actions</code> will present you:
+</li></ol>
+
+<blockquote>
+
+<p>The file name and 4 buttons, named:
+</p>
+
+<ul class="no-bullet">
+<li>+ Rename file
+
+</li><li>+ Copy file
+
+</li><li>+ Compress file
+
+</li><li>+ Copy file-path to clipboard
+</li></ul>
+
+<p>The functionalities of this buttons are clear as their name.
+</p></blockquote>
+
+<hr>
+<a name="Spell-check"></a>
+<div class="header">
+<p>
+Next: <a href="#Sessions" accesskey="n" rel="next">Sessions</a>, Previous: <a href="#Files" accesskey="p" rel="prev">Files</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Spell_002dcheck-doc"></a><a name="g_t22"></a><a name="Spell_002dcheck-spell_002dcheck"></a><a name="g_t6"></a><a name="Spell_002dcheck-id1"></a><a name="g_t23"></a><a name="Spell-check-1"></a>
+<h2 class="chapter">5 Spell check</h2>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#it_002dedit-spell-check-features" accesskey="1">it-edit spell check features</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Using-it_002dedit-spell-check" accesskey="2">Using it-edit spell check</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#it_002dedit-spell-check-support" accesskey="3">it-edit spell check support</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Thanks" accesskey="4">Thanks</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr></table>
+
+<hr>
+<a name="it_002dedit-spell-check-features"></a>
+<div class="header">
+<p>
+Next: <a href="#Using-it_002dedit-spell-check" accesskey="n" rel="next">Using it-edit spell check</a>, Up: <a href="#Spell-check" accesskey="u" rel="up">Spell check</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Spell_002dcheck-it_002dedit_002dspell_002dcheck_002dfeatures"></a><a name="g_t24"></a><a name="it_002dedit-spell-check-features-1"></a>
+<h3 class="section">5.1 <code>it-edit</code> spell check features</h3>
+
+
+<blockquote>
+
+<p><code>it-edit</code> provide 2 different spell check methods:
+</p>
+
+<ul class="no-bullet">
+<li>+ In-line spell check:
+
+<p>The in-line spell check mechanism is to underline the misspelled words and to provides corrections
+</p>
+<p>by setting the cursor over the misspell word and opening the contextual menu from <code>it-edit</code>.
+</p>
+<p>The contextual menu include then a Spelling suggestion menu item, from which you can choose
+</p>
+<p>to correct the misspelled word: the word is automatically replaced with the word you&rsquo;ve chosen.
+</p>
+</li><li>+ Spell check dialog:
+
+<p><code>it-edit</code> provide a dialog window which will check the entire current edited file buffer.
+</p></li></ul>
+</blockquote>
+
+<hr>
+<a name="Using-it_002dedit-spell-check"></a>
+<div class="header">
+<p>
+Next: <a href="#it_002dedit-spell-check-support" accesskey="n" rel="next">it-edit spell check support</a>, Previous: <a href="#it_002dedit-spell-check-features" accesskey="p" rel="prev">it-edit spell check features</a>, Up: <a href="#Spell-check" accesskey="u" rel="up">Spell check</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Spell_002dcheck-using_002dit_002dedit_002dspell_002dcheck"></a><a name="g_t25"></a><a name="Using-it_002dedit-spell-check-1"></a>
+<h3 class="section">5.2 Using <code>it-edit</code> spell check</h3>
+
+
+<blockquote>
+
+<p>You can enable or disable the in-line spell check by using:
+</p>
+
+<ul class="no-bullet">
+<li>+ The menu item: Edition ‣ Inline spell check.
+
+</li><li>+ The button.
+
+</li><li>+ The shortcut: <code>Ctrl + W</code>.
+</li></ul>
+
+<p>You can display the spell check dialog window using the:
+</p>
+
+<ul class="no-bullet">
+<li>+ The menu item: Actions ‣ Spell check dialog.
+
+</li><li>+ The button.
+
+</li><li>+ The shortcut: <code>Ctrl + Shift + W</code>.
+</li></ul>
+</blockquote>
+
+<hr>
+<a name="it_002dedit-spell-check-support"></a>
+<div class="header">
+<p>
+Next: <a href="#Thanks" accesskey="n" rel="next">Thanks</a>, Previous: <a href="#Using-it_002dedit-spell-check" accesskey="p" rel="prev">Using it-edit spell check</a>, Up: <a href="#Spell-check" accesskey="u" rel="up">Spell check</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Spell_002dcheck-it_002dedit_002dspell_002dcheck_002dsupport"></a><a name="g_t26"></a><a name="it_002dedit-spell-check-support-1"></a>
+<h3 class="section">5.3 <code>it-edit</code> spell check support</h3>
+
+
+<blockquote>
+
+<p><code>it-edit</code> use the <code>gspell-1</code> library for providing spell check.
+</p>
+
+<a name="See-also"></a>
+<h4 class="subsubheading">See also</h4>
+
+
+<p><code>it-edit</code> and <code>gspell-1</code> library:
+</p>
+<p>Actually the <code>gspell-1</code> library is relative young, so not available in every repository.
+</p>
+<p>So where ever you get the spell check functionality into <code>it-edit</code> depends on what version
+</p>
+<p>of <code>gtk-3</code> you get.
+</p>
+<p>Because the <code>gspell-1</code> library is only available with `&gt;=' <code>gtk-+3.20</code>.
+</p>
+<br><p>note: 
+You can get gtk+-3.22 and gspell-1 currently with the `ppa' <code>gnome3-staging</code> for debian packages.
+</p>
+
+<p><code>gspell-1</code> has the advantages:
+</p>
+
+<ul class="no-bullet">
+<li>+ To be compatible with the gtksourceview-3 library contextual menu.
+
+</li><li>+ To provide a spell check dialog has widget.
+
+</li><li>+ To have a good language selection mechanism.
+</li></ul>
+
+
+
+<a name="See-also-1"></a>
+<h4 class="subsubheading">See also</h4>
+
+
+<p><code>gspell-1</code> library
+</p>
+<div class="example">
+<pre class="example">gspell provides a flexible API to add spell checking to a GTK+ application. It
+features:
+* GObject wrappers around Enchant
+* An inline spell checker for GtkTextView (enhanced version of GtkSpell)
+* A spell checker dialog for GtkTextView
+* Support of the no-spell-check tag defined by GtkSourceView
+* Language choosers (button and dialog)
+</pre></div>
+
+<p>So we know that gspell is based on enchant:
+</p>
+<div class="example">
+<pre class="example">Enchant is a generic spell checking library which uses existing spell checker
+engines such as ispell, aspell and myspell as its backends.
+
+Enchant steps in to provide uniformity and conformity on top of these libraries,
+and implement certain features that may be lacking in any individual provider
+library.
+</pre></div>
+
+<p>So for getting dictionaries compatibles with the <code>gspell-1</code> library simply download either or:
+</p>
+
+<ul class="no-bullet">
+<li>+ aspell
+
+</li><li>+ ispell
+
+</li><li>+ myspell
+</li></ul>
+
+<p>dictionnaries in the wanted language(s).
+</p>
+</blockquote>
+
+<hr>
+<a name="Thanks"></a>
+<div class="header">
+<p>
+Previous: <a href="#it_002dedit-spell-check-support" accesskey="p" rel="prev">it-edit spell check support</a>, Up: <a href="#Spell-check" accesskey="u" rel="up">Spell check</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Spell_002dcheck-thanks"></a><a name="g_t27"></a><a name="Thanks-1"></a>
+<h3 class="section">5.4 Thanks</h3>
+
+
+<blockquote>
+
+<p>Big Thanks to the author of the gpsell-1 library `Sébastien Wilmet' which I get some form of familiarity within.
+</p>
+<br><p>Sébastien Wilmet: 
+is the author of the <code>Texilla</code> Latex editor and maintainer of the gtksourceview-3 library and participate in many other projects like <code>gedit</code>.
+</p>
+</blockquote>
+
+<hr>
+<a name="Sessions"></a>
+<div class="header">
+<p>
+Next: <a href="#Shortcuts-table" accesskey="n" rel="next">Shortcuts table</a>, Previous: <a href="#Spell-check" accesskey="p" rel="prev">Spell check</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Sessions-doc"></a><a name="g_t28"></a><a name="Sessions-sessions"></a><a name="g_t29"></a><a name="Sessions-1"></a>
+<h2 class="chapter">6 Sessions</h2>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Configure-your-sessions-recovering" accesskey="1">Configure your sessions recovering</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-automatic-session-mechanism" accesskey="2">The automatic session mechanism</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr></table>
+
+<hr>
+<a name="Configure-your-sessions-recovering"></a>
+<div class="header">
+<p>
+Next: <a href="#The-automatic-session-mechanism" accesskey="n" rel="next">The automatic session mechanism</a>, Up: <a href="#Sessions" accesskey="u" rel="up">Sessions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Sessions-configure_002dyour_002dsessions_002drecovering"></a><a name="g_t2a"></a><a name="Configure-your-sessions-recovering-1"></a>
+<h3 class="section">6.1 Configure your sessions recovering</h3>
+
+
+<p>Their are 3 different modes for registering your session at your convenience.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Files-documentation-applications-registering" accesskey="1">Files, documentation, applications registering;</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr></table>
+
+<hr>
+<a name="Files-documentation-applications-registering"></a>
+<div class="header">
+<p>
+Up: <a href="#Configure-your-sessions-recovering" accesskey="u" rel="up">Configure your sessions recovering</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Sessions-files_002ddocumentation_002dapplications_002dregistering"></a><a name="g_t2b"></a><a name="Files_002c-documentation_002c-applications-registering_003a"></a>
+<h4 class="subsection">6.1.1 Files, documentation, applications registering:</h4>
+
+
+
+<ul class="no-bullet">
+<li>+ Asked for registering the current session at quitting.
+
+</li><li>+ Automatic registering.
+
+</li><li>+ Disable session registering.
+</li></ul>
+
+<hr>
+<a name="The-automatic-session-mechanism"></a>
+<div class="header">
+<p>
+Previous: <a href="#Configure-your-sessions-recovering" accesskey="p" rel="prev">Configure your sessions recovering</a>, Up: <a href="#Sessions" accesskey="u" rel="up">Sessions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Sessions-the_002dautomatic_002dsession_002dmechanism"></a><a name="g_t2c"></a><a name="The-automatic-session-mechanism-1"></a>
+<h3 class="section">6.2 The `automatic' <code>session</code> mechanism</h3>
+
+
+<p>How does it work ?
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Registering" accesskey="1">Registering;</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Reloading-a-session" accesskey="2">Reloading a session</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Clear-a-session" accesskey="3">Clear a session</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr></table>
+
+<hr>
+<a name="Registering"></a>
+<div class="header">
+<p>
+Next: <a href="#Reloading-a-session" accesskey="n" rel="next">Reloading a session</a>, Up: <a href="#The-automatic-session-mechanism" accesskey="u" rel="up">The automatic session mechanism</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Sessions-registering"></a><a name="g_t2d"></a><a name="Registering_003a"></a>
+<h4 class="subsection">6.2.1 Registering:</h4>
+
+
+
+<ul class="no-bullet">
+<li>+ Every time you open or close a file into the editor the registered files list is recomputed.
+
+<br><p>note: 
+The path is registered.
+</p>
+
+</li><li>+ Every time you launch a file through the File handler (<code>Ctrl + H</code>), the file is registered.
+
+<br><p>note: 
+The URI is registered.
+</p>
+
+</li><li>+ Every time you launch an application, the application is registered.
+
+<br><p>note: 
+The application path is registered.
+</p>
+
+</li><li>+ Nothing is erase if you don&rsquo;t clear the session Files ‣ Reload session ‣ Clear session.
+
+</li><li>+ If you reload something it&rsquo;s automatically stored again for next session.
+</li></ul>
+
+<hr>
+<a name="Reloading-a-session"></a>
+<div class="header">
+<p>
+Next: <a href="#Clear-a-session" accesskey="n" rel="next">Clear a session</a>, Previous: <a href="#Registering" accesskey="p" rel="prev">Registering</a>, Up: <a href="#The-automatic-session-mechanism" accesskey="u" rel="up">The automatic session mechanism</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Sessions-reloading_002da_002dsession"></a><a name="g_t2e"></a><a name="Reloading-a-session-1"></a>
+<h4 class="subsection">6.2.2 Reloading a session</h4>
+
+
+<p>You can reload the entire session by activating the menu item:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ Reload all last session
+
+<p>This will activate the reloading of the last registered:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ Files.
+
+</li><li>+ Documentation files.
+
+</li><li>+ Applications.
+</li></ul>
+</blockquote>
+</li></ul>
+</blockquote>
+
+<p>Or reload the different items singular.
+</p>
+<hr>
+<a name="Clear-a-session"></a>
+<div class="header">
+<p>
+Previous: <a href="#Reloading-a-session" accesskey="p" rel="prev">Reloading a session</a>, Up: <a href="#The-automatic-session-mechanism" accesskey="u" rel="up">The automatic session mechanism</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Sessions-clear_002da_002dsession"></a><a name="g_t2f"></a><a name="Clear-a-session-1"></a>
+<h4 class="subsection">6.2.3 Clear a session</h4>
+
+
+<br><p>warning: 
+To know that every `non-empty' registered list can be relaunch at the next session or into the same session.
+</p>
+
+<p>The only way to clear all the list is to activate the menu item Files ‣ Reload session ‣ Clear session.
+</p>
+<p>Into a session.
+</p>
+<p>This permit to clear the lists and
+</p>
+<p>if you want to reconstruct a new session by reactivating the concern session registering mechanism.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<blockquote>
+<p><b>Warning:</b> Application launching Note:
+</p>
+<p>When you launch an application per the Actions ‣ Application launch it won&rsquo;t be registered as applications
+</p>
+<p>because I consider that we need the application only now not very often.
+</p>
+<p>But if you open an application per the menu items Applications where you can register your personal applications you use often.
+</p>
+<p>They are are registered because you will use them often with the <code>it-edit</code> easy application access menus.
+</p></blockquote>
+</td></tr></table>
+
+<hr>
+<a name="Shortcuts-table"></a>
+<div class="header">
+<p>
+Next: <a href="#Supported-charset" accesskey="n" rel="next">Supported charset</a>, Previous: <a href="#Sessions" accesskey="p" rel="prev">Sessions</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Shortcuts_005fmemo-shortcuts_002dtable"></a><a name="a"></a><a name="Shortcuts_005fmemo-doc"></a><a name="g_t30"></a><a name="Shortcuts_005fmemo-id1"></a><a name="g_t31"></a><a name="Shortcuts-table-1"></a>
+<h2 class="chapter">7 Shortcuts table</h2>
+
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Application-shortcuts" accesskey="1">Application shortcuts;</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Terminals-shortcuts" accesskey="2">Terminals shortcuts;</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr></table>
+
+<hr>
+<a name="Application-shortcuts"></a>
+<div class="header">
+<p>
+Next: <a href="#Terminals-shortcuts" accesskey="n" rel="next">Terminals shortcuts</a>, Up: <a href="#Shortcuts-table" accesskey="u" rel="up">Shortcuts table</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Shortcuts_005fmemo-application_002dshortcuts"></a><a name="g_t32"></a><a name="Application-shortcuts_003a"></a>
+<h3 class="section">7.1 Application shortcuts:</h3>
+
+
+<blockquote>
+
+
+<table>
+<thead><tr><th>Shortcut</th><th>functionality</th><th>Mnemonic</th></tr></thead>
+<tr><td>Ctrl + n</td><td>New file</td><td>n = new</td></tr>
+<tr><td>Ctrl + o</td><td>Open file</td><td>o = open</td></tr>
+<tr><td>Ctrl + s</td><td>Save file</td><td>s = save</td></tr>
+<tr><td>Ctrl + Shift + S</td><td>Save all files</td><td>S = Save</td></tr>
+<tr><td>Ctrl + Alt + c</td><td>Close file</td><td>C = Close</td></tr>
+<tr><td>Ctrl + Shift + c</td><td>Close all file(s)</td><td>C = Close</td></tr>
+<tr><td>Ctrl + r</td><td>Reload file</td><td>r = reload</td></tr>
+<tr><td>Ctrl + i</td><td>File informations</td><td>i = Informations</td></tr>
+<tr><td>Ctrl + z</td><td>Undo</td><td>None</td></tr>
+<tr><td>Ctrl + Shift + Z</td><td>Redo</td><td>None</td></tr>
+<tr><td>Ctrl + f</td><td>Search</td><td>f = find</td></tr>
+<tr><td>Ctrl + Enter</td><td>Replace</td><td>None</td></tr>
+<tr><td>Ctrl + Shift + Enter</td><td>Replace all</td><td>None</td></tr>
+<tr><td>Ctrl + +</td><td>Next</td><td>None</td></tr>
+<tr><td>Ctrl + -</td><td>Previous</td><td>None</td></tr>
+<tr><td>Ctrl + g</td><td>Go to line number</td><td>g = go to</td></tr>
+<tr><td>Ctrl + x</td><td>Cut</td><td>None</td></tr>
+<tr><td>Ctrl + c</td><td>Copy</td><td>c = copy</td></tr>
+<tr><td>Ctrl + v</td><td>Paste</td><td>None</td></tr>
+<tr><td>Ctrl + d</td><td>Duplicate text</td><td>d = duplicate</td></tr>
+<tr><td>Ctrl + p</td><td>Use tabs</td><td>None</td></tr>
+<tr><td>Ctrl + w</td><td>In-line spell-check</td><td>None</td></tr>
+<tr><td>Ctrl + Shift + W</td><td>Spell-check dialog</td><td>None</td></tr>
+<tr><td>Ctrl + e</td><td>Execute command</td><td>e = execute</td></tr>
+<tr><td>Ctrl + y</td><td>Copy file-path to clipboard</td><td>None</td></tr>
+<tr><td>Ctrl + Shift + y</td><td>Copy folder-path to clipboard</td><td>None</td></tr>
+<tr><td>Ctrl + b</td><td>Show|Hide big term</td><td>b = big term</td></tr>
+<tr><td>Ctrl + Shift + B</td><td>big term switch</td><td>B = Big term</td></tr>
+<tr><td>Ctrl + t</td><td>Show | Hide terminal</td><td>t = terminal</td></tr>
+<tr><td>Ctrl + Shift + T</td><td>Add new terminals</td><td>T = Terminals</td></tr>
+<tr><td>Shift + Copy</td><td>Copy from terminal</td><td>None</td></tr>
+<tr><td>Shift + Insert</td><td>Paste to terminal</td><td>None</td></tr>
+<tr><td>Ctrl + h</td><td>File handler</td><td>h = handler</td></tr>
+<tr><td>Ctrl + a</td><td>Application launcher</td><td>a = application</td></tr>
+<tr><td>Ctrl + q</td><td>Quit application</td><td>q = quit</td></tr>
+</table>
+
+</blockquote>
+
+<hr>
+<a name="Terminals-shortcuts"></a>
+<div class="header">
+<p>
+Previous: <a href="#Application-shortcuts" accesskey="p" rel="prev">Application shortcuts</a>, Up: <a href="#Shortcuts-table" accesskey="u" rel="up">Shortcuts table</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Shortcuts_005fmemo-terminals_002dshortcuts"></a><a name="g_t33"></a><a name="Terminals-shortcuts_003a"></a>
+<h3 class="section">7.2 Terminals shortcuts:</h3>
+
+
+<blockquote>
+
+
+<table>
+<thead><tr><th>Shortcut</th><th>functionality</th><th>Mnemonic</th></tr></thead>
+<tr><td>Shift + Copy (KP 1)</td><td>Copy from terminal</td><td>None</td></tr>
+<tr><td>Shift + Insert (KP 0)</td><td>Paste to terminal</td><td>None</td></tr>
+<tr><td>Shift + Ctrl + T</td><td>Open new tab</td><td>t = tab</td></tr>
+<tr><td>Shift + Ctrl + -</td><td>Decrease font-scale</td><td>- = decrease</td></tr>
+<tr><td>Shift + Ctrl + +</td><td>Increase font-scale</td><td>+ = increase</td></tr>
+</table>
+
+
+<br><p>note: 
+Else you can close a tab and reset the terminal from the terminals contextual menu.
+</p>
+</blockquote>
+
+<hr>
+<a name="Supported-charset"></a>
+<div class="header">
+<p>
+Next: <a href="#Supported-languages" accesskey="n" rel="next">Supported languages</a>, Previous: <a href="#Shortcuts-table" accesskey="p" rel="prev">Shortcuts table</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="charset-supported_002dcharset"></a><a name="g_t34"></a><a name="charset-doc"></a><a name="g_t35"></a><a name="Supported-charset-1"></a>
+<h2 class="chapter">8 Supported charset</h2>
+
+
+<p>Unicode
+</p>
+
+<ul class="no-bullet">
+<li>* UTF-8
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Western
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-8859-1
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Central European
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-8859-2
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>South European
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-8859-3
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Baltic
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-8859-4
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Cyrillic
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-8859-5
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Arabic
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-8859-6
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Greek
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-8859-7
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Hebrew Visual
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-8859-8
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Turkish
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-8859-9
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Nordic
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-8859-10
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Baltic
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-8859-13
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Celtic
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-8859-14
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Western
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-8859-15
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Romanian
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-8859-16
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Unicode
+</p>
+
+<ul class="no-bullet">
+<li>* UTF-7
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Unicode
+</p>
+
+<ul class="no-bullet">
+<li>* UTF-16
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Unicode
+</p>
+
+<ul class="no-bullet">
+<li>* UTF-16BE
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Unicode
+</p>
+
+<ul class="no-bullet">
+<li>* UTF-16LE
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Unicode
+</p>
+
+<ul class="no-bullet">
+<li>* UTF-32
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Unicode
+</p>
+
+<ul class="no-bullet">
+<li>* UCS-2
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Unicode
+</p>
+
+<ul class="no-bullet">
+<li>* UCS-4
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Armenian
+</p>
+
+<ul class="no-bullet">
+<li>* ARMSCII-8
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Chinese Traditional
+</p>
+
+<ul class="no-bullet">
+<li>* BIG5
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Chinese Traditional
+</p>
+
+<ul class="no-bullet">
+<li>* BIG5-HKSCS
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Cyrillic/Russian
+</p>
+
+<ul class="no-bullet">
+<li>* CP866
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Japanese
+</p>
+
+<ul class="no-bullet">
+<li>* EUC-JP
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Japanese
+</p>
+
+<ul class="no-bullet">
+<li>* EUC-JP-MS
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Japanese
+</p>
+
+<ul class="no-bullet">
+<li>* CP932
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Korean
+</p>
+
+<ul class="no-bullet">
+<li>* EUC-KR
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Chinese Traditional
+</p>
+
+<ul class="no-bullet">
+<li>* EUC-TW
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Chinese Simplified
+</p>
+
+<ul class="no-bullet">
+<li>* GB18030
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Chinese Simplified
+</p>
+
+<ul class="no-bullet">
+<li>* GB2312
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Chinese Simplified
+</p>
+
+<ul class="no-bullet">
+<li>* GBK
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Georgian
+</p>
+
+<ul class="no-bullet">
+<li>* GEORGIAN-ACADEMY
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Western
+</p>
+
+<ul class="no-bullet">
+<li>* IBM850
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Central European
+</p>
+
+<ul class="no-bullet">
+<li>* IBM852
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Cyrillic
+</p>
+
+<ul class="no-bullet">
+<li>* IBM855
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Turkish
+</p>
+
+<ul class="no-bullet">
+<li>* IBM857
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Hebrew
+</p>
+
+<ul class="no-bullet">
+<li>* IBM862
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Arabic
+</p>
+
+<ul class="no-bullet">
+<li>* IBM864
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Japanese
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-2022-JP
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Korean
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-2022-KR
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Cyrillic
+</p>
+
+<ul class="no-bullet">
+<li>* ISO-IR-111
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Korean
+</p>
+
+<ul class="no-bullet">
+<li>* JOHAB
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Cyrillic
+</p>
+
+<ul class="no-bullet">
+<li>* KOI8R
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Cyrillic
+</p>
+
+<ul class="no-bullet">
+<li>* KOI8-R
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Cyrillic/Ukrainian
+</p>
+
+<ul class="no-bullet">
+<li>* KOI8U
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Japanese
+</p>
+
+<ul class="no-bullet">
+<li>* SHIFT_JIS
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Vietnamese
+</p>
+
+<ul class="no-bullet">
+<li>* TCVN
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Thai
+</p>
+
+<ul class="no-bullet">
+<li>* TIS-620
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Korean
+</p>
+
+<ul class="no-bullet">
+<li>* UHC
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Vietnamese
+</p>
+
+<ul class="no-bullet">
+<li>* VISCII
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Central European
+</p>
+
+<ul class="no-bullet">
+<li>* WINDOWS-1250
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Cyrillic
+</p>
+
+<ul class="no-bullet">
+<li>* WINDOWS-1251
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Western
+</p>
+
+<ul class="no-bullet">
+<li>* WINDOWS-1252
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Greek
+</p>
+
+<ul class="no-bullet">
+<li>* WINDOWS-1253
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Turkish
+</p>
+
+<ul class="no-bullet">
+<li>* WINDOWS-1254
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Hebrew
+</p>
+
+<ul class="no-bullet">
+<li>* WINDOWS-1255
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Arabic
+</p>
+
+<ul class="no-bullet">
+<li>* WINDOWS-1256
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Baltic
+</p>
+
+<ul class="no-bullet">
+<li>* WINDOWS-1257
+</li></ul>
+
+<p>&mdash;
+</p>
+<p>Vietnamese
+</p>
+
+<ul class="no-bullet">
+<li>* WINDOWS-1258
+</li></ul>
+
+<hr>
+<a name="Supported-languages"></a>
+<div class="header">
+<p>
+Next: <a href="#it_002dedit-smart-widgets" accesskey="n" rel="next">it-edit smart widgets</a>, Previous: <a href="#Supported-charset" accesskey="p" rel="prev">Supported charset</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="languages-doc"></a><a name="g_t36"></a><a name="languages-supported_002dlanguages"></a><a name="g_t37"></a><a name="Supported-languages-1"></a>
+<h2 class="chapter">9 Supported languages</h2>
+
+
+<p>ActionScript:
+</p>
+<blockquote>
+
+<p>text/x-actionscript
+</p>
+
+<ul class="no-bullet">
+<li>+ *.as
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Ada:
+</p>
+<blockquote>
+
+<p>text/x-ada, text/x-adasrc
+</p>
+
+<ul class="no-bullet">
+<li>+ *.adb
+
+</li><li>+ *.ads
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>ANS-Forth94:
+</p>
+<blockquote>
+
+<p>text/x-forth
+</p>
+
+<ul class="no-bullet">
+<li>+ *.4th
+
+</li><li>+ *.forth
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>ASP:
+</p>
+<blockquote>
+
+<p>text/x-asp, application/x-asp, application/x-asap
+</p>
+
+<ul class="no-bullet">
+<li>+ *.asp
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Automake:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ Makefile.am
+
+</li><li>+ GNUmakefile.am
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>awk:
+</p>
+<blockquote>
+
+<p>application/x-awk
+</p>
+
+<ul class="no-bullet">
+<li>+ *.awk
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>BennuGD:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.prg
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>BibTeX:
+</p>
+<blockquote>
+
+<p>text/x-bibtex
+</p>
+
+<ul class="no-bullet">
+<li>+ *.bib
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Bluespec SystemVerilog:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.bsv
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Boo:
+</p>
+<blockquote>
+
+<p>text/x-boo
+</p>
+
+<ul class="no-bullet">
+<li>+ *.boo
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>C:
+</p>
+<blockquote>
+
+<p>text/x-c, text/x-csrc, image/x-xpixmap
+</p>
+
+<ul class="no-bullet">
+<li>+ *.c
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>C#:
+</p>
+<blockquote>
+
+<p>text/x-csharpsrc, text/x-csharp
+</p>
+
+<ul class="no-bullet">
+<li>+ *.cs
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>C++:
+</p>
+<blockquote>
+
+<p>text/x-c++, text/x-cpp, text/x-c++src
+</p>
+
+<ul class="no-bullet">
+<li>+ *.cpp
+
+</li><li>+ *.cxx
+
+</li><li>+ *.cc
+
+</li><li>+ *.C
+
+</li><li>+ *.c++
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>CG Shader Language:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.cg
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>ChangeLog:
+</p>
+<blockquote>
+
+<p>text/x-changelog
+</p>
+
+<ul class="no-bullet">
+<li>+ ChangeLog*
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>C++ Header:
+</p>
+<blockquote>
+
+<p>text/x-c++hdr
+</p>
+
+<ul class="no-bullet">
+<li>+ *.hh
+
+</li><li>+ *.hp
+
+</li><li>+ *.hpp
+
+</li><li>+ *.h++
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>CMake:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ CMakeLists.txt
+
+</li><li>+ *.cmake
+
+</li><li>+ *.cmake.in
+
+</li><li>+ *.ctest
+
+</li><li>+ *.ctest.in
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>C/ObjC Header:
+</p>
+<blockquote>
+
+<p>text/x-chdr
+</p>
+
+<ul class="no-bullet">
+<li>+ *.h
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>COBOL:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.cbl
+
+</li><li>+ *.cob
+
+</li><li>+ *.cbd
+
+</li><li>+ *.cdb
+
+</li><li>+ *.cdc
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>CSS:
+</p>
+<blockquote>
+
+<p>text/css
+</p>
+
+<ul class="no-bullet">
+<li>+ *.css
+
+</li><li>+ *.CSSL
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>CSV:
+</p>
+<blockquote>
+
+<p>text/csv
+</p>
+
+<ul class="no-bullet">
+<li>+ *.csv
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>CUDA:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.cu
+
+</li><li>+ *.cuh
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>D:
+</p>
+<blockquote>
+
+<p>text/x-dsrc
+</p>
+
+<ul class="no-bullet">
+<li>+ *.d
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Defaults:
+</p>
+<p>.desktop:
+</p>
+<blockquote>
+
+<p>application/x-gnome-app-info, application/x-desktop
+</p>
+
+<ul class="no-bullet">
+<li>+ *.desktop
+
+</li><li>+ *.kdelnk
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Diff:
+</p>
+<blockquote>
+
+<p>text/x-diff, text/x-patch, text/x-reject
+</p>
+
+<ul class="no-bullet">
+<li>+ *.diff
+
+</li><li>+ *.patch
+
+</li><li>+ *.rej
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>DocBook:
+</p>
+<blockquote>
+
+<p>application/docbook+xml
+</p>
+
+<ul class="no-bullet">
+<li>+ *.docbook
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>DOS Batch:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.bat
+
+</li><li>+ *.cmd
+
+</li><li>+ *.sys
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>DPatch:
+</p>
+<blockquote>
+
+<p>text/x-dpatch
+</p>
+
+<ul class="no-bullet">
+<li>+ *.dpatch
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>DTD:
+</p>
+<blockquote>
+
+<p>text/x-dtd
+</p>
+
+<ul class="no-bullet">
+<li>+ *.dtd
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Eiffel:
+</p>
+<blockquote>
+
+<p>text/x-eiffel
+</p>
+
+<ul class="no-bullet">
+<li>+ *.e
+
+</li><li>+ *.eif
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Erlang:
+</p>
+<blockquote>
+
+<p>text/x-erlang
+</p>
+
+<ul class="no-bullet">
+<li>+ *.erl
+
+</li><li>+ *.hrl
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>F#:
+</p>
+<blockquote>
+
+<p>text/x-fsharp
+</p>
+
+<ul class="no-bullet">
+<li>+ *.fs
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>FCL:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.fcl
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Forth:
+</p>
+<blockquote>
+
+<p>text/x-forth
+</p>
+
+<ul class="no-bullet">
+<li>+ *.frt
+
+</li><li>+ *.fs
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Fortran 95:
+</p>
+<blockquote>
+
+<p>text/x-fortran
+</p>
+
+<ul class="no-bullet">
+<li>+ *.f
+
+</li><li>+ *.f90
+
+</li><li>+ *.f95
+
+</li><li>+ *.for
+
+</li><li>+ *.F
+
+</li><li>+ *.F90
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>GAP:
+</p>
+<blockquote>
+
+<p>text/x-gap
+</p>
+
+<ul class="no-bullet">
+<li>+ *.g
+
+</li><li>+ *.gd
+
+</li><li>+ *.gi
+
+</li><li>+ *.gap
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>GDB Log:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.gdb
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Genie:
+</p>
+<blockquote>
+
+<p>text/x-genie
+</p>
+
+<ul class="no-bullet">
+<li>+ *.gs
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>gettext translation:
+</p>
+<blockquote>
+
+<p>text/x-po, text/x-pot, text/x-pox, text/x-gettext-translation, text/x-gettext-translation-template
+</p>
+
+<ul class="no-bullet">
+<li>+ *.po
+
+</li><li>+ *.pot
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Go:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.go
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Graphviz Dot:
+</p>
+<blockquote>
+
+<p>text/vnd.graphviz
+</p>
+
+<ul class="no-bullet">
+<li>+ *.dot
+
+</li><li>+ *.gv
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>gtk-doc:
+</p>
+<p>GtkRC:
+</p>
+<blockquote>
+
+<p>text/x-gtkrc
+</p>
+
+<ul class="no-bullet">
+<li>+ gtkrc
+
+</li><li>+ .gtkrc
+
+</li><li>+ gtkrc-*
+
+</li><li>+ .gtkrc-*
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Haddock:
+</p>
+<p>Haskell:
+</p>
+<blockquote>
+
+<p>text/x-haskell
+</p>
+
+<ul class="no-bullet">
+<li>+ *.hs
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>HTML:
+</p>
+<blockquote>
+
+<p>text/html
+</p>
+
+<ul class="no-bullet">
+<li>+ *.html
+
+</li><li>+ *.htm
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>IDL:
+</p>
+<blockquote>
+
+<p>text/x-idl
+</p>
+
+<ul class="no-bullet">
+<li>+ *.idl
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>IDL-Exelis:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.pro
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>ImageJ:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.ijm
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>.ini:
+</p>
+<blockquote>
+
+<p>text/x-ini-file, application/x-ini-file
+</p>
+
+<ul class="no-bullet">
+<li>+ *.ini
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>J:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.ijs
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Jade:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.jade
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Java:
+</p>
+<blockquote>
+
+<p>text/x-java
+</p>
+
+<ul class="no-bullet">
+<li>+ *.java
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>JavaScript:
+</p>
+<blockquote>
+
+<p>application/javascript, application/x-javascript, text/x-javascript, text/javascript, text/x-js
+</p>
+
+<ul class="no-bullet">
+<li>+ *.js
+
+</li><li>+ *.node
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>JSON:
+</p>
+<blockquote>
+
+<p>application/json
+</p>
+
+<ul class="no-bullet">
+<li>+ *.json
+
+</li><li>+ *.geojson
+
+</li><li>+ *.topojson
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Julia:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.jl
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>LaTeX:
+</p>
+<blockquote>
+
+<p>text/x-tex
+</p>
+
+<ul class="no-bullet">
+<li>+ *.tex
+
+</li><li>+ *.ltx
+
+</li><li>+ *.sty
+
+</li><li>+ *.cls
+
+</li><li>+ *.dtx
+
+</li><li>+ *.ins
+
+</li><li>+ *.bbl
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Lex:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.l
+
+</li><li>+ *.lex
+
+</li><li>+ *.flex
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>libtool:
+</p>
+<blockquote>
+
+<p>text/x-libtool
+</p>
+
+<ul class="no-bullet">
+<li>+ *.la
+
+</li><li>+ *.lai
+
+</li><li>+ *.lo
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Literate Haskell:
+</p>
+<blockquote>
+
+<p>text/x-literate-haskell
+</p>
+
+<ul class="no-bullet">
+<li>+ *.lhs
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>LLVM IR:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.ll
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Lua:
+</p>
+<blockquote>
+
+<p>text/x-lua
+</p>
+
+<ul class="no-bullet">
+<li>+ *.lua
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>m4:
+</p>
+<blockquote>
+
+<p>application/x-m4
+</p>
+
+<ul class="no-bullet">
+<li>+ *.m4
+
+</li><li>+ configure.ac
+
+</li><li>+ configure.in
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Makefile:
+</p>
+<blockquote>
+
+<p>text/x-makefile
+</p>
+
+<ul class="no-bullet">
+<li>+ [Mm]akefile
+
+</li><li>+ GNUmakefile
+
+</li><li>+ *.make
+
+</li><li>+ *.mak
+
+</li><li>+ *.mk
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Mallard:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.page
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Markdown:
+</p>
+<blockquote>
+
+<p>text/x-markdown
+</p>
+
+<ul class="no-bullet">
+<li>+ *.markdown
+
+</li><li>+ *.md
+
+</li><li>+ *.mkd
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Matlab:
+</p>
+<blockquote>
+
+<p>text/x-matlab
+</p>
+
+<ul class="no-bullet">
+<li>+ *.m
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>MediaWiki:
+</p>
+<p>Meson:
+</p>
+<blockquote>
+
+<p>text/x-meson
+</p>
+
+<ul class="no-bullet">
+<li>+ meson.build
+
+</li><li>+ meson_options.txt
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Modelica:
+</p>
+<blockquote>
+
+<p>text/x-modelica
+</p>
+
+<ul class="no-bullet">
+<li>+ *.mo
+
+</li><li>+ *.mop
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>MXML:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.mxml
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Nemerle:
+</p>
+<blockquote>
+
+<p>text/x-nemerle
+</p>
+
+<ul class="no-bullet">
+<li>+ *.n
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>NetRexx:
+</p>
+<blockquote>
+
+<p>text/x-netrexx
+</p>
+
+<ul class="no-bullet">
+<li>+ *.nrx
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>NSIS:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.nsi
+
+</li><li>+ *.nsh
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Objective-C:
+</p>
+<blockquote>
+
+<p>text/x-objcsrc
+</p>
+
+<ul class="no-bullet">
+<li>+ *.m
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Objective-J:
+</p>
+<blockquote>
+
+<p>text/x-objective-j
+</p>
+
+<ul class="no-bullet">
+<li>+ *.j
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>OCaml:
+</p>
+<blockquote>
+
+<p>text/x-ocaml
+</p>
+
+<ul class="no-bullet">
+<li>+ *.ml
+
+</li><li>+ *.mli
+
+</li><li>+ *.mll
+
+</li><li>+ *.mly
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>OCL:
+</p>
+<blockquote>
+
+<p>text/x-ocl
+</p>
+
+<ul class="no-bullet">
+<li>+ *.ocl
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Octave:
+</p>
+<blockquote>
+
+<p>text/x-octave
+</p>
+
+<ul class="no-bullet">
+<li>+ *.m
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>OOC:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.ooc
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Opal:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.sign
+
+</li><li>+ *.impl
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>OpenCL:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.cl
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>OpenGL Shading Language:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.glslv
+
+</li><li>+ *.glslf
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Pascal:
+</p>
+<blockquote>
+
+<p>text/x-pascal
+</p>
+
+<ul class="no-bullet">
+<li>+ *.p
+
+</li><li>+ *.pas
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Perl:
+</p>
+<blockquote>
+
+<p>text/x-perl, application/x-perl
+</p>
+
+<ul class="no-bullet">
+<li>+ *.pl
+
+</li><li>+ *.pm
+
+</li><li>+ *.al
+
+</li><li>+ *.perl
+
+</li><li>+ *.t
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>PHP:
+</p>
+<blockquote>
+
+<p>text/x-php, application/x-php, text/x-php-source, application/x-php-source
+</p>
+
+<ul class="no-bullet">
+<li>+ *.php
+
+</li><li>+ *.php3
+
+</li><li>+ *.php4
+
+</li><li>+ *.phtml
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Pig:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.pig
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>pkg-config:
+</p>
+<blockquote>
+
+<p>text/x-pkg-config
+</p>
+
+<ul class="no-bullet">
+<li>+ *.pc
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Prolog:
+</p>
+<blockquote>
+
+<p>text/x-prolog
+</p>
+
+<ul class="no-bullet">
+<li>+ *.prolog
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Protobuf:
+</p>
+<blockquote>
+
+<p>text/x-protobuf
+</p>
+
+<ul class="no-bullet">
+<li>+ *.proto
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Puppet:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.pp
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Python:
+</p>
+<blockquote>
+
+<p>text/x-python, application/x-python
+</p>
+
+<ul class="no-bullet">
+<li>+ *.py
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Python 3:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.py3
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>R:
+</p>
+<blockquote>
+
+<p>text/x-R
+</p>
+
+<ul class="no-bullet">
+<li>+ *.R
+
+</li><li>+ *.Rout
+
+</li><li>+ *.r
+
+</li><li>+ *.Rhistory
+
+</li><li>+ *.Rt
+
+</li><li>+ *.Rout.save
+
+</li><li>+ *.Rout.fail
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>reStructuredText:
+</p>
+<blockquote>
+
+<p>text/x-rst
+</p>
+
+<ul class="no-bullet">
+<li>+ *.rst
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>RPM spec:
+</p>
+<blockquote>
+
+<p>text/x-rpm-spec
+</p>
+
+<ul class="no-bullet">
+<li>+ *.spec
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Ruby:
+</p>
+<blockquote>
+
+<p>application/x-ruby, text/x-ruby
+</p>
+
+<ul class="no-bullet">
+<li>+ *.rb
+
+</li><li>+ *.rake
+
+</li><li>+ *.gemspec
+
+</li><li>+ Rakefile
+
+</li><li>+ Capfile
+
+</li><li>+ Gemfile
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Rust:
+</p>
+<blockquote>
+
+<p>text/rust
+</p>
+
+<ul class="no-bullet">
+<li>+ *.rs
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Scala:
+</p>
+<blockquote>
+
+<p>text/x-scala
+</p>
+
+<ul class="no-bullet">
+<li>+ *.scala
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Scheme:
+</p>
+<blockquote>
+
+<p>text/x-scheme
+</p>
+
+<ul class="no-bullet">
+<li>+ *.scm
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Scilab:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.sce
+
+</li><li>+ *.sci
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>sh:
+</p>
+<blockquote>
+
+<p>text/x-shellscript, application/x-shellscript, text/x-sh
+</p>
+
+<ul class="no-bullet">
+<li>+ *.sh
+
+</li><li>+ *bashrc
+
+</li><li>+ .profile
+
+</li><li>+ .bash_profile
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>SPARQL:
+</p>
+<blockquote>
+
+<p>application/sparql-query
+</p>
+
+<ul class="no-bullet">
+<li>+ *.rq
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>SQL:
+</p>
+<blockquote>
+
+<p>text/x-sql
+</p>
+
+<ul class="no-bullet">
+<li>+ *.sql
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Standard ML:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.sml
+
+</li><li>+ *.sig
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Sweave:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.rnw
+
+</li><li>+ *.Rnw
+
+</li><li>+ *.snw
+
+</li><li>+ *.Snw
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>SystemVerilog:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.sv
+
+</li><li>+ *.svh
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Tcl:
+</p>
+<blockquote>
+
+<p>text/x-tcl, application/x-tcl
+</p>
+
+<ul class="no-bullet">
+<li>+ *.tcl
+
+</li><li>+ *.tk
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Texinfo:
+</p>
+<blockquote>
+
+<p>text/x-texinfo
+</p>
+
+<ul class="no-bullet">
+<li>+ *.texi
+
+</li><li>+ *.texinfo
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Thrift:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.thrift
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>txt2tags:
+</p>
+<blockquote>
+
+
+<ul class="no-bullet">
+<li>+ *.t2t
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Vala:
+</p>
+<blockquote>
+
+<p>text/x-vala
+</p>
+
+<ul class="no-bullet">
+<li>+ *.vala
+
+</li><li>+ *.vapi
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>VB.NET:
+</p>
+<blockquote>
+
+<p>text/x-vbnet, text/x-vb
+</p>
+
+<ul class="no-bullet">
+<li>+ *.vb
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Verilog:
+</p>
+<blockquote>
+
+<p>text/x-verilog-src
+</p>
+
+<ul class="no-bullet">
+<li>+ *.v
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>VHDL:
+</p>
+<blockquote>
+
+<p>text/x-vhdl
+</p>
+
+<ul class="no-bullet">
+<li>+ *.vhd
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>XML:
+</p>
+<blockquote>
+
+<p>application/xml, text/xml
+</p>
+
+<ul class="no-bullet">
+<li>+ *.xml
+
+</li><li>+ *.xspf
+
+</li><li>+ *.siv
+
+</li><li>+ *.smil
+
+</li><li>+ *.smi
+
+</li><li>+ *.sml
+
+</li><li>+ *.kino
+
+</li><li>+ *.xul
+
+</li><li>+ *.xbel
+
+</li><li>+ *.abw
+
+</li><li>+ *.zabw
+
+</li><li>+ *.glade
+
+</li><li>+ *.jnlp
+
+</li><li>+ *.xhtml
+
+</li><li>+ *.svg
+
+</li><li>+ *.mml
+
+</li><li>+ *.rdf
+
+</li><li>+ *.rss
+
+</li><li>+ *.wml
+
+</li><li>+ *.xmi
+
+</li><li>+ *.fo
+
+</li><li>+ *.xslfo
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>XSLT:
+</p>
+<blockquote>
+
+<p>application/xslt+xml
+</p>
+
+<ul class="no-bullet">
+<li>+ *.xslt
+
+</li><li>+ *.xsl
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>Yacc:
+</p>
+<blockquote>
+
+<p>text/x-yacc, text/x-bison
+</p>
+
+<ul class="no-bullet">
+<li>+ *.y
+
+</li><li>+ *.yacc
+</li></ul>
+</blockquote>
+
+<p>&mdash;
+</p>
+<p>YAML:
+</p>
+<blockquote>
+
+<p>application/x-yaml
+</p>
+
+<ul class="no-bullet">
+<li>+ *.yaml
+
+</li><li>+ *.yml
+</li></ul>
+</blockquote>
+
+<hr>
+<a name="it_002dedit-smart-widgets"></a>
+<div class="header">
+<p>
+Next: <a href="#Indices-and-tables" accesskey="n" rel="next">Indices and tables</a>, Previous: <a href="#Supported-languages" accesskey="p" rel="prev">Supported languages</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fwidgets-doc"></a><a name="g_t38"></a><a name="it_002dedit_005fwidgets-it_002dedit_002dsmart_002dwidgets"></a><a name="g_t39"></a><a name="it_002dedit-smart-widgets-1"></a>
+<h2 class="chapter">10 it-edit smart widgets</h2>
+
+
+<p><code>it-edit</code> implement some few self build widget:
+</p>
+<table class="cartouche" border="1"><tr><td>
+<blockquote>
+<p><b>Note:</b> If you get interest into Gtk-3 widget building
+</p>
+<p>you can broad the source to understand How-To build GtkWidget(s) for Gtk-3 from your own.
+</p></blockquote>
+</td></tr></table>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#GtkSmartMenuItem" accesskey="1">GtkSmartMenuItem</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#GtkSmartIconButton" accesskey="2">GtkSmartIconButton</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#GtkItTerm" accesskey="3">GtkItTerm</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr></table>
+
+<hr>
+<a name="GtkSmartMenuItem"></a>
+<div class="header">
+<p>
+Next: <a href="#GtkSmartIconButton" accesskey="n" rel="next">GtkSmartIconButton</a>, Up: <a href="#it_002dedit-smart-widgets" accesskey="u" rel="up">it-edit smart widgets</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fwidgets-gtksmartmenuitem"></a><a name="g_t3a"></a><a name="GtkSmartMenuItem-1"></a>
+<h3 class="section">10.1 GtkSmartMenuItem</h3>
+
+
+<p>A simple menu item containing:
+</p>
+
+<ul class="no-bullet">
+<li>+ An icon.
+
+</li><li>+ A label.
+
+</li><li>+ An universal shortcut text.
+</li></ul>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Constructors" accesskey="1">Constructors</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Getters" accesskey="2">Getters</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr></table>
+
+<hr>
+<a name="Constructors"></a>
+<div class="header">
+<p>
+Next: <a href="#Getters" accesskey="n" rel="next">Getters</a>, Up: <a href="#GtkSmartMenuItem" accesskey="u" rel="up">GtkSmartMenuItem</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fwidgets-constructors"></a><a name="g_t3b"></a><a name="Constructors-1"></a>
+<h4 class="subsection">10.1.1 Constructors</h4>
+
+
+
+<dl>
+<dt><a name="index-GtkWidget_002a"></a>C Function: <strong>GtkWidget*</strong> <em>gtk_smart_menu_item_new_all(const gchar *label, const gchar *icon_filepath, GtkAccelGroup *accel_group, const GdkModifierType accel_modifier, const guint accel_key) ;</em></dt>
+<dd>
+<br><p>Parameters: 
+</p>
+<ul class="no-bullet">
+<li>* <code>label</code> (<code>const gchar *</code>) &ndash; The label to display into the menu item.
+
+</li><li>* <code>icon_filepath</code> (<code>const gchar *</code>) &ndash; The menu item icon file-path.
+
+</li><li>* <code>accel_group</code> (<code>GtkAccelGroup *</code>) &ndash; The shortcut accelerator group.
+
+</li><li>* <code>accel_modifier</code> (<code>const GdkModifierType</code>) &ndash; The shortcut modifier.
+
+</li><li>* <code>accel_key</code> (<code>const guint</code>) &ndash; The shortcut accelerator key.
+</li></ul>
+
+
+<br><p>Return type: 
+<code>GtkWidget *</code>
+</p>
+
+<br><p>Returns: 
+A pointer to the <code>GtkSmartMenuItem</code>.
+</p>
+</dd></dl>
+
+
+<dl>
+<dt><a name="index-GtkWidget_002a-1"></a>C Function: <strong>GtkWidget*</strong> <em>gtk_smart_check_menu_item_new_all(const gchar *label, const gboolean draw_as_radio, const gchar *icon_filepath, GtkAccelGroup *accel_group, const GdkModifierType accel_modifier, const guint accel_key) ;</em></dt>
+<dd>
+<br><p>Parameters: 
+</p>
+<ul class="no-bullet">
+<li>* <code>label</code> (<code>const gchar *</code>) &ndash; The label to display into the menu item.
+
+</li><li>* <code>draw_as_radio</code> (<code>const gboolean</code>) &ndash; draw_as_radio
+
+</li><li>* <code>icon_filepath</code> (<code>const gchar *</code>) &ndash; The menu item icon file-path.
+
+</li><li>* <code>accel_group</code> (<code>GtkAccelGroup *</code>) &ndash; The shortcut accelerator group.
+
+</li><li>* <code>accel_modifier</code> (<code>const GdkModifierType</code>) &ndash; The shortcut modifier.
+
+</li><li>* <code>accel_key</code> (<code>const guint</code>) &ndash; The shortcut accelerator key.
+</li></ul>
+
+
+<br><p>Return type: 
+<code>GtkWidget *</code>
+</p>
+
+<br><p>Returns: 
+A pointer to the <code>GtkSmartMenuItem</code> check button.
+</p>
+</dd></dl>
+
+<table class="cartouche" border="1"><tr><td>
+<blockquote>
+<p><b>Note:</b> You can pass a <code>NULL</code> pointer or <code>0</code> to the parameters :
+</p>
+
+<ul class="no-bullet">
+<li>* icon_filepath
+
+</li><li>* accel_group
+
+</li><li>* accel_modifier
+
+</li><li>* accel_key.
+</li></ul>
+</blockquote>
+</td></tr></table>
+
+<br><p>note: 
+You can build others constructors if you have understand How-To build this kind of widgets.
+</p>
+
+<hr>
+<a name="Getters"></a>
+<div class="header">
+<p>
+Previous: <a href="#Constructors" accesskey="p" rel="prev">Constructors</a>, Up: <a href="#GtkSmartMenuItem" accesskey="u" rel="up">GtkSmartMenuItem</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fwidgets-getters"></a><a name="g_t3c"></a><a name="Getters-1"></a>
+<h4 class="subsection">10.1.2 Getters</h4>
+
+
+
+<dl>
+<dt><a name="index-GtkWidget_002a-2"></a>C Function: <strong>GtkWidget*</strong> <em>gtk_smart_menu_item_get_image(GtkWidget *smart_menu_item) ;</em></dt>
+<dd>
+<br><p>Parameters: 
+</p>
+<ul class="no-bullet">
+<li>* <code>smart_menu_item</code> (<code>GtkWidget *</code>) &ndash; The return value from the constructors.
+</li></ul>
+
+
+<br><p>Return type: 
+<code>GtkWidget *</code>
+</p>
+
+<br><p>Returns: 
+A pointer to the <code>GtkImage</code> widget.
+</p>
+</dd></dl>
+
+
+<dl>
+<dt><a name="index-GtkWidget_002a-3"></a>C Function: <strong>GtkWidget*</strong> <em>gtk_smart_menu_item_get_menuitem(GtkWidget *smart_menu_item) ;</em></dt>
+<dd>
+<br><p>Parameters: 
+</p>
+<ul class="no-bullet">
+<li>* <code>smart_menu_item</code> (<code>GtkWidget *</code>) &ndash; The return value from the constructors.
+</li></ul>
+
+
+<br><p>Return type: 
+<code>GtkWidget *</code>
+</p>
+
+<br><p>Returns: 
+A pointer to the <code>GtkMenuItem</code> widget.
+</p>
+</dd></dl>
+
+
+<dl>
+<dt><a name="index-GtkWidget_002a-4"></a>C Function: <strong>GtkWidget*</strong> <em>gtk_smart_menu_item_get_label(GtkWidget *smart_menu_item) ;</em></dt>
+<dd>
+<br><p>Parameters: 
+</p>
+<ul class="no-bullet">
+<li>* <code>smart_menu_item</code> (<code>GtkWidget *</code>) &ndash; The return value from the constructors.
+</li></ul>
+
+
+<br><p>Return type: 
+<code>GtkWidget *</code>
+</p>
+
+<br><p>Returns: 
+A pointer to the <code>GtkLabel</code> widget.
+</p>
+</dd></dl>
+
+
+<dl>
+<dt><a name="index-GtkWidget_002a-5"></a>C Function: <strong>GtkWidget*</strong> <em>gtk_smart_menu_item_get_accel_label(GtkWidget *smart_menu_item) ;</em></dt>
+<dd>
+<br><p>Parameters: 
+</p>
+<ul class="no-bullet">
+<li>* <code>smart_menu_item</code> (<code>GtkWidget *</code>) &ndash; The return value from the constructors.
+</li></ul>
+
+
+<br><p>Return type: 
+<code>GtkWidget *</code>
+</p>
+
+<br><p>Returns: 
+A pointer to the <code>GtkAccelLabel</code> widget.
+</p>
+</dd></dl>
+
+<hr>
+<a name="GtkSmartIconButton"></a>
+<div class="header">
+<p>
+Next: <a href="#GtkItTerm" accesskey="n" rel="next">GtkItTerm</a>, Previous: <a href="#GtkSmartMenuItem" accesskey="p" rel="prev">GtkSmartMenuItem</a>, Up: <a href="#it_002dedit-smart-widgets" accesskey="u" rel="up">it-edit smart widgets</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fwidgets-gtksmarticonbutton"></a><a name="g_t3d"></a><a name="GtkSmartIconButton-1"></a>
+<h3 class="section">10.2 GtkSmartIconButton</h3>
+
+
+<p>A simple button with an icon without label and tool-tip which embed an universal short-cut text.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#Constructors_003c2_003e" accesskey="1">Constructors</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Getters_003c2_003e" accesskey="2">Getters</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+</pre></th></tr></table>
+
+<hr>
+<a name="Constructors_003c2_003e"></a>
+<div class="header">
+<p>
+Next: <a href="#Getters_003c2_003e" accesskey="n" rel="next">Getters&lt;2&gt;</a>, Up: <a href="#GtkSmartIconButton" accesskey="u" rel="up">GtkSmartIconButton</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fwidgets-id1"></a><a name="g_t3e"></a><a name="Constructors-2"></a>
+<h4 class="subsection">10.2.1 Constructors</h4>
+
+
+
+<dl>
+<dt><a name="index-GtkWidget_002a-6"></a>C Function: <strong>GtkWidget*</strong> <em>gtk_smart_icon_button_new_all(const gchar *filepath, const gchar *tooltip_text, const guint accel_key, const GdkModifierType accel_modifier) ;</em></dt>
+<dd>
+<br><p>Parameters: 
+</p>
+<ul class="no-bullet">
+<li>* <code>filepath</code> (<code>const gchar *</code>) &ndash; The filepath to the image to use as icon.
+
+</li><li>* <code>tooltip_text</code> (<code>const gchar *</code>) &ndash; The tool-tip text without the accelerator label.
+
+</li><li>* <code>accel_key</code> (<code>const guint</code>) &ndash; The shortcut accelerator key.
+
+</li><li>* <code>accel_modifier</code> (<code>const GdkModifierType</code>) &ndash; The shortcut modifier.
+</li></ul>
+
+
+<br><p>Return type: 
+<code>GtkWidget *</code>
+</p>
+
+<br><p>Returns: 
+A pointer to the <code>GtkSmartIconButton</code> widget.
+</p>
+</dd></dl>
+
+
+<dl>
+<dt><a name="index-GtkWidget_002a-7"></a>C Function: <strong>GtkWidget*</strong> <em>gtk_smart_icon_toggle_button_new_all(const gchar *filepath, const gchar *tooltip_text, const guint accel_key, const GdkModifierType accel_modifier) ;</em></dt>
+<dd>
+<br><p>Parameters: 
+</p>
+<ul class="no-bullet">
+<li>* <code>filepath</code> (<code>const gchar *</code>) &ndash; The filepath to the image to use as icon.
+
+</li><li>* <code>tooltip_text</code> (<code>const gchar *</code>) &ndash; The tool-tip text without the accelerator label.
+
+</li><li>* <code>accel_key</code> (<code>const guint</code>) &ndash; The shortcut accelerator key.
+
+</li><li>* <code>accel_modifier</code> (<code>const GdkModifierType</code>) &ndash; The shortcut modifier.
+</li></ul>
+
+
+<br><p>Return type: 
+<code>GtkWidget *</code>
+</p>
+
+<br><p>Returns: 
+A pointer to the <code>GtkSmartIconButton</code> toggle button widget.
+</p>
+</dd></dl>
+
+<hr>
+<a name="Getters_003c2_003e"></a>
+<div class="header">
+<p>
+Previous: <a href="#Constructors_003c2_003e" accesskey="p" rel="prev">Constructors&lt;2&gt;</a>, Up: <a href="#GtkSmartIconButton" accesskey="u" rel="up">GtkSmartIconButton</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fwidgets-id2"></a><a name="g_t3f"></a><a name="Getters-2"></a>
+<h4 class="subsection">10.2.2 Getters</h4>
+
+
+
+<dl>
+<dt><a name="index-GtkWidget_002a-8"></a>C Function: <strong>GtkWidget*</strong> <em>gtk_smart_icon_button_get_image(GtkWidget *smart_icon_button) ;</em></dt>
+<dd>
+<br><p>Parameters: 
+</p>
+<ul class="no-bullet">
+<li>* <code>smart_icon_button</code> (<code>GtkWidget *</code>) &ndash; The return value from the constructor of a <code>GtkSmartIconButton</code>.
+</li></ul>
+
+
+<br><p>Return type: 
+<code>GtkWidget *</code>
+</p>
+
+<br><p>Returns: 
+A pointer to the <code>GtkImage</code> widget.
+</p>
+</dd></dl>
+
+<hr>
+<a name="GtkItTerm"></a>
+<div class="header">
+<p>
+Previous: <a href="#GtkSmartIconButton" accesskey="p" rel="prev">GtkSmartIconButton</a>, Up: <a href="#it_002dedit-smart-widgets" accesskey="u" rel="up">it-edit smart widgets</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="it_002dedit_005fwidgets-gtkitterm"></a><a name="g_t40"></a><a name="GtkItTerm-1"></a>
+<h3 class="section">10.3 GtkItTerm</h3>
+
+
+<p>Not reusable like this.
+</p>
+<table class="cartouche" border="1"><tr><td>
+<blockquote>
+<p><b>Note:</b> I&rsquo;ve learned how to implement self builded Gtk-3 widgets
+</p>
+<p>If you get interest in building widgets take a look at the source for basics.
+</p></blockquote>
+</td></tr></table>
+
+<hr>
+<a name="Indices-and-tables"></a>
+<div class="header">
+<p>
+Previous: <a href="#it_002dedit-smart-widgets" accesskey="p" rel="prev">it-edit smart widgets</a>, Up: <a href="#Top" accesskey="u" rel="up">Top</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="index-indices_002dand_002dtables"></a><a name="g_t41"></a><a name="Indices-and-tables-1"></a>
+<h2 class="unnumbered">Indices and tables</h2>
+
+
+
+<ul class="no-bullet">
+<li>* genindex
+
+</li><li>* modindex
+
+</li><li>* search
+</li></ul>
+
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT1" href="#DOCF1">(1)</a></h3>
+<p>http://www.open-source-projects.net/mk-project/mk-project</p>
+<h3><a name="FOOT2" href="#DOCF2">(2)</a></h3>
+<p>http://www.open-source-projects.net/mk-project/mk-project</p>
+</div>
+<hr>
+
+
+
+</body>
+</html>

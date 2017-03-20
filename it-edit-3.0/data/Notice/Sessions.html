@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Sessions &#8212; it-edit 3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="it-edit 3.0 documentation" href="index.html" />
+    <link rel="next" title="Shortcuts table" href="Shortcuts_memo.html" />
+    <link rel="prev" title="Spell check" href="Spell-check.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Shortcuts_memo.html" title="Shortcuts table"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Spell-check.html" title="Spell check"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">it-edit 3.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="sessions">
+<h1>Sessions<a class="headerlink" href="#sessions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="configure-your-sessions-recovering">
+<h2>Configure your sessions recovering<a class="headerlink" href="#configure-your-sessions-recovering" title="Permalink to this headline">¶</a></h2>
+<p>Their are 3 different modes for registering your session at your convenience.</p>
+<div class="section" id="files-documentation-applications-registering">
+<h3>Files, documentation, applications registering:<a class="headerlink" href="#files-documentation-applications-registering" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Asked for registering the current session at quitting.</li>
+<li>Automatic registering.</li>
+<li>Disable session registering.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="the-automatic-session-mechanism">
+<h2>The <strong>automatic</strong> <code class="docutils literal"><span class="pre">session</span></code> mechanism<a class="headerlink" href="#the-automatic-session-mechanism" title="Permalink to this headline">¶</a></h2>
+<p>How does it work ?</p>
+<div class="section" id="registering">
+<h3>Registering:<a class="headerlink" href="#registering" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">Every time you open or close a file into the editor the registered files list is recomputed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">The path is registered.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">Every time you launch a file through the <span class="menuselection">File handler</span> (<code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">H</span></code>), the file is registered.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">The URI is registered.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">Every time you launch an application, the application is registered.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">The application path is registered.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">Nothing is erase if you don&#8217;t clear the session <span class="menuselection">Files ‣ Reload session ‣ Clear session</span>.</p>
+</li>
+<li><p class="first">If you reload something it&#8217;s automatically stored again for next session.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="reloading-a-session">
+<h3>Reloading a session<a class="headerlink" href="#reloading-a-session" title="Permalink to this headline">¶</a></h3>
+<p>You can reload the entire session by activating the menu item:</p>
+<blockquote>
+<div><ul>
+<li><p class="first"><span class="menuselection">Reload all last session</span></p>
+<p>This will activate the reloading of the last registered:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Files.</li>
+<li>Documentation files.</li>
+<li>Applications.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p>Or reload the different items singular.</p>
+</div>
+<div class="section" id="clear-a-session">
+<h3>Clear a session<a class="headerlink" href="#clear-a-session" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">warning:</th><td class="field-body">To know that every <strong>non-empty</strong> registered list can be relaunch at the next session or into the same session.</td>
+</tr>
+</tbody>
+</table>
+<p>The only way to clear all the list is to activate the menu item <span class="menuselection">Files ‣ Reload session ‣ Clear session</span>.</p>
+<p>Into a session.</p>
+<p>This permit to clear the lists and</p>
+<p>if you want to reconstruct a new session by reactivating the concern session registering mechanism.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Application launching Note:</p>
+<p>When you launch an application per the <span class="menuselection">Actions ‣ Application launch</span> it won&#8217;t be registered as applications</p>
+<p>because I consider that we need the application only now not very often.</p>
+<p>But if you open an application per the menu items <span class="menuselection">Applications</span> where you can register your personal applications you use often.</p>
+<p class="last">They are are registered because you will use them often with the <strong class="program">it-edit</strong> easy application access menus.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/it-edit_icon.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Sessions</a><ul>
+<li><a class="reference internal" href="#configure-your-sessions-recovering">Configure your sessions recovering</a><ul>
+<li><a class="reference internal" href="#files-documentation-applications-registering">Files, documentation, applications registering:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-automatic-session-mechanism">The <strong>automatic</strong> <code class="docutils literal"><span class="pre">session</span></code> mechanism</a><ul>
+<li><a class="reference internal" href="#registering">Registering:</a></li>
+<li><a class="reference internal" href="#reloading-a-session">Reloading a session</a></li>
+<li><a class="reference internal" href="#clear-a-session">Clear a session</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Spell-check.html"
+                        title="previous chapter">Spell check</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Shortcuts_memo.html"
+                        title="next chapter">Shortcuts table</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Sessions.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Shortcuts_memo.html" title="Shortcuts table"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Spell-check.html" title="Spell check"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">it-edit 3.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2015-2017, Brüggemann Eddie.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    </div>
+  </body>
+</html>

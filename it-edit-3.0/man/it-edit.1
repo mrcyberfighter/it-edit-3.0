@@ -1,0 +1,242 @@
+.\" Man page generated from reStructuredText.
+.
+.TH "IT-EDIT" "1" "Mar 18, 2017" "3.0" "it-edit"
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.SH NAME
+.sp
+\fBit\-edit\fP \- A programming \fBtext\-editor\fP including severals \fBterminals\fP for direct access to the \fBcommand line\fP by editing \fBprograms\fP\&.
+.SH SYNOPSIS
+.sp
+it\-edit [FILES...]
+.SH DESCRIPTION
+.sp
+\fBit\-edit\fP provide a text editor with \fBsyntax highlight\fP, \fBline numbering\fP and with the basics text editing functionalities:
+.INDENT 0.0
+.IP \(bu 2
+Cut, Copy and Paste.
+.IP \(bu 2
+Duplicate a line or the selected text.
+.IP \(bu 2
+Undo/Redo functionalities.
+.IP \(bu 2
+Search and replace functionalities.
+.IP \(bu 2
+Jump to the given line number.
+.IP \(bu 2
+Enable | Disable the use of tabs.
+.IP \(bu 2
+Enable | Disable in\-line spell check.
+.UNINDENT
+.sp
+And an files managing interface for:
+.INDENT 0.0
+.IP \(bu 2
+Open a new empty file.
+.IP \(bu 2
+Open a recent file.
+.IP \(bu 2
+Open the file(s) you want.
+.IP \(bu 2
+Save the editor content.
+.IP \(bu 2
+Save the editor content as the filename you want.
+.IP \(bu 2
+Save all open files.
+.IP \(bu 2
+close file.
+.IP \(bu 2
+Close all file(s).
+.IP \(bu 2
+Reload file.
+.IP \(bu 2
+File informations.
+.UNINDENT
+.sp
+\fBit\-edit\fP provide \fBterminals in the same window as the editor\fP, as a sidebar, which can easily \fBshown\fP, \fBhidden\fP and \fBresized\fP\&.
+.sp
+You can \fBadd\fP and \fBremove\fP as many terminals as you want to the sidebar...
+.sp
+\fBit\-edit\fP provide a \fBbig terminal\fP occupying the full interface, \fBdividable\fP into \fB4 resizable terminals\fP, to which you can \fBeasy toggle\fP from the main window.
+.sp
+For executing commands like compilation, debugging, and so soon directly from the editor.
+.sp
+Else you can run any command in a top\-level terminal, which can be \fBresize\fP, \fBminimize\fP, \fBmaximize\fP and \fBclose\fP\&.
+.sp
+\fBit\-edit\fP provide an easy access to documentation or G.U.I applications and an optional spell check feature.
+.SH SHORTCUTS MEMO
+.SS Application shortcuts:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+|       Shortcut       |   functionality      |    Mnemonic      |
++======================+======================+==================+
+| Ctrl + n             | New file             | n = new          |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + o             | Open file            | o = open         |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + s             | Save file            | s = save         |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + Shift + S     | Save all files       | S = Save         |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + Alt + c       | Close file           | C = Close        |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + Shift + c     | Close all file(s)    | C = Close        |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + r             | Reload file          | r = reload       |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + i             | File informations    | i = Informations |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + z             | Undo                 | None             |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + Shift + Z     | Redo                 | None             |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + f             | Search               | f = find         |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + Enter         | Replace              | None             |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + Shift + Enter | Replace all          | None             |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + +             | Next                 | None             |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + \-             | Previous             | None             |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + g             | Go to line number    | g = go to        |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + x             | Cut                  | None             |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + c             | Copy                 | c = copy         |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + v             | Paste                | None             |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + d             | Duplicate text       | d = duplicate    |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + p             | Use tabs             | None             |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + w             | In\-line spell\-check  | None             |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + Shift + W     | Spell\-check dialog   | None             |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + e             | Execute command      | e = execute      |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + y             | Copy filepath        |                  |
+|                      | to clipboard         | None             |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + Shift + y     | Copy folderpath      |                  |
+|                      | to clipboard         | None             |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + b             | Show or hide         |                  |
+|                      | big terminal         | b = big term     |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + Shift + b     | big term switch      | B = Big term     |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + t             | Show Hide terminal   | t = terminal     |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + Shift + t     | Add new terminals    | T = terminals    |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Shift + Copy         | Copy from terminal   | None             |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Shift + Insert       | Paste to terminal    | None             |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + h             | File handler         | h = handler      |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + a             | Application launcher | a = application  |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Ctrl + q             | Quit application     | q = quit         |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Terminals shortcuts:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+|    Shortcut           |    functionality     |    Mnemonic     |
++=======================+======================+=================+
+| Shift + Copy (KP 1)   | Copy from terminal   | None            |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Shift + Insert (KP 0) | Paste to terminal    | None            |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Shift + Ctrl + T      | Open new tab         | t = tab         |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Shift + Ctrl + \-      | Decrease font\-scale  | \e\- = decrease   |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Shift + Ctrl + +      | Increase font\-scale  | \e+ = increase   |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+Else you can close a tab and
+.sp
+reset the terminal from the terminals contextual menu.
+.UNINDENT
+.UNINDENT
+.SH WEBSITE
+.sp
+\fBit\-edit\fP home page at:
+.sp
+<\fI\%http://www.open\-source\-projects.net/it\-edit/it\-edit\fP>
+.SH BUGS
+.sp
+Report \fBit\-edit\fP bugs to <\fI\%mrcyberfighter@gmail.com\fP>
+.sp
+or <\fI\%https://github.com/mrcyberfighter/it\-edit\-3.0\fP>.
+.SH AUTHOR
+.sp
+Brüggemann Eddie <\fI\%mrcyberfighter@gmail.com\fP>
+.SH SEE ALSO
+.sp
+The full documentation for \fBit\-edit\fP is maintained as a Texinfo  manual,
+.sp
+or as HTML documentation.
+.sp
+If the info and \fBmakeinfo\fP programs are properly installed at your site,
+.sp
+the command:
+.sp
+\fBinfo it\-edit\fP
+.sp
+should give you access to the complete manual.
+.sp
+Else take a look at the menu item About ‣ Notice\&.
+.SH COPYRIGHT
+2017, Brüggemann Eddie
+.\" Generated by docutils manpage writer.
+.
