@@ -123,7 +123,9 @@ gboolean source_file_saver(GtkSourceBuffer *buffer, GtkSourceFile *file) {
     g_main_context_iteration(NULL, FALSE) ;
 
   }
-
+  
+  gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(buffer), FALSE) ;
+ 
   return source_view_saver_success ;
 
 }
@@ -183,7 +185,9 @@ gboolean source_file_saver_with_target(GtkSourceBuffer *buffer, GtkSourceFile *f
     g_main_context_iteration(NULL, FALSE) ;
 
   }
-
+  
+  gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(buffer), FALSE) ;
+ 
   return source_view_saver_success ;
 
 }
