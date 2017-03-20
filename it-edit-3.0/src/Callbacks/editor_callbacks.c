@@ -511,6 +511,9 @@ void textbuffer_changed_modified(GtkTextBuffer *textbuffer, GtkWidget *tab_label
 
           /** The tab is already mark as changed with an asterix. **/
           remove_searching_tag() ;
+       
+          gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(textbuffer), TRUE) ;
+       
           return ;
       }
       else {
@@ -521,7 +524,9 @@ void textbuffer_changed_modified(GtkTextBuffer *textbuffer, GtkWidget *tab_label
               /** The default New named file. **/
 
               gtk_label_set_text(GTK_LABEL(tab_label),"*New") ;
-
+              
+              gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(textbuffer), TRUE) ;
+           
               remove_searching_tag() ;
               return ;
           }
@@ -537,7 +542,9 @@ void textbuffer_changed_modified(GtkTextBuffer *textbuffer, GtkWidget *tab_label
                 g_free(basename) ;
                 gtk_label_set_text(GTK_LABEL(tab_label), tab_label_text) ;
                 g_free(tab_label_text) ;
-
+                
+                gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(textbuffer), TRUE) ;
+               
               }
 
 
@@ -569,7 +576,9 @@ void textbuffer_changed_modified(GtkTextBuffer *textbuffer, GtkWidget *tab_label
               /** The default New named file. **/
 
               gtk_label_set_text(GTK_LABEL(tab_label),"New") ;
-
+                
+              gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(textbuffer), FALSE) ;
+         
               remove_searching_tag() ;
 
               return ;
@@ -586,6 +595,8 @@ void textbuffer_changed_modified(GtkTextBuffer *textbuffer, GtkWidget *tab_label
             gtk_label_set_text(GTK_LABEL(tab_label),tab_label_text) ;
 
             g_free(tab_label_text) ;
+            
+            gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(textbuffer), FALSE) ;
 
           }
 
