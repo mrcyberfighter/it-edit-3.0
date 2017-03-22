@@ -11,6 +11,7 @@ nobase_dist_pkgdata_DATA =  ./Files_handler/Files_handler.conf  \
                             ./Icons/22x22/*.png                 \
                             ./Icons/it-edit_icon.png            \
                             ./Icons/16x16/*.png                 \
+                            ./Icons/16x16/*.svg                 \
                             ./Icons/16x16/mimetypes/*.png       \
                             ./Icons/16x16/*.png                 \
                             ./License/*.txt                     \
