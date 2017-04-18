@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -220,6 +220,12 @@ gboolean search_history_callback(GtkWidget *widget,  GdkEventKey  *event, gpoint
   #ifdef DEBUG
   DEBUG_FUNC_MARK
   #endif
+
+  if (g_list_length(search_history) == 0 && (event->keyval == GDK_KEY_Up || event->keyval == GDK_KEY_Down)) {
+
+    return TRUE ;
+
+  }
 
 
   if (event->keyval == GDK_KEY_Up) {
@@ -447,10 +453,10 @@ void activate_search_accelator(GtkWidget *widget) {
 
     #else
 
- 
+
       gboolean search_found = gtk_source_search_context_forward2(searching.source_search_steps_context, &searching.start_search, &searching.start_match, &searching.end_match, NULL);
 
-    #endif                            
+    #endif                      
 
 
     if (search_found) {
@@ -558,7 +564,7 @@ void search(GtkWidget *widget) {
 
     #else
 
- 
+
       gboolean search_found = gtk_source_search_context_forward2(searching.source_search_steps_context, &searching.start_search, &searching.start_match, &searching.end_match, NULL);
 
     #endif
@@ -705,7 +711,7 @@ void search_next(GtkWidget *widget) {
 
     #else
 
- 
+
       gboolean search_found = gtk_source_search_context_forward2(searching.source_search_steps_context, &searching.start_search, &searching.start_match, &searching.end_match, NULL);
 
     #endif
@@ -793,7 +799,7 @@ void search_next(GtkWidget *widget) {
 
     #else
 
- 
+
       gboolean search_found = gtk_source_search_context_forward2(searching.source_search_steps_context, &searching.start_search, &searching.start_match, &searching.end_match, NULL);
 
     #endif
@@ -930,11 +936,11 @@ void search_previous(GtkWidget *widget) {
 
     /** Perform the search from the next occurrence: **/
     #if (GTK_SOURCE_MINOR_VERSION < 22)
- 
+
       gboolean search_found = gtk_source_search_context_backward(searching.source_search_steps_context, &searching.start_search, &searching.start_match, &searching.end_match) ;
 
     #else
- 
+
       gboolean search_found = gtk_source_search_context_backward2(searching.source_search_steps_context, &searching.start_search, &searching.start_match, &searching.end_match, NULL) ;
 
     #endif
@@ -1015,11 +1021,11 @@ void search_previous(GtkWidget *widget) {
 
     /** Perform the search from the next occurrence: **/
     #if (GTK_SOURCE_MINOR_VERSION < 22)
- 
+
       gboolean search_found = gtk_source_search_context_backward(searching.source_search_steps_context, &searching.start_search, &searching.start_match, &searching.end_match) ;
 
     #else
- 
+
       gboolean search_found = gtk_source_search_context_backward2(searching.source_search_steps_context, &searching.start_search, &searching.start_match, &searching.end_match, NULL) ;
 
     #endif
@@ -1068,7 +1074,7 @@ void search_previous(GtkWidget *widget) {
 
 }
 
-void replace_one_occurence(GtkWidget *widget) {
+void replace_one_occurrence(GtkWidget *widget) {
   /** Replace current occurrence. **/
 
   #ifdef DEBUG
@@ -1113,11 +1119,11 @@ void replace_one_occurence(GtkWidget *widget) {
 
 
     #else
- 
+
       gtk_source_search_context_replace2(searching.source_search_steps_context, &start_replace, &end_replace, gtk_entry_get_text(GTK_ENTRY(gui->search_and_replace->replace_entry)), -1, &error);
-                               
-    #endif                             
- 
+                         
+    #endif                       
+
 
     /** Restore the TextIter from offset saved previously to keep it valid after modification (replacement). **/
     get_iter_at_offset() ;
@@ -1132,7 +1138,7 @@ void replace_one_occurence(GtkWidget *widget) {
 
 }
 
-void replace_all_occurence(GtkWidget *widget) {
+void replace_all_occurrence(GtkWidget *widget) {
 
   #ifdef DEBUG
   DEBUG_FUNC_MARK
@@ -1216,3 +1222,72 @@ void replace_all_occurence(GtkWidget *widget) {
   return ;
 
 }
+
+
+guint replace_all_occurrence_in_all_files(void) {
+
+  const gint page_nb = gtk_notebook_get_n_pages(GTK_NOTEBOOK(gui->editor_notebook)) ;
+
+  if (page_nb <= 0) {
+
+    return 0 ;
+  }
+
+  /** Getting search term. **/
+  gchar *pattern  = g_strdup(gtk_entry_get_text(GTK_ENTRY(gui->replacing_in_all_files->pattern_entry))) ;
+
+  if (g_strcmp0(pattern, "") == 0 ) {
+    return 0 ;
+  }
+
+  GtkSourceSearchSettings *search_settings = gtk_source_search_settings_new();
+
+  gtk_source_search_settings_set_search_text(search_settings, pattern) ;
+
+  g_free(pattern) ;
+
+  gtk_source_search_settings_set_case_sensitive(search_settings, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(gui->replacing_in_all_files->case_sensitiv))) ;
+
+  switch (gtk_combo_box_get_active(GTK_COMBO_BOX(gui->replacing_in_all_files->mode_combobox))) {
+
+    case 1 :
+
+      gtk_source_search_settings_set_at_word_boundaries(search_settings, TRUE) ;
+      break ;
+
+    case 2 :
+  
+      gtk_source_search_settings_set_regex_enabled(search_settings, TRUE) ;
+      break ;
+  
+  }   
+  
+
+
+  guint counter = 0 ;
+
+  gint16 c = 0 ;
+
+  for ( ;  c < page_nb ; ++c) {
+
+    GtkWidget *notebook_page = gtk_notebook_get_nth_page(GTK_NOTEBOOK(gui->editor_notebook), c) ;
+    GtkWidget *textview      = gtk_bin_get_child(GTK_BIN(notebook_page)) ;
+    GtkTextBuffer *buffer    = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview)) ;
+
+    GtkSourceSearchContext *source_search_context = gtk_source_search_context_new(GTK_SOURCE_BUFFER(buffer), search_settings);
+  
+    guint ret = gtk_source_search_context_replace_all(source_search_context, gtk_entry_get_text(GTK_ENTRY(gui->replacing_in_all_files->replace_entry)), -1, NULL) ;
+ 
+    counter += ret ;
+
+  }
+
+  return counter ;
+
+}
+
+ 
+ 
+
+
+

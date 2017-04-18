@@ -1,42 +1,82 @@
 it-edit (3.0) All; urgency=low
 
+  * Adding of a nice "it-edit uptime" displaying functionality.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Mon, 10 Apr 2017 23:26:29 +0200
+
+it-edit (3.0) All; urgency=high
+
+  * Adding of a "Replace all in all files" functionality.
+
+    * Which replace all the pattern matching occurrence with the replacement text.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Fri, 07 Apr 2017 00:21:51 +0200
+
+it-edit (3.0) All; urgency=low
+
+  * Adding of a "Order pages" functionality.
+
+    * Which reorder the pages lexicographicaly.
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Fri, 07 Apr 2017 00:21:51 +0200
+
+it-edit (3.0) All; urgency=low
+
+  * Reformat the "Configuration window" into:
+
+    * Editor settings
+ 
+    * File(s) settings
+ 
+    * Terminals settings
+ 
+    * File handler manager
+ 
+    * Applications
+ 
+    * Main settings
+
+ -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Fri, 07 Apr 2017 00:21:51 +0200
+  
+it-edit (3.0) All; urgency=low
+
   * Changes into the configure program window.
 
     * Addings:
-  
-      * the File(s) tab.
+
+      * the File(s) settings tab.
 
   * Configuration settings added to it-edit.
 
     * Show all spaces.
-  
+
     * Spell check language.
-  
+
     * Warning the user if:
-  
+
       * A file is already loaded into the editor.
-    
+ 
       * A file is a read-only file.
-    
+ 
     * Save file(s) despite timestamp.
-  
+
     * Used charset by saving (default to UTF-8).
-  
+
     * Used newline type (default to linefeed -> '\n').
-  
+
     * File permissions by saving.
-  
+
     * Warn the user by closing a file if the file is not saved.
-  
+
     * Session management:
-  
+
       * Automatic.
-    
+ 
       * Ask at exit.
-    
+ 
       * Disabled the session registering.
-       
-        
+    
+     
  -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Sat, 18 Mar 2017 18:40:08 +0100
 
 it-edit (3.0) All; urgency=low
@@ -65,7 +105,7 @@ it-edit (3.0) All; urgency=low
 
     * Compress file.
 
-    * Copy filepath to clipboard.
+    * Move file.
 
   * The window is wider but less higher than before and the changes into the:
 
@@ -74,35 +114,12 @@ it-edit (3.0) All; urgency=low
     * Timestamps field.
 
       * Have been reimplemented to work well know by using the corresponding functions:
-   
+
         * g_chmod(...)
-   
+
         * g_utime(...)
 
  -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Fri, 03 Feb 2017 04:21:02 +0100
-
-it-edit (3.0) All; urgency=low
-
-  * Addint to it-edit of a "Memo (todo) reminder", named mini text editor, window.
-
-  * With some configuration possiblities (scheme, language,...),
-  * providing the minimal required as undo/redo, cut, copy, paste, and so on as edition possiblities.
-
-  * You can use it for the purpose you want as example:
-
-    * Make a plan for your program at start.
-
-    * Make a todo file.
-
-    * Write your ChangeLog file apart, And so on...
-
-  * You can simply store the content of the mini additionnal text editor, without using a separate file.
-
-  * Or export it content as file.
-
-  * You can import a file as content if you want so.
-
- -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Wed, 25 Jan 2017 21:03:22 +0100
 
 it-edit (3.0) All; urgency=low
 
@@ -150,7 +167,7 @@ it-edit (3.0) All; urgency=low
 
     * I think the library isn't able to reconize that your process has change the file.
 
-  * The warning by closing the application when files still unsaved is already present.       
+  * The warning by closing the application when files still unsaved is already present.    
 
  -- Brüggemann Eddie <mrcyberfighter@gmail.com>  Sun, 22 Jan 2017 02:01:17 +0100
 
@@ -167,13 +184,13 @@ it-edit (3.0) All; urgency=high
       * On which the menu items are based on.
 
         * Either a simple menu item or a chekc menu item. Radio menu items were not necessary.
-    
+ 
     * The GtkSmartIconButton, which I hearten you of reusing !
 
       * On which the simple icon buttons are based on.
 
         * A button contains only a image and a optional shortcut formatted tooltip.
-    
+ 
     * The GtkSmartTooltip, which I hearten you of reusing with changes !
 
       * Which aren't use into it-edit but I hope it will make your happyness.

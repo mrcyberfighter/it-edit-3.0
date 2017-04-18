@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015,2016 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -33,7 +33,7 @@ extern gboolean destroy_message_dialog_not_found(GtkWidget *dialog);
 
 extern gboolean get_answers_message_dialog(const gchar *msg, const gchar *secondary_msg, const gchar *msg_accept, const gchar *msg_reject, GtkMessageType type) ;
 
-extern GtkWidget  *error_message_dialog_not_found(const gchar *message, gchar *secondary_message) ;
+extern GtkWidget  *error_message_dialog_not_found(const gchar *message, gchar *secondary_message)  ;
 
 extern void display_message_dialog(const gchar *message, const gchar *secondary_message, gint message_type, gint buttons) ;
 

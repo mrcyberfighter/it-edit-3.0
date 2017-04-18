@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -35,6 +35,7 @@ typedef struct {
 
 
 
+
    /** Editor settings: **/
 
    gchar *scheme ;
@@ -47,10 +48,6 @@ typedef struct {
    /** language_code of the spellcheck. **/
    gchar *language_code ;
 
-
-   #ifdef MINI_MULTIPURPOSE_EDITOR_SUPPORT  /** This feature is too much unstable. **/
-   gchar *todo_content ;
-   #endif
 
    /** Terminal settings: **/
 
@@ -79,6 +76,8 @@ typedef struct {
    gint indent_width ;
 
    gint tabs_width    ;
+
+   guint right_margin_value ;
 
    /** Files settings. **/
    gint save_file_mode ;
@@ -110,6 +109,7 @@ typedef struct {
 
 
    /** Editor settings: **/
+
    gboolean backup_file  ;
 
    gboolean display_line_numbers ;
@@ -124,17 +124,27 @@ typedef struct {
 
    gboolean spellcheck_inline ;
 
-
    gboolean  display_all_spaces ;
 
+   gboolean use_monospace_font ;
+
    gboolean  warn_read_only  ;
+
    gboolean  warn_file_open  ;
+
    gboolean  warn_file_save  ;
 
    gboolean  notifications ;
 
+   #if 0
+   gboolean smart_backspace ;
+   #endif
+
+   gboolean grid_background ;
 
    gboolean overwrite_anyway ;
+
+   gboolean use_right_margin ;
 
    /** Terminals settings: **/
    gboolean scroll_on_output ;
@@ -149,55 +159,16 @@ typedef struct {
 
 
    /** Terminals settings: **/
-   gint delete_binding : 3 ;
+   gint8 delete_binding : 3 ;
 
-   gint backspace_binding : 3 ;
+   gint8 backspace_binding : 3 ;
 
-   gint cursor_shape : 3 ;
+   gint8 cursor_shape : 3 ;
 
-   gint cursor_blink : 2 ;
+   gint8 cursor_blink : 2 ;
 
 } Settings ;
 
-#ifdef MINI_MULTIPURPOSE_EDITOR_SUPPORT  /** This feature is too much unstable. **/
-typedef struct {
-
-  gchar *scheme ;
-
-  gchar *lang_id ;
-
-  gchar *editor_font ;
-
-  gchar *content ;
-
-  /** charset of the file encoding. **/
-  gchar *charset ;
-
-  /** language_code of the spellcheck. **/
-  gchar *language_code ;
-
-
-  gint indent_width ;
-
-  gint tabs_width    ;
-
-
-  gboolean backup_file  ;
-
-  gboolean display_line_numbers ;
-
-  gboolean display_tabs_chars   ;
-
-  gboolean use_auto_indent ;
-
-  gboolean use_spaces_as_tabs ;
-
-  gboolean rm_trailing_spaces ;
-
-  gboolean spellcheck_inline ;
-
-} Todo_Settings ;
-#endif
 
 typedef struct {
 

@@ -65,6 +65,5 @@ EXTRA_DIST = ./Makefile.mk ./texi/it-edit.info ./texi/it-edit.texi ./CONTRIBUTOR
 
 install-data-hook:
 	$(MV) $(DESTDIR)$(pkgdatadir)/Makefile.mk $(DESTDIR)$(pkgdatadir)/Makefile
-	@echo "***********************"
-	@echo "Enjoy using it-edit !!!"
-	@echo "***********************"
+	- if `test ! -d $(HOME)/.local/share` ; then $(MKDIR_P) $(HOME)/.local/share ; $(TOUCH) $(HOME)/.local/share/recently-used.xbel ; fi
+

@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015,2016 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -45,7 +45,7 @@ GtkWidget  *error_message_dialog_not_found(const gchar *message, gchar *secondar
   #endif
 
   gchar *message_one = g_strdup(message);             /** These variables are free into the destroy_message_dialog_not_found(...) function. **/
-  gchar *message_two = g_strdup(secondary_message); 
+  gchar *message_two = g_strdup(secondary_message);
 
   GtkWidget *message_dialog = gtk_message_dialog_new(GTK_WINDOW(gui->main_window),  GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT ,
                                                       GTK_MESSAGE_ERROR,
@@ -65,9 +65,9 @@ GtkWidget  *error_message_dialog_not_found(const gchar *message, gchar *secondar
   }
 
   return message_dialog ;
-}                                     
+}                                   
 
-                                      
+                                    
 
 void display_message_dialog(const gchar *message, const gchar *secondary_message, gint message_type, gint buttons)  {
   /** Return a message dialog according to the given arguments. **/
@@ -131,4 +131,4 @@ gboolean get_answers_message_dialog(const gchar *msg, const gchar *secondary_msg
 
   return FALSE ;
 
-}                            
+}                          

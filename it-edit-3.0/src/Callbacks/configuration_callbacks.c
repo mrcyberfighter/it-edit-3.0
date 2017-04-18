@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -67,43 +67,49 @@ void apply_configuration_change(GKeyFile *conf_file) {
 
   g_key_file_set_string(conf_file,   "Editor", "scheme",                  settings.scheme);
 
-  #if 0 /** I can't set another font. **/
   g_key_file_set_string(conf_file,   "Editor", "font",                    settings.editor_font);
-  #endif
 
-  g_key_file_set_boolean(conf_file, "Editor", "backup",                  settings.backup_file);
+  g_key_file_set_boolean(conf_file, "Editor", "backup",                   settings.backup_file);
 
-  g_key_file_set_boolean(conf_file, "Editor", "display_line_numbers",    settings.display_line_numbers);
+  g_key_file_set_boolean(conf_file, "Editor", "display_line_numbers",     settings.display_line_numbers);
 
-  g_key_file_set_boolean(conf_file, "Editor", "display_tabs_chars",      settings.display_tabs_chars);
+  g_key_file_set_boolean(conf_file, "Editor", "display_tabs_chars",       settings.display_tabs_chars);
 
-  g_key_file_set_boolean(conf_file, "Editor", "use_auto_indent",         settings.use_auto_indent);
+  g_key_file_set_boolean(conf_file, "Editor", "use_auto_indent",          settings.use_auto_indent);
 
-  g_key_file_set_integer(conf_file, "Editor", "indent_width",            settings.indent_width);
+  g_key_file_set_integer(conf_file, "Editor", "indent_width",             settings.indent_width);
 
-  g_key_file_set_boolean(conf_file, "Editor", "use_spaces_as_tabs",      settings.use_spaces_as_tabs);
+  g_key_file_set_boolean(conf_file, "Editor", "use_spaces_as_tabs",       settings.use_spaces_as_tabs);
 
-  g_key_file_set_boolean(conf_file, "Editor", "rm_trailing_spaces",      settings.rm_trailing_spaces);
+  g_key_file_set_boolean(conf_file, "Editor", "rm_trailing_spaces",       settings.rm_trailing_spaces);
 
-  g_key_file_set_integer(conf_file, "Editor", "tabs_width",              settings.tabs_width);
+  g_key_file_set_integer(conf_file, "Editor", "tabs_width",               settings.tabs_width);
 
-  g_key_file_set_integer(conf_file,  "Editor", "newline_type",           settings.newline_type) ;
+  g_key_file_set_integer(conf_file,  "Editor", "newline_type",            settings.newline_type) ;
 
-  g_key_file_set_boolean(conf_file,  "Editor", "display_all_spaces",     settings.display_all_spaces) ;
+  g_key_file_set_boolean(conf_file,  "Editor", "display_all_spaces",      settings.display_all_spaces) ;
 
-  g_key_file_set_integer(conf_file,  "Editor", "save_file_mode",         settings.save_file_mode) ;
+  g_key_file_set_integer(conf_file,  "Editor", "save_file_mode",          settings.save_file_mode) ;
 
-  g_key_file_set_integer(conf_file,  "Editor", "session_mode",           settings.session_mode) ;
+  g_key_file_set_integer(conf_file,  "Editor", "session_mode",            settings.session_mode) ;
 
-  g_key_file_set_boolean(conf_file,  "Editor", "overwrite_anyway",       settings.overwrite_anyway) ;
+  g_key_file_set_boolean(conf_file,  "Editor", "overwrite_anyway",        settings.overwrite_anyway) ;
 
-  g_key_file_set_boolean(conf_file,  "Editor", "warn_read_only",         settings.warn_read_only) ;
+  g_key_file_set_boolean(conf_file,  "Editor", "warn_read_only",          settings.warn_read_only) ;
 
-  g_key_file_set_boolean(conf_file,  "Editor", "warn_file_open",         settings.warn_file_open) ;
+  g_key_file_set_boolean(conf_file,  "Editor", "warn_file_open",          settings.warn_file_open) ;
 
-  g_key_file_set_boolean(conf_file,  "Editor", "warn_file_save",         settings.warn_file_save) ;
+  g_key_file_set_boolean(conf_file,  "Editor", "warn_file_save",          settings.warn_file_save) ;
 
-  g_key_file_set_boolean(conf_file,  "Editor", "notifications",          settings.notifications) ;
+  g_key_file_set_boolean(conf_file,  "Editor", "notifications",           settings.notifications) ;
+
+  g_key_file_set_boolean(conf_file,  "Editor", "use_monospace_font",      settings.use_monospace_font) ;
+
+  g_key_file_set_boolean(conf_file,  "Editor", "grid_background",         settings.grid_background) ;
+
+  g_key_file_set_boolean(conf_file,  "Editor", "use_right_margin",        settings.use_right_margin) ;
+
+  g_key_file_set_integer(conf_file,   "Editor", "right_margin_value",      settings.right_margin_value) ;
 
 
   g_key_file_set_string(conf_file,   "Terminal", "font",                  settings.term_font);
@@ -125,6 +131,7 @@ void apply_configuration_change(GKeyFile *conf_file) {
   g_key_file_set_boolean(conf_file, "Terminal", "scroll_on_keystroke",   settings.scroll_on_keystroke) ;
 
   g_key_file_set_integer(conf_file, "Terminal", "backspace_binding",     settings.backspace_binding) ;
+
   g_key_file_set_integer(conf_file, "Terminal", "delete_binding",        settings.delete_binding) ;
 
   g_key_file_set_string(conf_file,   "Terminal", "command",               settings.command) ;
@@ -134,10 +141,13 @@ void apply_configuration_change(GKeyFile *conf_file) {
   g_key_file_set_boolean(conf_file, "Terminal", "bold_allow",            settings.bold_allow) ;
 
   g_key_file_set_string(conf_file,   "Terminal", "cursor_color",          settings.cursor_color)  ;
+
   g_key_file_set_string(conf_file,   "Terminal", "bold_color",            settings.bold_color)  ;
 
   g_key_file_set_boolean(conf_file, "Terminal", "audible_bell",          settings.audible_bell)  ;
+
   g_key_file_set_boolean(conf_file, "Terminal", "pointer_autohide",      settings.pointer_autohide)  ;
+
 
   g_key_file_set_double(conf_file,  "GUI",      "side_terms_factor",     settings.side_terms_factor) ;
 
@@ -146,32 +156,11 @@ void apply_configuration_change(GKeyFile *conf_file) {
   g_key_file_set_boolean(conf_file, "GUI",      "big_term_on",           settings.big_term_on) ;
   g_key_file_set_boolean(conf_file, "GUI",      "big_term_div",          settings.big_term_div) ;
   g_key_file_set_boolean(conf_file, "GUI",      "fullscreen",            settings.fullscreen) ;
+
   #ifdef GSPELL_SUPPORT
   g_key_file_set_string(conf_file,   "GUI",      "language_code",         settings.language_code) ;
   #endif
   g_key_file_set_string(conf_file,   "GUI",      "charset",               settings.charset) ;
-
-  #if 0
-  g_key_file_set_boolean(conf_file, "GUI",      "spellcheck_inline",     settings.spellcheck_inline) ;
-  #endif
-
-  #ifdef MINI_MULTIPURPOSE_EDITOR_SUPPORT  /** This feature is too much unstable. **/
-  g_key_file_set_boolean(conf_file, "Todo", "backup",                   todo_settings->backup_file);
-  g_key_file_set_string(conf_file,  "Todo", "font",                     todo_settings->editor_font);
-  g_key_file_set_string(conf_file,  "Todo", "lang_id",                  todo_settings->lang_id);
-  g_key_file_set_string(conf_file,  "Todo", "scheme",                   todo_settings->scheme);
-  g_key_file_set_boolean(conf_file, "Todo", "display_line_numbers",     todo_settings->display_line_numbers);
-  g_key_file_set_boolean(conf_file, "Todo", "display_tabs_chars",       todo_settings->display_tabs_chars);
-  g_key_file_set_boolean(conf_file, "Todo", "use_auto_indent",          todo_settings->use_auto_indent);
-  g_key_file_set_integer(conf_file, "Todo", "indent_width",             todo_settings->indent_width);
-  g_key_file_set_boolean(conf_file, "Todo", "use_spaces_as_tabs",       todo_settings->use_spaces_as_tabs);
-  g_key_file_set_boolean(conf_file, "Todo", "rm_trailing_spaces",       todo_settings->rm_trailing_spaces);
-  g_key_file_set_integer(conf_file, "Todo", "tabs_width",               todo_settings->tabs_width);
-  #ifdef GSPELL_SUPPORT
-  g_key_file_set_string(conf_file,   "Todo", "language_code",            todo_settings->language_code) ;
-  #endif
-  g_key_file_set_string(conf_file,   "Todo", "charset",                  todo_settings->charset) ;
-  #endif
 
   return ;
 
@@ -231,7 +220,7 @@ void write_changes_to_conf_file(void) {
 void apply_applications_change(GKeyFile *conf_file) {
 
   /** Applying changes to the applications key file. **/
- 
+
   #ifdef DEBUG
   DEBUG_FUNC_MARK
   #endif

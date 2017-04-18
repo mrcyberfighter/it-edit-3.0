@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015,2016 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -35,6 +35,18 @@ static void construct_language_menu_items(GtkWidget *menu_syntax) ;
 static void construct_scheme_menu_items(GtkWidget *menu_scheme) ;
 
 static gchar *get_icon_path(const gchar *filename, gchar *filepath) ;
+
+static gint compare_filenames(gconstpointer  *p1, gconstpointer  *p2, gpointer user_data) ;
+
+static void reorder_notebook_pages(GtkWidget *widget) ;
+
+typedef struct {
+
+  GtkWidget *widget ;
+
+  gchar *filename ;
+
+} reorder_pages ;
 
 static gchar *get_icon_path(const gchar *filename, gchar *filepath) {
 
@@ -86,7 +98,7 @@ static void generate_accel_label(MenuItem *menuitem, guint accel_key, GdkModifie
                                  accel_modifier,
                                  GTK_ACCEL_VISIBLE);
 
-    }  
+    }
 
 
   }
@@ -210,7 +222,7 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
 
   gchar *icon_filepath = NULL ;
 
-  icon_filepath = get_icon_path("text-x-install.svg", icon_filepath) ;
+  icon_filepath = get_icon_path("text-x-install.png", icon_filepath) ;
 
   GtkWidget *files_menubutton = gtk_smart_menu_item_new_all(_("  Files  "), icon_filepath, NULL, 0, 0) ;
 
@@ -240,7 +252,7 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
 
   icon_filepath = get_icon_path("document-open-recent.png", icon_filepath) ;
 
-  GtkWidget *recent_files_menuitem = gtk_smart_menu_item_new_all(_("  Files  "), icon_filepath, NULL, 0, 0) ;
+  GtkWidget *recent_files_menuitem = gtk_smart_menu_item_new_all(_("  Recent file(s)  "), icon_filepath, NULL, 0, 0) ;
 
 
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(gtk_smart_menu_item_get_menuitem(recent_files_menuitem)), menu_recent) ;
@@ -461,14 +473,21 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
 
   GtkWidget *replace_menuitem = gtk_smart_menu_item_new_all( _("  Replace text  "), icon_filepath,  accels_group->menu_edition_accel_group, GDK_CONTROL_MASK, GDK_KEY_KP_Enter) ;
 
-  g_signal_connect(gtk_smart_menu_item_get_menuitem(replace_menuitem), "activate", G_CALLBACK(replace_one_occurence), NULL) ;
+  g_signal_connect(gtk_smart_menu_item_get_menuitem(replace_menuitem), "activate", G_CALLBACK(replace_one_occurrence), NULL) ;
 
 
   icon_filepath = get_icon_path("edit-find-project.png", icon_filepath) ;
 
   GtkWidget *replace_all_menuitem = gtk_smart_menu_item_new_all( _("  Replace all            "), icon_filepath, accels_group->menu_edition_accel_group, GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_KP_Enter) ;
 
-  g_signal_connect(gtk_smart_menu_item_get_menuitem(replace_all_menuitem), "activate", G_CALLBACK(replace_all_occurence), NULL) ;
+  g_signal_connect(gtk_smart_menu_item_get_menuitem(replace_all_menuitem), "activate", G_CALLBACK(replace_all_occurrence), NULL) ;
+
+
+  icon_filepath = get_icon_path("edit-find-mail.png", icon_filepath) ;
+
+  GtkWidget *replace_in_all_files_menuitem = gtk_smart_menu_item_new_all( _("  Replace all in all files  "), icon_filepath,  accels_group->menu_edition_accel_group, GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_r) ;
+
+  g_signal_connect(gtk_smart_menu_item_get_menuitem(replace_in_all_files_menuitem), "activate", G_CALLBACK(activate_replace_all_in_all_files), NULL) ;
 
 
 
@@ -491,7 +510,7 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
 
   icon_filepath = get_icon_path("edit-copy.png", icon_filepath) ;
 
-  GtkWidget *copy_menuitem = gtk_smart_menu_item_new_all( _("  Copy  "), icon_filepath, accels_group->menu_edition_accel_group, GDK_CONTROL_MASK, GDK_KEY_c) ;
+  GtkWidget *copy_menuitem = gtk_smart_menu_item_new_all( _("  Copy  "), icon_filepath, NULL, GDK_CONTROL_MASK, GDK_KEY_c) ;
 
   g_signal_connect(gtk_smart_menu_item_get_menuitem(copy_menuitem), "activate", G_CALLBACK(copy), NULL) ;
 
@@ -549,6 +568,9 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
   gtk_menu_shell_append(GTK_MENU_SHELL(menu_edition), gtk_smart_menu_item_get_menuitem(find_next_menuitem)) ;
   gtk_menu_shell_append(GTK_MENU_SHELL(menu_edition), gtk_smart_menu_item_get_menuitem(replace_menuitem)) ;
   gtk_menu_shell_append(GTK_MENU_SHELL(menu_edition), gtk_smart_menu_item_get_menuitem(replace_all_menuitem)) ;
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu_edition), gtk_separator_menu_item_new()) ;
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu_edition), gtk_smart_menu_item_get_menuitem(replace_in_all_files_menuitem)) ;
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu_edition), gtk_separator_menu_item_new()) ;
   gtk_menu_shell_append(GTK_MENU_SHELL(menu_edition), gtk_smart_menu_item_get_menuitem(go_to_line_menuitem)) ;
   gtk_menu_shell_append(GTK_MENU_SHELL(menu_edition), gtk_separator_menu_item_new()) ;
   gtk_menu_shell_append(GTK_MENU_SHELL(menu_edition), gtk_smart_menu_item_get_menuitem(cut_menuitem)) ;
@@ -578,6 +600,14 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
   g_signal_connect(gtk_smart_menu_item_get_menuitem(exec_cmd_menuitem), "activate", G_CALLBACK(display_execute_command_dialog), NULL) ;
 
 
+  icon_filepath = get_icon_path("object-order-front.png", icon_filepath) ;
+
+  GtkWidget *reorder_pages_menuitem  = gtk_smart_menu_item_new_all( _("  Order pages  "), icon_filepath, accels_group->menu_action_accel_group, GDK_CONTROL_MASK | GDK_MOD1_MASK, GDK_KEY_o) ;
+
+  g_signal_connect(gtk_smart_menu_item_get_menuitem(reorder_pages_menuitem), "activate", G_CALLBACK(reorder_notebook_pages), NULL) ;
+
+
+
   icon_filepath = get_icon_path("copy-filepath-clipboard.png", icon_filepath) ;
 
   GtkWidget *cp_filepath_to_clipboard_menuitem  = gtk_smart_menu_item_new_all( _("  Copy file-path to clipboard  "), icon_filepath, accels_group->menu_action_accel_group, GDK_CONTROL_MASK, GDK_KEY_y) ;
@@ -595,7 +625,7 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
 
   icon_filepath = get_icon_path("utilities-log-viewer.png", icon_filepath) ;
 
-  menuitems->switch_big_terms_menuitem = gtk_smart_menu_item_new_all( _("  Big term(s) Switch      "), icon_filepath, accels_group->menu_action_accel_group, GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_b) ;
+  menuitems->switch_big_terms_menuitem = gtk_smart_menu_item_new_all( _("  Big terminals(s) switch      "), icon_filepath, accels_group->menu_action_accel_group, GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_b) ;
 
   g_signal_connect(gtk_smart_menu_item_get_menuitem(menuitems->switch_big_terms_menuitem), "activate", G_CALLBACK(toogle_between_big_terminal_features), NULL) ;
 
@@ -603,7 +633,7 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
 
   icon_filepath = get_icon_path("utilities-system-monitor.png", icon_filepath) ;
 
-  GtkWidget *add_term_menuitem  = gtk_smart_menu_item_new_all( _("  Sidebar terms Add          "), icon_filepath, accels_group->menu_action_accel_group, GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_t) ;
+  GtkWidget *add_term_menuitem  = gtk_smart_menu_item_new_all( _("  Sidebar terminals add tab         "), icon_filepath, accels_group->menu_action_accel_group, GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_t) ;
 
   g_signal_connect(gtk_smart_menu_item_get_menuitem(add_term_menuitem), "activate", G_CALLBACK(add_new_terminals), NULL) ;
 
@@ -611,7 +641,7 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
 
   icon_filepath = get_icon_path("project-open.png", icon_filepath) ;
 
-  GtkWidget *files_handler_menuitem  = gtk_smart_menu_item_new_all( _("  File handler  "), icon_filepath, accels_group->menu_action_accel_group, GDK_CONTROL_MASK, GDK_KEY_h) ;
+  GtkWidget *files_handler_menuitem  = gtk_smart_menu_item_new_all( _("  File(s) handler  "), icon_filepath, accels_group->menu_action_accel_group, GDK_CONTROL_MASK, GDK_KEY_h) ;
 
   g_signal_connect(gtk_smart_menu_item_get_menuitem(files_handler_menuitem), "activate", G_CALLBACK(display_file_handler_dialog), NULL) ;
 
@@ -639,6 +669,8 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(gtk_smart_menu_item_get_menuitem(actions_menubutton)),menu_action);
 
   gtk_menu_shell_append(GTK_MENU_SHELL(menu_action), gtk_smart_menu_item_get_menuitem(exec_cmd_menuitem)) ;
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu_action), gtk_separator_menu_item_new()) ;
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu_action), gtk_smart_menu_item_get_menuitem(reorder_pages_menuitem)) ;
   gtk_menu_shell_append(GTK_MENU_SHELL(menu_action), gtk_separator_menu_item_new()) ;
   gtk_menu_shell_append(GTK_MENU_SHELL(menu_action), gtk_smart_menu_item_get_menuitem(cp_filepath_to_clipboard_menuitem)) ;
   gtk_menu_shell_append(GTK_MENU_SHELL(menu_action), gtk_smart_menu_item_get_menuitem(cp_folderpath_to_clipboard_menuitem)) ;
@@ -903,7 +935,7 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
 
   icon_filepath = get_icon_path("applications-utilities.png", icon_filepath) ;
 
-  menuitems->big_term_menuitem  = gtk_smart_check_menu_item_new_all( _("  Big term(s) show  "), TRUE, icon_filepath, accels_group->menu_view_accel_group, GDK_CONTROL_MASK, GDK_KEY_b) ;
+  menuitems->big_term_menuitem  = gtk_smart_check_menu_item_new_all( _("  Big terminal(s) show  "), TRUE, icon_filepath, accels_group->menu_view_accel_group, GDK_CONTROL_MASK, GDK_KEY_b) ;
 
   g_signal_connect(gtk_smart_menu_item_get_menuitem(menuitems->big_term_menuitem), "activate", G_CALLBACK(toggle_big_terminal_main_interface_menuitem), NULL) ;
 
@@ -912,7 +944,7 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
 
   icon_filepath = get_icon_path("utilities-terminal.png", icon_filepath) ;
 
-  menuitems->show_term_menuitem  = gtk_smart_check_menu_item_new_all( _("  Sidebar terms show  "), TRUE, icon_filepath, accels_group->menu_view_accel_group, GDK_CONTROL_MASK, GDK_KEY_t) ;
+  menuitems->show_term_menuitem  = gtk_smart_check_menu_item_new_all( _("  Sidebar terminals show  "), TRUE, icon_filepath, accels_group->menu_view_accel_group, GDK_CONTROL_MASK, GDK_KEY_t) ;
 
   g_signal_connect(gtk_smart_menu_item_get_menuitem(menuitems->show_term_menuitem), "activate", G_CALLBACK(toggle_display_sidebar_terminals_menuitem), NULL) ;
 
@@ -920,7 +952,7 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
 
   icon_filepath = get_icon_path("configure-toolbars.png", icon_filepath) ;
 
-  menuitems->display_buttonbar_menuitem = gtk_smart_check_menu_item_new_all( _("  Buttonbar show  "), TRUE, icon_filepath,  NULL, 0, 0) ;
+  menuitems->display_buttonbar_menuitem = gtk_smart_check_menu_item_new_all( _("  Button bar show  "), TRUE, icon_filepath,  NULL, 0, 0) ;
 
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_smart_menu_item_get_menuitem(menuitems->display_buttonbar_menuitem)), settings.buttonbar_on) ;
 
@@ -928,7 +960,7 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
 
   icon_filepath = get_icon_path("view-fullscreen.png", icon_filepath) ;
 
-  menuitems->toggle_fullscreen_menuitem = gtk_smart_check_menu_item_new_all( _("  Fullscreen  "), TRUE, icon_filepath,  NULL, 0, 0) ;
+  menuitems->toggle_fullscreen_menuitem = gtk_smart_check_menu_item_new_all( _("  Full screen  "), TRUE, icon_filepath,  NULL, 0, 0) ;
 
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_smart_menu_item_get_menuitem(menuitems->toggle_fullscreen_menuitem)), settings.fullscreen) ;
 
@@ -1049,6 +1081,12 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
   g_signal_connect(gtk_smart_menu_item_get_menuitem(readme_menuitem), "activate", G_CALLBACK(launch_readme_html), NULL) ;
 
 
+  icon_filepath = get_icon_path("im-user-away.png", icon_filepath) ;
+
+  GtkWidget *user_salut_menuitem = gtk_smart_menu_item_new_all( _("  Uptime  "), icon_filepath, NULL, 0, 0) ;
+
+  g_signal_connect(gtk_smart_menu_item_get_menuitem(user_salut_menuitem), "activate", G_CALLBACK(user_salutation), NULL) ;
+
 
 
   icon_filepath = get_icon_path("document-edit-sign.png", icon_filepath) ;
@@ -1072,6 +1110,7 @@ void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menus *menu
 
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(gtk_smart_menu_item_get_menuitem(about_menubutton)),menu_about);
 
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu_about), gtk_smart_menu_item_get_menuitem(user_salut_menuitem)) ;
   gtk_menu_shell_append(GTK_MENU_SHELL(menu_about), gtk_smart_menu_item_get_menuitem(readme_menuitem)) ;
   gtk_menu_shell_append(GTK_MENU_SHELL(menu_about), gtk_smart_menu_item_get_menuitem(license_menuitem)) ;
   gtk_menu_shell_append(GTK_MENU_SHELL(menu_about), gtk_smart_menu_item_get_menuitem(about_menuitem)) ;
@@ -1273,10 +1312,11 @@ static void construct_scheme_menu_items(GtkWidget *menu_scheme) {
 
   gtk_source_style_scheme_manager_force_rescan(source_style_language_manager) ;
 
-  #if 0 /** Change the 0 into one to get others schemes. **/
+  #if 0 /** Change the 0 to 1 to get others schemes. **/
   const gchar * const *schemes_string =  gtk_source_style_scheme_manager_get_scheme_ids(source_style_language_manager) ;
   #else
-  const char *schemes_string[] = { "build", "classic", "cobalt", "emacs",  "kate", "matrix", "oblivion", "slate", "solarized-dark", "solarized-light", "tango", "turbo", "vsdark", NULL } ;
+  /** Set of schemes wich all works into light or dark theme for the searching highlight. **/
+  const char *schemes_string[] = { "builder", "builder-dark", "classic", "cobalt", "dark", "kate", "matrix", "oblivion", "slate", "solarized-dark", "solarized-light", "tango",  "vsdark", NULL } ;
   #endif
 
   int c=0 ;
@@ -1355,7 +1395,7 @@ void setup_search_and_replace_bar(Search_And_Replace *search_and_replace) {
 
   g_object_set(G_OBJECT(search_and_replace->search_button),"always-show-image",TRUE,NULL) ;
 
-  gtk_widget_set_tooltip_text(search_and_replace->search_button, "Highlight all matching occurence(s)") ;
+  gtk_widget_set_tooltip_text(search_and_replace->search_button, "Highlight all matching occurrence(s)") ;
 
   g_signal_connect(G_OBJECT(search_and_replace->search_button), "clicked", G_CALLBACK(search), NULL ) ;
 
@@ -1369,7 +1409,7 @@ void setup_search_and_replace_bar(Search_And_Replace *search_and_replace) {
 
   g_object_set(G_OBJECT(search_and_replace->replace_button),"always-show-image",TRUE,NULL) ;
 
-  g_signal_connect(G_OBJECT(search_and_replace->replace_button),"clicked", G_CALLBACK(replace_one_occurence), NULL) ;
+  g_signal_connect(G_OBJECT(search_and_replace->replace_button),"clicked", G_CALLBACK(replace_one_occurrence), NULL) ;
 
 
   search_and_replace->search_entry   = gtk_search_entry_new() ;
@@ -1389,7 +1429,7 @@ void setup_search_and_replace_bar(Search_And_Replace *search_and_replace) {
 
   gtk_button_set_image(GTK_BUTTON(search_and_replace->search_next_button), search_and_replace->search_next_image);
 
-  gtk_widget_set_tooltip_markup(search_and_replace->search_next_button, "Highlight <b>Next</b> matching occurence(s) -> [ <b>Ctrl ++</b> (KP) ]") ;
+  gtk_widget_set_tooltip_markup(search_and_replace->search_next_button, "Highlight <b>Next</b> matching occurrence(s) -> [ <b>Ctrl ++</b> (KP) ]") ;
 
   g_object_set(G_OBJECT(search_and_replace->search_next_button),"always-show-image",TRUE,NULL) ;
 
@@ -1402,7 +1442,7 @@ void setup_search_and_replace_bar(Search_And_Replace *search_and_replace) {
 
   gtk_button_set_image(GTK_BUTTON(search_and_replace->search_prev_button), search_and_replace->search_next_image);
 
-  gtk_widget_set_tooltip_markup(search_and_replace->search_prev_button, "Highlight <b>Previous</b> matching occurence(s) -> [ <b>Ctrl +-</b> (KP) ]") ;
+  gtk_widget_set_tooltip_markup(search_and_replace->search_prev_button, "Highlight <b>Previous</b> matching occurrence(s) -> [ <b>Ctrl +-</b> (KP) ]") ;
 
   g_object_set(G_OBJECT(search_and_replace->search_prev_button),"always-show-image",TRUE,NULL) ;
 
@@ -1411,16 +1451,16 @@ void setup_search_and_replace_bar(Search_And_Replace *search_and_replace) {
 
   search_and_replace->replace_one_button      = gtk_button_new_with_label( _("Replace") ) ;
 
-  gtk_widget_set_tooltip_markup(search_and_replace->replace_one_button, "<b>Replace</b> current highlight occurence with replacement term -> [ <b>Ctrl + Enter</b> (KP) ]") ;
+  gtk_widget_set_tooltip_markup(search_and_replace->replace_one_button, "<b>Replace</b> current highlight occurrence with replacement term -> [ <b>Ctrl + Enter</b> (KP) ]") ;
 
-  g_signal_connect(G_OBJECT(search_and_replace->replace_one_button),"clicked", G_CALLBACK(replace_one_occurence), NULL) ;
+  g_signal_connect(G_OBJECT(search_and_replace->replace_one_button),"clicked", G_CALLBACK(replace_one_occurrence), NULL) ;
 
 
   search_and_replace->replace_all_button      = gtk_button_new_with_label( _("Replace all") ) ;
 
-  gtk_widget_set_tooltip_markup(search_and_replace->replace_all_button, "<b>Replace all</b> occurence(s) with replacement term -> [ <b>Ctrl + Shift + Enter</b> (KP) ]") ;
+  gtk_widget_set_tooltip_markup(search_and_replace->replace_all_button, "<b>Replace all</b> occurrence(s) with replacement term -> [ <b>Ctrl + Shift + Enter</b> (KP) ]") ;
 
-  g_signal_connect(G_OBJECT(search_and_replace->replace_all_button), "clicked", G_CALLBACK(replace_all_occurence), NULL) ;
+  g_signal_connect(G_OBJECT(search_and_replace->replace_all_button), "clicked", G_CALLBACK(replace_all_occurrence), NULL) ;
 
 
 
@@ -1561,15 +1601,6 @@ void initialize_button_box(Buttons *buttons) {
 
 
 
-  #ifdef MINI_MULTIPURPOSE_EDITOR_SUPPORT  /** This feature is too much unstable. **/
-  buttons->todo_window_button = gtk_smart_icon_button_new_all(PATH_TO_BUTTON_ICON "korg-todo.png", _("Open the \"mini multipurpose editor\" window"),GDK_KEY_m, GDK_CONTROL_MASK ) ;
-
-  g_signal_connect(G_OBJECT(buttons->todo_window_button), "clicked", G_CALLBACK(display_todo_window), NULL) ;
-  #endif
-
-
-
-
   #ifdef GSPELL_SUPPORT
   buttons->inline_spellcheck_button = gtk_smart_icon_toggle_button_new_all(PATH_TO_BUTTON_ICON "tools-check-spelling.png", _("Enable/Disable inline spellcheck"), GDK_KEY_w, GDK_CONTROL_MASK) ;
 
@@ -1623,6 +1654,10 @@ void initialize_button_box(Buttons *buttons) {
 
   g_signal_connect(G_OBJECT(buttons->search_and_replace_button),"toggled",G_CALLBACK(toggle_display_search_and_replace_bar),NULL) ;
 
+
+  buttons->replace_all_in_all_files  = gtk_smart_icon_button_new_all(PATH_TO_BUTTON_ICON "edit-find-mail.png", _("Replace all occurrences in all files"), GDK_KEY_r, GDK_CONTROL_MASK | GDK_SHIFT_MASK) ;
+
+  g_signal_connect(G_OBJECT(buttons->replace_all_in_all_files),"clicked",G_CALLBACK(activate_replace_all_in_all_files),NULL) ;
 
 
   buttons->exec_button       = gtk_smart_icon_button_new_all(PATH_TO_BUTTON_ICON "system-run.png", _("Run a command in a terminal (per example man [section] page)"), GDK_KEY_e, GDK_CONTROL_MASK) ;
@@ -1714,6 +1749,84 @@ static void close_the_file(GtkWidget *widget) {
   g_list_free(tab_box_list) ;
 
   close_file(NULL, page_number) ;
+
+  return ;
+
+}
+
+static gint compare_filenames(gconstpointer  *p1, gconstpointer  *p2, gpointer user_data) {
+
+  return g_strcmp0( ((reorder_pages *) p1)->filename, ((reorder_pages *) p2)->filename) ;
+
+}
+
+
+
+static void reorder_notebook_pages(GtkWidget *widget) {
+
+  const gint16 page_nb = gtk_notebook_get_n_pages(GTK_NOTEBOOK(gui->editor_notebook)) ;
+
+  if (page_nb < 2) {
+
+    return ;
+
+  }
+
+  GList *glist_reordering_pages = NULL ;
+
+  gint16 c = 0 ;
+
+  for ( ; c < page_nb ; ++c) {
+
+    GtkWidget *child_widget   = gtk_notebook_get_nth_page(GTK_NOTEBOOK(gui->editor_notebook), c) ;
+
+    GtkWidget *textview       = gtk_bin_get_child(GTK_BIN(child_widget)) ;
+
+    GtkTextBuffer *buffer     = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview)) ;
+
+
+    gchar *filepath     =  g_object_get_data(G_OBJECT(buffer), "filepath") ;
+
+    reorder_pages *page = g_malloc(sizeof(reorder_pages)) ;
+
+    page->filename = g_path_get_basename(filepath) ;
+
+    page->widget = child_widget ;
+
+    glist_reordering_pages = g_list_insert_sorted_with_data(glist_reordering_pages, page, (GCompareDataFunc) compare_filenames, NULL) ;
+
+  }
+
+  c=0 ;
+
+  while (glist_reordering_pages != NULL) {
+
+    if (glist_reordering_pages->data != NULL) {
+
+      gtk_notebook_reorder_child(GTK_NOTEBOOK(gui->editor_notebook), ((reorder_pages *) (glist_reordering_pages->data))->widget, c) ;
+
+      g_free(((reorder_pages *) (glist_reordering_pages->data))->filename) ;
+
+      g_free(glist_reordering_pages->data) ;
+
+      ++c ;
+
+    }
+
+    if (glist_reordering_pages->next != NULL) {
+
+      glist_reordering_pages = glist_reordering_pages->next ;
+    }
+    else {
+
+      break ;
+    }
+
+  }
+
+  g_list_free(glist_reordering_pages) ;
+
+  update_page_number(gui->editor_notebook) ;
 
   return ;
 

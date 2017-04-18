@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015,2016 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -46,7 +46,8 @@
 
 #include "../../Types/GtkSmartMenuItem.h"
 #include "../../Types/GtkSmartIconButton.h"
-//#include "../../Types/GtkSmartIconToggleButton.h"
+
+
 
 extern void setup_search_and_replace_bar(Search_And_Replace *search_and_replace) ;
 
@@ -56,8 +57,5 @@ extern void initialize_menu(GtkWidget *menu_bar, AccelGroups *accels_group, Menu
 
 extern void initialize_button_box(Buttons *buttons) ;
 
-//extern void initialize_terminal(Terminal *terminal) ;
-
-//extern void setup_terminal(GtkWidget *vteterminal, bool is_sidebar) ;
 
 #endif

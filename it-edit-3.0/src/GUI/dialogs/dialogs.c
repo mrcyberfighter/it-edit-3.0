@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015,2016 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -272,10 +272,7 @@ void display_execute_command_dialog(GtkWidget *widget) {
   GtkWidget *execute_command_dialog  = gtk_dialog_new_with_buttons ( _("Execute a command"),
                                                 GTK_WINDOW(gui->main_window),
                                                 GTK_DIALOG_USE_HEADER_BAR | GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                 _("Execute"),
-                                                GTK_RESPONSE_APPLY,
-                                                _("Cancel"),
-                                                GTK_RESPONSE_CLOSE,
+                                                NULL,
                                                 NULL);
 
 
@@ -312,8 +309,8 @@ void display_execute_command_dialog(GtkWidget *widget) {
 
 
 
-  GtkWidget *execute_command_dialog_cancel  = gtk_dialog_get_widget_for_response(GTK_DIALOG(execute_command_dialog), GTK_RESPONSE_CLOSE) ;
-  GtkWidget *execute_command_dialog_apply   = gtk_dialog_get_widget_for_response(GTK_DIALOG(execute_command_dialog), GTK_RESPONSE_APPLY) ;
+  GtkWidget *execute_command_dialog_cancel  = gtk_dialog_add_button(GTK_DIALOG(execute_command_dialog), _("Cancel"),  GTK_RESPONSE_CANCEL) ;
+  GtkWidget *execute_command_dialog_apply   = gtk_dialog_add_button(GTK_DIALOG(execute_command_dialog), _("Execute"), GTK_RESPONSE_APPLY) ;
 
   /** Assign the Return key shortcut to the Apply button. **/
   GtkAccelGroup *accel_group = gtk_accel_group_new();
@@ -353,7 +350,7 @@ void display_execute_command_dialog(GtkWidget *widget) {
 
        break;
 
-    case GTK_RESPONSE_CLOSE :
+    case GTK_RESPONSE_CANCEL :
 
        gtk_widget_destroy(execute_command_dialog);
 
@@ -723,17 +720,17 @@ gboolean display_unsaved_files_dialog(void) {
           GtkWidget *notebook_page        = gtk_notebook_get_nth_page(GTK_NOTEBOOK(gui->editor_notebook), page_number) ;
           GtkWidget *current_textview     = gtk_bin_get_child(GTK_BIN(notebook_page)) ;
           GtkTextBuffer *current_buffer   = gtk_text_view_get_buffer(GTK_TEXT_VIEW(current_textview)) ;
-   
+
           GtkSourceFile *source_file = gtk_source_file_new() ;
-   
+
           GFile *g_file = g_file_new_for_path(filepath) ;
-   
+
           gtk_source_file_set_location(source_file, g_file) ;
-   
+
           source_file_saver(GTK_SOURCE_BUFFER(current_buffer), source_file) ;
 
           g_free(filepath) ;
- 
+
         }
 
         cc++ ;
@@ -1080,9 +1077,9 @@ static void rename_file(GtkWidget *widget, File_Editor *file_editor) {
 
       /** Getting the notebook page tab label. **/
       GtkWidget *notebook_tab = gtk_notebook_get_tab_label(GTK_NOTEBOOK(gui->editor_notebook), current_editor.current_notebook_page);
-      
+
       gtk_notebook_set_menu_label_text(GTK_NOTEBOOK(gui->editor_notebook), current_editor.current_notebook_page, new_file_basename) ;
-      
+
       GList *tab_box_list = gtk_container_get_children(GTK_CONTAINER(notebook_tab)) ;
 
       GtkWidget *tab_label = g_list_nth_data(tab_box_list, 1) ;
@@ -1091,12 +1088,12 @@ static void rename_file(GtkWidget *widget, File_Editor *file_editor) {
       gtk_label_set_text(GTK_LABEL(tab_label), new_file_basename) ;
 
       gtk_widget_set_tooltip_text(tab_label, new_filepath) ;
-      
-      gtk_widget_set_tooltip_text(gui->bottom_bar->filename_label, new_filepath) ;  
-        
+
+      gtk_widget_set_tooltip_text(gui->bottom_bar->filename_label, new_filepath) ;
+
       gtk_label_set_text(GTK_LABEL(gui->bottom_bar->filename_label), new_file_basename) ;
-       
-      
+
+
 
       g_free(new_file_basename) ;
 
@@ -1306,7 +1303,7 @@ static void update_preview(GtkWidget *widget) {
 
   return ;
 
-}                       
+}            
 
 
 static void compress_file(GtkWidget *widget, File_Editor *file_editor) {
@@ -1405,6 +1402,108 @@ static void compress_file(GtkWidget *widget, File_Editor *file_editor) {
   return ;
 
 }
+
+static void move_file(GtkWidget *widget, File_Editor *file_editor) {
+
+  GtkWidget *file_chooser_dialog = gtk_file_chooser_dialog_new( _("Move file:"), GTK_WINDOW(gui->main_window), GTK_FILE_CHOOSER_ACTION_SAVE,
+                                                               _("Cancel") , GTK_RESPONSE_CANCEL,
+                                                               _("Move"),  GTK_RESPONSE_ACCEPT,
+                                                               NULL);
+
+  gchar *filepath = g_object_get_data(G_OBJECT(file_editor->buffer), "filepath") ;
+
+  gchar *dirpath = g_path_get_dirname(filepath) ;
+
+  if (g_strcmp0(dirpath, g_get_tmp_dir()) == 0) {
+
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser_dialog), g_get_user_special_dir(G_USER_DIRECTORY_DESKTOP)) ;
+
+  }
+  else {
+
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser_dialog), dirpath) ;
+
+  }
+
+  g_free(dirpath) ;
+
+  GFile *g_file_source_file = g_file_new_for_path(filepath) ;
+
+  gtk_file_chooser_set_file(GTK_FILE_CHOOSER(file_chooser_dialog),g_file_source_file, NULL);
+
+  g_object_unref(g_file_source_file) ;
+
+  gtk_file_chooser_set_use_preview_label(GTK_FILE_CHOOSER(file_chooser_dialog), TRUE) ;
+
+  gint ret = gtk_dialog_run(GTK_DIALOG(file_chooser_dialog)) ;
+
+  if (ret == GTK_RESPONSE_ACCEPT) {
+
+    GError *error = NULL ;
+
+    GFile *g_file_dst = gtk_file_chooser_get_current_folder_file(GTK_FILE_CHOOSER(file_chooser_dialog)) ;
+
+    gchar *folderpath = g_file_get_path(g_file_dst) ;
+
+    g_object_unref(g_file_dst) ;
+
+    gchar *basename = g_path_get_basename(filepath) ;
+
+    gchar *tmp_filepath = g_strdup_printf("%s/%s", folderpath, basename) ;
+
+    g_free(folderpath) ;
+
+    g_free(basename) ;
+
+    g_file_dst = g_file_new_for_path(tmp_filepath) ;
+
+    g_free(tmp_filepath) ;
+
+    GFile *g_file_src = g_file_new_for_path(filepath) ;
+
+    if (! g_file_move(g_file_src, g_file_dst, G_FILE_COPY_OVERWRITE | G_FILE_COPY_ALL_METADATA | G_FILE_COPY_NO_FALLBACK_FOR_MOVE | G_FILE_COPY_TARGET_DEFAULT_PERMS, NULL, NULL, NULL, &error) ) {
+
+
+      display_message_dialog( _("Error moving file !"), error->message, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE) ;
+
+      g_error_free(error) ;
+
+    }
+
+    g_free(g_object_get_data(G_OBJECT(file_editor->buffer), "filepath")) ;
+
+    gchar *new_filepath = g_file_get_path(g_file_dst) ;
+
+    g_object_set_data(G_OBJECT(file_editor->buffer), "filepath", new_filepath) ;
+
+
+
+
+    /** Getting the notebook page tab label. **/
+    GtkWidget *notebook_tab = gtk_notebook_get_tab_label(GTK_NOTEBOOK(gui->editor_notebook), current_editor.current_notebook_page);
+
+    GList *tab_box_list = gtk_container_get_children(GTK_CONTAINER(notebook_tab)) ;
+
+    GtkWidget *tab_label = g_list_nth_data(tab_box_list, 1) ;
+
+    /** Update editor's component to the new file name and path. **/
+
+    gtk_widget_set_tooltip_text(tab_label, new_filepath) ;
+
+    gtk_widget_set_tooltip_text(gui->bottom_bar->filename_label, new_filepath) ;
+
+    g_object_unref(g_file_src) ;
+    g_object_unref(g_file_dst) ;
+
+
+  }
+
+  gtk_widget_destroy(file_chooser_dialog) ;
+
+  return ;
+
+}
+
 
 static void clipboard_recv_func(GtkClipboard *clipboard, GtkSelectionData *selection_data, gpointer data) {
 
@@ -1712,9 +1811,9 @@ void display_file_informations_dialog(GtkWidget *widget) {
   g_stat(filepath, &file_editor->file_info) ;
 
 
-  gchar *source_language_name      = NULL ;
-  gchar **source_language_mimetype = NULL ;
-  gchar **source_language_globs    = NULL ;
+  gchar *source_language_name     = NULL ;
+  gchar *source_language_mimetype = NULL ;
+  gchar *source_language_globs    = NULL ;
 
   gchar *content_type = NULL ;
 
@@ -1726,10 +1825,10 @@ void display_file_informations_dialog(GtkWidget *widget) {
 
   GtkSourceLanguageManager *source_language_manager = gtk_source_language_manager_get_default();
 
-  /** Try to guess the file content type. **/
-  content_type = g_content_type_guess( g_path_get_basename(filepath), NULL, file_size, &result_uncertain);
-
   gchar *file_basename = g_path_get_basename(filepath) ;
+
+  /** Try to guess the file content type. **/
+  content_type = g_content_type_guess(file_basename, NULL, file_size, &result_uncertain);
 
   if (content_type && source_language_manager) {
 
@@ -1738,23 +1837,51 @@ void display_file_informations_dialog(GtkWidget *widget) {
 
     if (source_language != NULL) {
 
+      GFile *g_file_source_file = g_file_new_for_path(filepath) ;
+
+
+
+      GFileInfo *g_file_info_source_file = g_file_query_info(g_file_source_file, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE, G_FILE_QUERY_INFO_NONE, NULL, NULL) ;
+
+      if (g_file_source_file != NULL) {
+ 
+        g_object_unref(g_file_source_file) ;
+
+      }
+
+      source_language_mimetype = g_strdup(g_file_info_get_attribute_string(g_file_info_source_file, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE)) ;
+
+      if (g_file_info_source_file != NULL) {
+
+        g_object_unref(g_file_info_source_file) ;
+
+      }
+
+      source_language_globs = g_strdup(g_strrstr(filepath, ".")) ;
+
       if (gtk_source_language_get_name(source_language) != NULL) {
-        source_language_name      = (char *) gtk_source_language_get_name(source_language) ;
+        source_language_name      = (gchar *) gtk_source_language_get_name(source_language) ;
       }
       else {
         source_language_name=NULL ;
       }
-      if (gtk_source_language_get_mime_types(source_language) != NULL) {
-        source_language_mimetype  = gtk_source_language_get_mime_types(source_language) ;
+      if (source_language_mimetype == NULL) {
+
+        if (gtk_source_language_get_mime_types(source_language) != NULL) {
+   
+          source_language_mimetype  = g_strdup(gtk_source_language_get_mime_types(source_language)[0]) ;
+ 
+        }
+   
       }
-      else {
-        source_language_mimetype=NULL ;
-      }
-      if (gtk_source_language_get_globs(source_language) != NULL) {
-        source_language_globs     = gtk_source_language_get_globs(source_language) ;
-      }
-      else {
-        source_language_globs=NULL ;
+      if (source_language_globs == NULL) {
+
+        if (gtk_source_language_get_globs(source_language) != NULL) {
+ 
+          source_language_globs     = g_strdup(gtk_source_language_get_globs(source_language)[0]) ;
+   
+        }
+   
       }
 
     }
@@ -1801,15 +1928,14 @@ void display_file_informations_dialog(GtkWidget *widget) {
   GtkWidget *main_info_language_extension_label  = gtk_label_new( _("Extension: ") ) ;
 
   GtkWidget *main_info_language_value            = gtk_label_new( (source_language_name == NULL) ? _("Unknow") : source_language_name) ;
-  GtkWidget *main_info_mimetype_value            = gtk_label_new( (source_language_mimetype == NULL) ? _("Unknow") : source_language_mimetype[0]) ;
-  GtkWidget *main_info_extension_value           = gtk_label_new( (source_language_globs == NULL) ? _("Unknow") : source_language_globs[0]) ;
+  GtkWidget *main_info_mimetype_value            = gtk_label_new( (source_language_mimetype == NULL) ? _("Unknow") : source_language_mimetype) ;
+  GtkWidget *main_info_extension_value           = gtk_label_new( (source_language_globs == NULL) ? _("Unknow") : source_language_globs) ;
 
 
 
-  g_strfreev(source_language_mimetype) ;
+  g_free(source_language_mimetype) ;
 
-  g_strfreev(source_language_globs) ;
-
+  g_free(source_language_globs) ;
 
 
 
@@ -1878,21 +2004,21 @@ void display_file_informations_dialog(GtkWidget *widget) {
 
   gtk_widget_set_tooltip_text(file_button_compress, _("Compress the file on disk to the selected new location.\nUsing the gzip compressing.\nThis can be useful by finish writing man pages per example...")) ;
 
-  GtkWidget *file_button_cp_filepath_clipboard = gtk_button_new_with_label( _("Copy file-path to clipboard") ) ;
+  GtkWidget *file_button_move_file = gtk_button_new_with_label( _("Move file") ) ;
 
-  gtk_widget_set_tooltip_text(file_button_cp_filepath_clipboard, _("Simply copy the file-path to the clipboard.\nSo you can paste the current file-path easily, where you want.")) ;
+  gtk_widget_set_tooltip_text(file_button_move_file, _("Move file to another location.")) ;
 
 
 
   gtk_box_pack_start(GTK_BOX(file_action_hbox), file_button_rename,                 TRUE, TRUE, 4) ;
   gtk_box_pack_start(GTK_BOX(file_action_hbox), file_button_copy,                   TRUE, TRUE, 4) ;
   gtk_box_pack_start(GTK_BOX(file_action_hbox), file_button_compress,               TRUE, TRUE, 4) ;
-  gtk_box_pack_start(GTK_BOX(file_action_hbox), file_button_cp_filepath_clipboard,  TRUE, TRUE, 4) ;
+  gtk_box_pack_start(GTK_BOX(file_action_hbox), file_button_move_file,  TRUE, TRUE, 4) ;
 
-  g_signal_connect(G_OBJECT(file_button_rename),                "clicked", G_CALLBACK(rename_file),               file_editor) ;
-  g_signal_connect(G_OBJECT(file_button_copy),                  "clicked", G_CALLBACK(copy_file),                 file_editor) ;
-  g_signal_connect(G_OBJECT(file_button_compress),              "clicked", G_CALLBACK(compress_file),             file_editor) ;
-  g_signal_connect(G_OBJECT(file_button_cp_filepath_clipboard), "clicked", G_CALLBACK(copy_filepath_to_clipboard),  filepath) ;
+  g_signal_connect(G_OBJECT(file_button_rename),    "clicked", G_CALLBACK(rename_file),               file_editor) ;
+  g_signal_connect(G_OBJECT(file_button_copy),      "clicked", G_CALLBACK(copy_file),                 file_editor) ;
+  g_signal_connect(G_OBJECT(file_button_compress),  "clicked", G_CALLBACK(compress_file),             file_editor) ;
+  g_signal_connect(G_OBJECT(file_button_move_file), "clicked", G_CALLBACK(move_file),                 file_editor) ;
 
 
 
@@ -2323,7 +2449,7 @@ void select_spellcheck_language(GtkWidget *widget) {
 
       /** It cannot be NULL as say in the documentation ! **/
       settings.language_code = g_strdup(gspell_language_chooser_get_language_code(GSPELL_LANGUAGE_CHOOSER(spellcheck_language_dialog))) ;
- 
+
       GKeyFile *conf_file = g_key_file_new() ;
 
       GError *error = NULL ;
@@ -2353,7 +2479,7 @@ void select_spellcheck_language(GtkWidget *widget) {
       }
 
       g_key_file_unref(conf_file) ;
- 
+
   }
 
 
@@ -2363,6 +2489,304 @@ void select_spellcheck_language(GtkWidget *widget) {
 
 }
 #endif
+
+
+void activate_replace_all_in_all_files(GtkWidget *widget) {
+
+  /** TODO: Checking the selection if any !!! **/
+
+  recheck :
+
+  gui->replacing_in_all_files->window = gtk_dialog_new_with_buttons( _("Replace in all files"), GTK_WINDOW(gui->main_window), GTK_DIALOG_USE_HEADER_BAR, NULL, NULL) ;
+
+  GtkWidget *cancel_button = gtk_dialog_add_button(GTK_DIALOG(gui->replacing_in_all_files->window), _("Cancel"), GTK_RESPONSE_CANCEL) ;
+
+  GtkWidget *replace_button = gtk_dialog_add_button(GTK_DIALOG(gui->replacing_in_all_files->window), _("Replace"), GTK_RESPONSE_APPLY) ;
+
+  /** Apply the Return key shortcut to the Apply button: **/
+  GtkAccelGroup *accel_group = gtk_accel_group_new();
+
+  gtk_widget_add_accelerator(replace_button,
+                            "activate",
+                            accel_group,
+                            GDK_KEY_Return,
+                            0,
+                            GTK_ACCEL_VISIBLE);
+
+  gtk_widget_add_accelerator(cancel_button,
+                            "activate",
+                            accel_group,
+                            GDK_KEY_Escape,
+                            0,
+                            GTK_ACCEL_VISIBLE);
+
+
+  gtk_window_add_accel_group(GTK_WINDOW(gui->replacing_in_all_files->window), accel_group) ;
+
+  GtkWidget *pattern_label_button = gtk_button_new_with_label(_(" Pattern ")) ;
+
+  GtkWidget *pattern_image = gtk_image_new_from_file( PATH_TO_BUTTON_ICON "system-search.png") ;
+
+  gtk_button_set_image( GTK_BUTTON(pattern_label_button), pattern_image) ;
+
+  g_object_set(G_OBJECT(pattern_label_button),"always-show-image",TRUE,NULL) ;
+
+
+  GtkWidget *replace_label_button = gtk_button_new_with_label(_(" Replace")) ;
+
+  GtkWidget *replace_image = gtk_image_new_from_file( PATH_TO_BUTTON_ICON "edit-find-replace.png") ;
+
+  gtk_button_set_image( GTK_BUTTON(replace_label_button), replace_image) ;
+
+  g_object_set(G_OBJECT(replace_label_button),"always-show-image",TRUE,NULL) ;
+
+
+  GtkWidget *mode_label_button = gtk_button_new_with_label(_(" Mode")) ;
+
+  GtkWidget *mode_image = gtk_image_new_from_file( PATH_TO_BUTTON_ICON "preferences-system.png") ;
+
+  gtk_button_set_image( GTK_BUTTON(mode_label_button), mode_image) ;
+
+  g_object_set(G_OBJECT(mode_label_button),"always-show-image",TRUE,NULL) ;
+
+
+  GtkWidget *label_buttons_vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0) ;
+
+  gtk_box_pack_start(GTK_BOX(label_buttons_vbox), pattern_label_button, FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(label_buttons_vbox), replace_label_button, FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(label_buttons_vbox), mode_label_button,    FALSE, FALSE, 0) ;
+
+
+
+
+  gui->replacing_in_all_files->pattern_entry = gtk_search_entry_new() ;
+
+  gboolean has_selection = FALSE ;
+  g_object_get(G_OBJECT(current_editor.current_buffer), "has-selection", &has_selection, NULL) ;
+
+  if (has_selection) {
+
+    GtkTextIter start_selection  ;
+    GtkTextIter end_selection    ;
+
+    /** Getting selection iterators **/
+    gtk_text_buffer_get_selection_bounds(GTK_TEXT_BUFFER(current_editor.current_buffer), &start_selection, &end_selection);
+
+    /** Getting selected text **/
+    gchar *selection_text = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(current_editor.current_buffer), &start_selection, &end_selection, TRUE);
+
+    gtk_entry_set_text(GTK_ENTRY(gui->replacing_in_all_files->pattern_entry), selection_text) ;
+
+    g_free(selection_text) ;
+
+  }
+  else {
+
+    gtk_window_set_focus(GTK_WINDOW(gui->replacing_in_all_files->window), gui->replacing_in_all_files->pattern_entry) ;
+
+  }
+
+
+  gui->replacing_in_all_files->replace_entry = gtk_entry_new() ;
+
+
+  gui->replacing_in_all_files->mode_combobox = gtk_combo_box_text_new_with_entry() ;
+
+  gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(gui->replacing_in_all_files->mode_combobox), _("Raw text")) ;
+  gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(gui->replacing_in_all_files->mode_combobox), _("Word boundary")) ;
+  gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(gui->replacing_in_all_files->mode_combobox), _("Regular expression")) ;
+
+  gtk_combo_box_set_active(GTK_COMBO_BOX(gui->replacing_in_all_files->mode_combobox), 0) ;
+
+  gui->replacing_in_all_files->case_sensitiv = gtk_check_button_new_with_label( _("Case-sensitive")) ;
+
+  gtk_toggle_button_set_mode(GTK_TOGGLE_BUTTON(gui->replacing_in_all_files->case_sensitiv), FALSE) ;
+
+
+  GtkWidget *settings_hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0) ;
+
+  gtk_box_pack_start(GTK_BOX(settings_hbox), gui->replacing_in_all_files->mode_combobox, FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(settings_hbox), gui->replacing_in_all_files->case_sensitiv, FALSE, FALSE, 0) ;
+
+
+  GtkWidget *data_vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0) ;
+
+  gtk_box_pack_start(GTK_BOX(data_vbox), gui->replacing_in_all_files->pattern_entry, FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(data_vbox), gui->replacing_in_all_files->replace_entry, FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(data_vbox), settings_hbox,                              FALSE, FALSE, 0) ;
+
+  GtkWidget *main_hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0) ;
+
+  gtk_box_pack_start(GTK_BOX(main_hbox), label_buttons_vbox, FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(main_hbox), data_vbox, FALSE, FALSE, 0) ;
+
+
+
+  GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG(gui->replacing_in_all_files->window)) ;
+
+  gtk_box_pack_start(GTK_BOX(content_area), main_hbox,           FALSE, FALSE, 0) ;
+
+
+  gtk_widget_show_all(gui->replacing_in_all_files->window) ;
+
+  gint result = gtk_dialog_run(GTK_DIALOG(gui->replacing_in_all_files->window)) ;
+
+  switch (result) {
+
+    case GTK_RESPONSE_APPLY : {
+
+      guint counter = replace_all_occurrence_in_all_files() ;
+
+      if (counter > 0) {
+
+        display_message_dialog( _("Replacement"), g_strdup_printf( _("%u occurrences successful replaced\nin all open file(s)."), counter), GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE) ;
+
+      }
+
+      gtk_widget_destroy(gui->replacing_in_all_files->window) ;
+
+
+      goto recheck ;
+
+      break;
+
+    }
+
+    case GTK_RESPONSE_CANCEL :
+
+       gtk_widget_destroy(gui->replacing_in_all_files->window) ;
+       break;
+  }
+
+
+  return ;
+
+}
+
+gboolean test(GtkWidget *window) {
+
+  static bool destroying = false ;
+
+  if (destroying) {
+
+    g_usleep(10000000) ;
+
+    gtk_widget_destroy(window) ;
+
+    destroying = false ;
+
+    return G_SOURCE_REMOVE ;
+
+  }
+
+  gtk_widget_set_name(window, "window_tooltip") ;
+
+  GtkCssProvider *provider = gtk_css_provider_new();
+
+  GdkDisplay *display = gdk_display_get_default() ;
+  GdkScreen *screen = gdk_display_get_default_screen(display);
+
+  gtk_style_context_add_provider_for_screen(screen,
+                                           GTK_STYLE_PROVIDER (provider),
+                                           GTK_STYLE_PROVIDER_PRIORITY_USER) ; //GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
+
+  gtk_css_provider_load_from_data(provider,
+                                   "#window_tooltip {\n"
+                                   "color : rgba(84%,84%,84%,0.96);\n"
+                                   "background-color: rgba(32%,32%,32%,0.64);\n"
+                                   "border: 8px groove black ;\n"
+                                   "}\n"
+                                    , -1, NULL);
+  g_object_unref(provider);
+
+  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS) ;
+
+  gtk_window_set_decorated(GTK_WINDOW(window), FALSE) ;
+
+  GDateTime *now = g_date_time_new_now_local();
+
+  GTimeSpan it_edit_uptime_ms = g_date_time_difference(now, program_time);
+
+  GTimeVal *tv = g_malloc(sizeof(GTimeVal)) ;
+
+  tv->tv_sec = 0 ;
+  tv->tv_usec = 0 ;
+
+  GDateTime *tmp = g_date_time_new_from_timeval_local(tv);
+
+  g_free(tv) ;
+
+  GDateTime *it_edit_uptime = g_date_time_add(tmp, it_edit_uptime_ms);
+
+  g_date_time_unref(tmp) ;
+
+  it_edit_uptime = g_date_time_add_hours(it_edit_uptime, -1) ;
+
+  gchar *now_str_fmt = g_date_time_format(now, "%F %T") ;
+
+
+
+
+  g_date_time_unref(now) ;
+
+  const gchar *user_name = g_get_real_name() ;
+
+  gchar *user_salutation = g_strdup_printf( _("Hi %s (<b>it-edit</b> user).\n\nCurrent date-time: <b>%s</b>  \n\nYou are working since: <b>%02dh-%02dm-%02ds</b>"), user_name, now_str_fmt, g_date_time_get_hour(it_edit_uptime), g_date_time_get_minute(it_edit_uptime), g_date_time_get_second(it_edit_uptime) ) ;
+
+  GNotification *notification = g_notification_new( g_get_application_name() ) ;
+
+  g_notification_set_title(notification, "it-edit uptime !") ;
+
+  g_notification_set_default_action(notification, "app.actions") ;
+
+  gchar *it_edit_uptime_str = g_strdup_printf(_("You are working since: %02dh-%02dm-%02ds"),g_date_time_get_hour(it_edit_uptime), g_date_time_get_minute(it_edit_uptime), g_date_time_get_second(it_edit_uptime) ) ;
+
+  g_notification_set_body(notification, it_edit_uptime_str) ;
+
+  g_notification_set_priority(notification, G_NOTIFICATION_PRIORITY_NORMAL) ;
+
+  g_application_send_notification(G_APPLICATION(app), "at_it_edit_startup", notification);
+
+  g_free(it_edit_uptime_str) ;
+
+  g_date_time_unref(it_edit_uptime) ;
+
+  g_free(now_str_fmt) ;
+
+  GtkWidget *label_salutation = gtk_label_new(NULL) ;
+
+  gtk_label_set_markup(GTK_LABEL(label_salutation), user_salutation);
+
+  g_free(user_salutation) ;
+
+  GtkWidget *image = gtk_image_new_from_file(PATH_TO_UPTIME_ICON) ;
+
+  GtkWidget *hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 8) ;
+
+  gtk_box_pack_start(GTK_BOX(hbox), image, FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(hbox), label_salutation, FALSE, FALSE, 0) ;
+
+  gtk_container_add(GTK_CONTAINER(window), hbox) ;
+
+  gtk_container_set_border_width(GTK_CONTAINER(window), 8) ;
+
+  gtk_widget_show_all(window) ;
+
+  destroying = true ;
+
+  return G_SOURCE_CONTINUE ;
+
+}
+
+void user_salutation(GtkWidget *widget) {
+
+  GtkWidget *window = gtk_window_new(GTK_WINDOW_POPUP) ;
+
+  g_timeout_add(100, (GSourceFunc) test, window) ;
+
+  return ;
+
+}
 
 
 

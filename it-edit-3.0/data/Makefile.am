@@ -6,10 +6,9 @@
 # A copy of the license is included in the section entitled "GNU
 # Free Documentation License".
 
-nobase_dist_pkgdata_DATA =  ./Files_handler/Files_handler.conf  \
-                            ./Icons/64x64/mimetypes/*.png       \
+nobase_dist_pkgdata_DATA =  ./Icons/64x64/mimetypes/*.png       \
                             ./Icons/22x22/*.png                 \
-                            ./Icons/it-edit_icon.png            \
+                            ./Icons/*.png                       \
                             ./Icons/16x16/*.png                 \
                             ./Icons/16x16/*.svg                 \
                             ./Icons/16x16/mimetypes/*.png       \
@@ -25,6 +24,7 @@ nobase_dist_pkgdata_DATA =  ./Files_handler/Files_handler.conf  \
                             ./Notice/_static/*.js               \
                             ./Notice/_static/*.gif              \
                             ./Notice/.buildinfo                 \
-                            ./Styles/*.xml      
-
+                            ./Styles/*.xml                      \
+                            ./Styles/*.rng                      \
+                            ./Styles/*.sh   
 

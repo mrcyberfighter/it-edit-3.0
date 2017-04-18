@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -53,8 +53,10 @@ extern void search_next(GtkWidget *button) ;
 
 extern void search_previous(GtkWidget *button) ;
 
-extern void replace_one_occurence(GtkWidget *widget) ;
+extern void replace_one_occurrence(GtkWidget *widget) ;
 
-extern void replace_all_occurence(GtkWidget *widget) ;
+extern void replace_all_occurrence(GtkWidget *widget) ;
+
+extern guint replace_all_occurrence_in_all_files(void) ;
 
 #endif

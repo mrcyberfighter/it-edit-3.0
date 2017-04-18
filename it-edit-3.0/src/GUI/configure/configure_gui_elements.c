@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015,2016 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -43,10 +43,22 @@ void setting_sourceview_settings(GtkSourceView *view) {
 
   gtk_source_view_set_insert_spaces_instead_of_tabs(view, settings.use_spaces_as_tabs);
 
+  #if 0
   /** FIXME: ??? gtk_source_view_set_smart_home_end(view, GTK_SOURCE_SMART_HOME_END_BEFORE);
     *        ??? gtk_source_view_set_smart_backspace(GtkSourceView *view, gboolean smart_backspace);
   **/
+  #endif
 
+  if (settings.grid_background) {
+
+    gtk_source_view_set_background_pattern(view, GTK_SOURCE_BACKGROUND_PATTERN_TYPE_GRID) ;
+  }
+  else {
+ 
+    gtk_source_view_set_background_pattern(view, GTK_SOURCE_BACKGROUND_PATTERN_TYPE_NONE) ;
+  }
+ 
+ 
   gtk_source_view_set_show_line_numbers(view, settings.display_line_numbers) ;
 
   gtk_source_view_set_tab_width(view, settings.tabs_width) ;
@@ -61,41 +73,36 @@ void setting_sourceview_settings(GtkSourceView *view) {
 
   }
 
-  gtk_text_view_set_monospace(GTK_TEXT_VIEW(view), TRUE);
+  PangoFontDescription *font_desc =  pango_font_description_from_string(settings.editor_font);
+
+  if (settings.use_monospace_font || font_desc == NULL) {
+
+    gtk_widget_override_font(GTK_WIDGET(view), NULL);
+
+    gtk_text_view_set_monospace(GTK_TEXT_VIEW(view), TRUE);
 
 
+  }
+  else {
 
-  #if 0
-  GtkCssProvider *provider = gtk_css_provider_new();
+    gtk_text_view_set_monospace(GTK_TEXT_VIEW(view), FALSE);
+  
+    /** @NOTE: This function is deprecated but it's the only one whose working for setting editor font. **/
+    gtk_widget_override_font(GTK_WIDGET(view), font_desc);
 
+  }
 
+  gtk_source_view_set_show_right_margin(view, settings.use_right_margin) ;
 
-  fprintf(stdout,"%s\n", settings.editor_font) ;
+  if (settings.use_right_margin)  {
+  
+    gtk_source_view_set_right_margin_position(view, settings.right_margin_value);
 
-  gchar *text_css = g_strconcat("GtkTextView {\n"
-                                 "font‑family: ",
-                                 settings.editor_font,
-                                 "font-size:5px"
-                                 "}\n",
-                                 NULL) ;
-                         
-  gtk_css_provider_load_from_data(provider, text_css, -1, NULL) ;
-
-  g_free(text_css) ;
-
-
-  GdkDisplay *display = gdk_display_get_default() ;
-
-  GdkScreen *screen = gdk_display_get_default_screen(display) ;
-
-  gtk_style_context_add_provider_for_screen (screen, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_USER) ;
-
-
-
-  g_object_unref(provider) ;
-  #endif
+  } 
+  
 
   return ;
+
 }
 
 

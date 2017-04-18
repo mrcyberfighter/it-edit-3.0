@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -192,7 +192,7 @@ GtkWidget* gtk_smart_icon_toggle_button_new_all(const gchar *filepath, const gch
       gchar *accel_text = gtk_accelerator_get_label(accel_key, accel_modifier) ;
 
       gchar *tooltip_txt = g_strdup_printf("%s -> [ <b>%s</b> ]",tooltip_text, accel_text) ;
-    
+   
       gtk_widget_set_tooltip_markup(GTK_WIDGET(priv->toggle_button), tooltip_txt) ;
 
       g_free(tooltip_txt) ;

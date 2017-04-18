@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -91,13 +91,15 @@ static void on_size_allocated(GtkWidget *widget, GdkRectangle *allocation, gpoin
 
 static void at_exit_handler(void) ;
 
+#ifdef MAC_INTEGRATION
+gint attention = -1 ;
+#endif
+
 int main(int argc, char *argv[]) {
 
-  #ifdef MINI_MULTIPURPOSE_EDITOR_SUPPORT /** This feature is too much unstable. **/
-  todo_settings = g_malloc(sizeof(Todo_Settings)) ;
-  #endif
 
-
+  program_time = g_date_time_new_now_local() ;
+    
   /** Loading default configuration at first launch and then your configuration. **/
   get_main_configuration() ;
 
@@ -135,12 +137,12 @@ int main(int argc, char *argv[]) {
 
   #ifdef MAC_INTEGRATION /** The library gtk-mac-integration-gtk3 define this. **/
 
-  gtkosx_application_attention_request(gtkosx_application_get(), CRITICAL_REQUEST);
+  attention = gtkosx_application_attention_request(gtkosx_application_get(), CRITICAL_REQUEST);
 
   gtkosx_application_ready(gtkosx_application_get()) ;
-
+  
   /** I don't know if it is a good idea to set it on @TRUE, because the radio and check buttons doesn't work with value @TRUE. **/
-  gtkosx_application_set_use_quartz_accelerators(gtkosx_application_get(), FALSE) ;
+  gtkosx_application_set_use_quartz_accelerators(gtkosx_application_get(), TRUE) ;
 
   #ifdef INFO
   fprintf(stdout,"Mac app use quartz accels: %d\n", gtkosx_application_use_quartz_accelerators(gtkosx_application_get()) ;
@@ -391,9 +393,24 @@ int main(int argc, char *argv[]) {
   extern GUI *gui ;  /** Mickaël <Mickaël_mail@gmail.com>      **/
   gui = &pgui     ;
 
+  Replace_In_All_Files pp           ;
+  gui->replacing_in_all_files = &pp ;
+  
+  
+  
   /** main window **/
   gui->main_window = gtk_application_window_new(app)  ;
+   
+  
+  GdkPixbuf *window_pixbuf = gdk_pixbuf_new_from_file(PATH_TO_ICON, NULL) ;
 
+  gtk_window_set_icon(GTK_WINDOW(gui->main_window), window_pixbuf) ;
+
+  #ifdef MAC_INTEGRATION
+  gtkosx_application_set_dock_icon_pixbuf(gtkosx_application_get(), window_pixbuf) ;
+  #endif 
+        
+          
   gui->editor_notebook = NULL ;
 
 
@@ -429,6 +446,7 @@ int main(int argc, char *argv[]) {
   gui->menu_bar = gtk_menu_bar_new() ;
 
   initialize_menu(gui->menu_bar, gui->accels_group, gui->menus, gui->menuitems) ;
+
 
 
   gtk_window_add_accel_group(GTK_WINDOW(gui->main_window), gui->accels_group->menu_files_accel_group)   ;
@@ -498,26 +516,22 @@ int main(int argc, char *argv[]) {
   gtk_button_box_set_child_non_homogeneous(GTK_BUTTON_BOX(gui->edition_buttonbox),gui->buttons->duplicate_button,           TRUE) ;
 
 
-  #ifdef MINI_MULTIPURPOSE_EDITOR_SUPPORT /** This feature is too much unstable. **/
-  gtk_box_pack_start(GTK_BOX(gui->action_buttonbox), gui->buttons->todo_window_button,          FALSE, FALSE, 0) ;
-  #endif
 
   #ifdef GSPELL_SUPPORT
   gtk_box_pack_start(GTK_BOX(gui->action_buttonbox), gui->buttons->spellcheck_button,           FALSE, FALSE, 0) ;
   #endif
   gtk_box_pack_start(GTK_BOX(gui->action_buttonbox), gui->buttons->go_to_line_button,           FALSE, FALSE, 0) ;
   gtk_box_pack_start(GTK_BOX(gui->action_buttonbox), gui->buttons->search_and_replace_button,   FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(gui->action_buttonbox), gui->buttons->replace_all_in_all_files,    FALSE, FALSE, 0) ;
+
 
   /** This are image button which must set non-homogeneous for not expand for having an square size. **/
-  #ifdef MINI_MULTIPURPOSE_EDITOR_SUPPORT /** This feature is too much unstable. **/
-  gtk_button_box_set_child_non_homogeneous(GTK_BUTTON_BOX(gui->action_buttonbox),gui->buttons->todo_window_button,        TRUE);
-  #endif
   #ifdef GSPELL_SUPPORT
   gtk_button_box_set_child_non_homogeneous(GTK_BUTTON_BOX(gui->action_buttonbox),gui->buttons->spellcheck_button,         TRUE);
   #endif
   gtk_button_box_set_child_non_homogeneous(GTK_BUTTON_BOX(gui->action_buttonbox),gui->buttons->go_to_line_button,         TRUE);
   gtk_button_box_set_child_non_homogeneous(GTK_BUTTON_BOX(gui->action_buttonbox),gui->buttons->search_and_replace_button, TRUE);
-
+  gtk_button_box_set_child_non_homogeneous(GTK_BUTTON_BOX(gui->action_buttonbox),gui->buttons->replace_all_in_all_files,  TRUE);
 
   #ifdef DEBUG
   GtkWidget *debug_search_and_replace_button = gtk_button_new_with_label("Find Replace debug") ;
@@ -906,7 +920,7 @@ static void on_size_allocated(GtkWidget *widget, GdkRectangle *allocation, gpoin
 
   /** Set the default sidebar terminals on 80 characters wide.
     * On a resolution of 1920/1080.
-    * But you can easily change the factor and the terminal font to use it-edit efficiently. 
+    * But you can easily change the factor and the terminal font to use it-edit efficiently.
   **/
 
   gtk_widget_set_size_request(gui->terminal_notebook, settings.side_terms_factor * ( 80 * 8 + 24), -1) ;
@@ -980,11 +994,11 @@ static void activate(GApplication *application) {
   }
 
   /** Send a notification at startup and at exit. **/
- 
+
   /** @NOTE: not done finally but if wanted
     *        you can simply edit the it-edity.conf file to get it.
     **************************************************************/
- 
+
   if (settings.notifications) {
 
     GNotification *notification = g_notification_new( g_get_application_name() ) ;
@@ -1170,7 +1184,7 @@ static void at_exit_handler(void) {
                                          _("Register session"),
                                          _("Don't register"),
                                          GTK_MESSAGE_QUESTION))
-                                                  
+                                           
       {
 
         exit(EXIT_SUCCESS) ;
@@ -1186,7 +1200,7 @@ static void at_exit_handler(void) {
       break ;
 
   }
-                                                         
+                                                  
 
   if (register_session) {
 
@@ -1195,19 +1209,25 @@ static void at_exit_handler(void) {
     GKeyFile *conf_file = g_key_file_new() ;
 
     if (session->session_files_nb > 0) {
-
+  
+      g_key_file_set_string_list(conf_file, "Session", "session_files", (const gchar **) {NULL}, 0) ;
+  
       g_key_file_set_string_list(conf_file, "Session", "session_files", (const gchar **) session->session_files, session->session_files_nb) ;
 
     }
 
     if (session->session_doc_nb > 0) {
-
+  
+      g_key_file_set_string_list(conf_file, "Session", "session_doc", (const gchar **) {NULL}, 0) ;
+  
       g_key_file_set_string_list(conf_file, "Session", "session_doc", (const gchar **) session->session_doc, session->session_doc_nb) ;
 
     }
 
     if (session->session_app_nb > 0) {
-
+  
+      g_key_file_set_string_list(conf_file, "Session", "session_app", (const gchar **) {NULL}, 0) ;
+  
       g_key_file_set_string_list(conf_file, "Session", "session_app", (const gchar **) session->session_app, session->session_app_nb) ;
 
     }
@@ -1233,11 +1253,11 @@ static void at_exit_handler(void) {
 
 
   /** Send a notification at startup and at exit. **/
- 
+
   /** @NOTE: not done finally but if wanted
     *        you can simply edit the it-edity.conf file to get it.
     **************************************************************/
- 
+
   if (settings.notifications) {
 
     GNotification *notification = g_notification_new( g_get_application_name() ) ;
@@ -1257,8 +1277,11 @@ static void at_exit_handler(void) {
     g_free(notification_body) ;
 
   }
-
-
+  
+  #ifdef MAC_INTEGRATION
+  gtkosx_application_cancel_attention_request(gtkosx_application_get(), attention) ;
+  #endif
+  
   return ;
 
 }

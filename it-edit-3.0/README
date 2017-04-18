@@ -1,4 +1,4 @@
-it-edit (Integrated Termianls Editor)
+it-edit (Integrated Terminals Editor)
 *************************************
 
 Developer: Eddie Brüggemann
@@ -21,22 +21,23 @@ Required
 
 * gtk+-3.0
 
-* gtksoureview-3.
+* gtksourceview-3.
 
 * vte-2.91.
+
+* sed
+
+* wc
 
 Optionally
 ----------
 
 * gspell-1.
 
-* sed
-
-* wc
 
 .. note:: I highly recommend you to install gspell-1 on your system before compiling it-edit.
 
-  You can get it with the ppa gnome3-staging or from source >= Gtk-3.20.
+  You can get it with the ppa gnome3-staging, the DEBIAN sid repository or from source >= Gtk-3.20.
 
 Installation
 ************
@@ -48,17 +49,38 @@ Installation
     $ sudo make install
 
   or
- 
+
     $ ./configure --disable-gspell-1
     $ make
     $ sudo make install
+
+:note: By Mac OS X type: `chmod +x ./install-sh` before making.
+
+Mac OS X
+--------
+
+You can get all the required library from the package manager brew:
+
+* gtk+3
+
+* gtk-chtheme
+
+* gtk-mac-integration
+
+* gtksourceview3
+
+* gspell
+
+* adwaita-icon-theme
+
+* vte3
 
 License
 *******
 
       it-edit the Integrated Terminal Editor: a text editor with severals
       integrated functionalities.
-      Copyright (C) 2015, 2016  Brüggemann Eddie.
+      Copyright (C) 2015-2017  Brüggemann Eddie.
 
       This program is free software: you can redistribute it and/or modify
       it under the terms of the GNU General Public License as published by

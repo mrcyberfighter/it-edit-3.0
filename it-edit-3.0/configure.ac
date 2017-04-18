@@ -81,6 +81,7 @@ AC_PATH_PROG([MV],            [mv],           [no])
 AC_PATH_PROG([RMDIR],         [rmdir],        [no])
 AC_PATH_PROG([SED],           [sed],          [no])
 AC_PATH_PROG([WC],            [wc],           [no])
+AC_PATH_PROG([TOUCH],         [touch],        [no])
 AC_PATH_PROG([INSTALL_INFO],  [install-info], [no])
 
 if test x"$CHMOD" = xno ; then
@@ -120,6 +121,13 @@ if test x"$WC" = xno ; then
   AC_MSG_WARN(Install the wc binary !, 1)
 
 fi
+
+if test x"$TOUCH" = xno ; then
+
+AC_MSG_ERROR(Install the coreutils package (touch is missing) !, 1)
+
+fi
+
 
 
 # desktop-file-utils package:

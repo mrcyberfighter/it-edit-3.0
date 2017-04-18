@@ -59,6 +59,8 @@ Application shortcuts:
   +----------------------+-------------------------------+------------------+
   | Ctrl + e             | Execute command               | e = execute      |
   +----------------------+-------------------------------+------------------+
+  | Ctrl + Alt + o       | Order pages                   | o = order        |      
+  +----------------------+-------------------------------+------------------+
   | Ctrl + y             | Copy file-path to clipboard   | None             |
   +----------------------+-------------------------------+------------------+
   | Ctrl + Shift + y     | Copy folder-path to clipboard | None             |
@@ -98,7 +100,7 @@ Terminals shortcuts:
   +-----------------------+----------------------+------------------+
   | Shift + Ctrl + +      | Increase font-scale  | \+ = increase    |
   +-----------------------+----------------------+------------------+
- 
+
   :note: Else you can close a tab and reset the terminal from the terminals contextual menu.
 
 

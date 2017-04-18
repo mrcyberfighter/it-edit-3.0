@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -46,7 +46,7 @@ void redo(GtkWidget *widget) {
 
   /** Redo button callback.
     * @NOTE: This does not work well so use the shortcut (Ctrl + Maj + Z) or
-    * the contextual menu for redo operations. 
+    * the contextual menu for redo operations.
   **/
 
   #ifdef DEBUG
@@ -80,7 +80,7 @@ void cut(GtkWidget *widget) {
     /** Perform cut action on selected text in the current editor (notebook page). **/
     GtkClipboard *clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
     gtk_text_buffer_cut_clipboard(GTK_TEXT_BUFFER(current_editor.current_buffer), clipboard, TRUE);
- 
+
   }
 
   return ;
@@ -145,7 +145,7 @@ void duplicate(GtkWidget *widget) {
   #endif
 
   /** Checking if some text is selected. **/
-  gboolean has_selection ;
+  gboolean has_selection = FALSE ;
   g_object_get(G_OBJECT(current_editor.current_buffer), "has-selection", &has_selection, NULL) ;
 
   if (has_selection) {

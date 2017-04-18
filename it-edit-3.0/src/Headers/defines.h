@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -70,6 +70,8 @@
 
 #define PATH_TO_ICON            DATADIR "/Icons/it-edit_icon.png"
 
+#define PATH_TO_UPTIME_ICON     DATADIR "/Icons/it-edit_icon_uptime.png"
+
 #define PATH_TO_README          DATADIR "/Notice/index.html"
 
 #define PATH_TO_GPL_TEXT        DATADIR "/License/gpl.txt"
@@ -90,7 +92,8 @@
 
 #define PATH_TO_BIN_FOLDER      "/usr/bin"
 
-//#define   PATH_TO_IT_EDIT         PREFIX  "/it-edit"
+#define PATH_TO_DOC_FOLDER      "/usr/share/doc"
+
 #define PATH_TO_IT_EDIT         PREFIX  "/bin/it-edit"
 
 
@@ -197,5 +200,7 @@
 #ifndef PATH_MAX
 #define PATH_MAX (1024)
 #endif
+
+#define GLIB_DISABLE_DEPRECATION_WARNINGS
 
 #endif

@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015,2016 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -36,7 +36,11 @@ static void check_user_shell(GtkFileChooserButton *chooser) ;
 
 static GtkWidget *generate_applications_chooser(GtkWidget *hbox, const char *icon_filepath, const char *label_text, char *app_filepath) ;
 
-static GtkWidget *generate_checkbuton(const gchar *label, gboolean is_active) ;
+static GtkWidget *generate_checkbutton(const gchar *label, gboolean is_active, const gchar *tooltip_text) ;
+
+static GtkWidget *generate_perm_grid(GtkWidget *grid, const gchar *text, const guint8 row) ;
+
+static GtkWidget *generate_frame_with_content(const gchar *text, GtkWidget *widget) ;
 
 static void set_applications(char *app, GtkWidget *file_chooser) ;
 
@@ -54,47 +58,9 @@ static gboolean is_perm_value_set(const gint mask, const gint bit)  ;
 
 static void set_perm_value(GtkWidget *widget, gint *mask,  gint value) ;
 
-static void update_scheme_menu_items(const gchar *scheme_id) ;
+static void editor_font_toggled_use_set_state(GtkWidget *toggle_button, GtkWidget *widget) ;
 
-
-
-static void update_scheme_menu_items(const gchar *scheme_id) {
-
-  GList *g_list_scheme_menu = gtk_container_get_children(GTK_CONTAINER(gui->menus->menu_scheme)) ;
-
-  g_list_scheme_menu = g_list_first(g_list_scheme_menu) ;
-
-  while (g_list_scheme_menu) {
-
-    if (g_list_scheme_menu->data != NULL) {
-
-      gchar *scheme = g_object_get_data(G_OBJECT(g_list_scheme_menu->data), "scheme_id") ;
-
-      if ( g_strcmp0(scheme, scheme_id) == 0 ) {
- 
-        gtk_widget_activate(g_list_scheme_menu->data) ;
- 
-        break ;
-
-      }
-    }
-
-    if (g_list_scheme_menu->next != NULL) {
-
-      g_list_scheme_menu = g_list_scheme_menu->next ;
-
-    }
-    else {
-
-      break ;
-
-    }
-
-  }
-
-  return ;
-
-}
+static void use_right_margin_toggled_state(GtkWidget *toggle_button, GtkWidget *widget) ;
 
 static void add_a_new_item_to_files_manager(GtkWidget *widget, GtkWidget *files_manager_vbox) {
   /** Display a dialog to add a new entry to the "File Handler" fubnctionnality. **/
@@ -117,6 +83,8 @@ static void add_a_new_item_to_files_manager(GtkWidget *widget, GtkWidget *files_
   gtk_window_set_title(GTK_WINDOW(add_a_file_to_files_manager_dialog), _("Adding a file") );
 
   gtk_window_set_resizable(GTK_WINDOW(add_a_file_to_files_manager_dialog), FALSE) ;
+
+  gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(add_a_file_to_files_manager_dialog), PATH_TO_DOC_FOLDER) ;
 
   gtk_container_set_border_width(GTK_CONTAINER(add_a_file_to_files_manager_dialog), 15) ;
 
@@ -595,43 +563,51 @@ static void check_user_shell(GtkFileChooserButton *chooser) {
 
 static GtkWidget *generate_applications_chooser(GtkWidget *hbox, const char *icon_filepath, const char *label_text, char *app_filepath) {
 
+  #ifdef DEBUG
+  DEBUG_FUNC_MARK
+  #endif
 
 
-    GtkWidget *icon_image = gtk_image_new_from_file(icon_filepath) ;
+  GtkWidget *icon_image = gtk_image_new_from_file(icon_filepath) ;
 
-    GtkWidget *label = gtk_label_new(label_text) ;
+  GtkWidget *label = gtk_label_new(label_text) ;
 
-    GtkWidget *file_chooser_button = gtk_file_chooser_button_new(label_text, GTK_FILE_CHOOSER_ACTION_OPEN) ;
+  GtkWidget *file_chooser_button = gtk_file_chooser_button_new(label_text, GTK_FILE_CHOOSER_ACTION_OPEN) ;
 
-    gtk_widget_set_size_request(file_chooser_button, (128+64), -1 ) ;
+  gtk_widget_set_size_request(file_chooser_button, (128+64), -1 ) ;
 
-    if (g_strcmp0(app_filepath, "") != 0) {
-      gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser_button),  g_path_get_dirname(app_filepath)) ;
-      gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(file_chooser_button), app_filepath) ;
-    }
-    else {
-      gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser_button),  PATH_TO_BIN_FOLDER) ;
-    }
+  if (g_strcmp0(app_filepath, "") != 0) {
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser_button),  g_path_get_dirname(app_filepath)) ;
+    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(file_chooser_button), app_filepath) ;
+  }
+  else {
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(file_chooser_button),  PATH_TO_BIN_FOLDER) ;
+  }
 
 
-    gtk_box_pack_start(GTK_BOX(hbox), icon_image,          FALSE, FALSE, 0) ;
-    gtk_box_pack_start(GTK_BOX(hbox), label,               TRUE,  TRUE,  0) ;
-    gtk_box_pack_start(GTK_BOX(hbox), file_chooser_button, FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(hbox), icon_image,          FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(hbox), label,               TRUE,  TRUE,  0) ;
+  gtk_box_pack_start(GTK_BOX(hbox), file_chooser_button, FALSE, FALSE, 0) ;
 
-    gtk_box_set_spacing(GTK_BOX(hbox), 5) ;
-    gtk_container_set_border_width(GTK_CONTAINER(hbox), 5) ;
+  gtk_box_set_spacing(GTK_BOX(hbox), 5) ;
+  gtk_container_set_border_width(GTK_CONTAINER(hbox), 5) ;
 
-    return file_chooser_button ;
+  return file_chooser_button ;
 
 }
 
-static GtkWidget *generate_checkbuton(const gchar *label, gboolean is_active) {
+static GtkWidget *generate_checkbutton(const gchar *label, gboolean is_active, const gchar *tooltip_text) {
 
   GtkWidget *checkbutton = gtk_check_button_new_with_label(label) ;
 
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbutton), is_active) ;
 
   gtk_container_set_border_width(GTK_CONTAINER(checkbutton), CONTAINER_PADDING) ;
+
+  if (tooltip_text != NULL) {
+
+    gtk_widget_set_tooltip_text(checkbutton, tooltip_text) ;
+  }
 
   return checkbutton ;
 
@@ -664,7 +640,7 @@ static void set_applications(char *app, GtkWidget *file_chooser) {
 static void change_applications(char *app_name, GtkWidget *menu_item) {
 
   #ifdef DEBUG
-    DEBUG_FUNC_MARK
+  DEBUG_FUNC_MARK
   #endif
 
   if (g_strcmp0(app_name, "") != 0) {
@@ -726,13 +702,17 @@ static void set_as_default(GtkWidget *widget, gpointer user_data) {
 
     }
 
+    gboolean is_set_as_default = FALSE ;
+
     if (mimetypes != NULL) {
 
       int c = 0 ;
 
       while (mimetypes[c] != NULL) {
 
-        g_app_info_set_as_default_for_type(it_edit_app, mimetypes[c], NULL) ;
+        is_set_as_default = g_app_info_set_as_default_for_type(it_edit_app, mimetypes[c], NULL) ;
+
+        g_app_info_add_supports_type(it_edit_app, mimetypes[c], NULL) ;
 
         ++c ;
       }
@@ -741,12 +721,45 @@ static void set_as_default(GtkWidget *widget, gpointer user_data) {
 
     g_strfreev(mimetypes) ;
 
+    if (! is_set_as_default) {
+
+      /** Case the file-type has no associated mimetype.
+        * So we use the file extension to set it-edit as default application.
+        *********************************************************************/
+
+      gchar **globs = gtk_source_language_get_globs(source_language) ;
+
+      if (globs != NULL) {
+
+        int c = 0 ;
+
+        while (globs[c] != NULL) {
+
+          gchar *extension = g_strrstr(globs[c], ".");
+
+          if (extension != NULL) {
+ 
+            g_app_info_set_as_default_for_extension(it_edit_app, ++extension, NULL) ;
+          }
+
+          --extension ;
+
+          ++c ;
+
+        }
+
+      }
+
+      g_strfreev(globs) ;
+
+    }
+
     ++ids ;
 
  }
 
 
- /** I can't set text/plain as default because of too much unwanted side-effects.
+ /** I can't set "text/plain" as default because of too much unwanted side-effects.
    * g_app_info_set_as_default_for_type(it_edit_app,"text/plain", NULL) ;
    *********************************************************************************/
 
@@ -795,80 +808,56 @@ static void reset_default(GtkWidget *widget, gpointer user_data) {
 
 }
 
-#if 0
-static gchar *scheme_id = NULL ;
-
-
-static void set_editor_scheme(GtkWidget *widget) {
+static void use_right_margin_toggled_state(GtkWidget *toggle_button, GtkWidget *widget) {
 
   #ifdef DEBUG
   DEBUG_FUNC_MARK
   #endif
 
-  GtkWidget *dialog = gtk_dialog_new_with_buttons( _("Select a scheme"),
-                                                  GTK_WINDOW(gui->main_window),
-                                                  GTK_DIALOG_USE_HEADER_BAR | GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                  NULL,
-                                                  0,
-                                                  NULL) ;
-   
-   
-  gtk_window_set_resizable(GTK_WINDOW(dialog), FALSE) ;
+  if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(toggle_button)) ) {
 
-
-  GtkWidget *select_button = gtk_dialog_add_button(GTK_DIALOG(dialog),_("Choose"), GTK_RESPONSE_APPLY) ;
-  GtkWidget *cancel_button = gtk_dialog_add_button(GTK_DIALOG(dialog),_("Cancel"), GTK_RESPONSE_CANCEL) ;
-
-  GtkWidget *select_image = gtk_image_new_from_file(PATH_TO_BUTTON_ICON "gtk-select-color.png") ;
-  GtkWidget *cancel_image = gtk_image_new_from_file(PATH_TO_BUTTON_ICON "dialog-cancel.png") ;
-
-
-  g_object_set(G_OBJECT(select_button), "always-show-image", TRUE, NULL) ;
-  g_object_set(G_OBJECT(cancel_button), "always-show-image", TRUE, NULL) ;
-
-  gtk_button_set_image(GTK_BUTTON(select_button), select_image) ;
-  gtk_button_set_image(GTK_BUTTON(cancel_button), cancel_image) ;
-
-
-
-  GtkWidget *source_style_scheme_chooser_widget = gtk_source_style_scheme_chooser_widget_new() ;
-
-  gtk_source_style_scheme_chooser_set_style_scheme(GTK_SOURCE_STYLE_SCHEME_CHOOSER(source_style_scheme_chooser_widget),
-                                                   gtk_source_style_scheme_manager_get_scheme(source_style_language_manager, todo_settings->scheme)) ;
-
-  GtkWidget *scrolled_window = gtk_scrolled_window_new(NULL, NULL) ;
-
-  gtk_scrolled_window_set_min_content_height(GTK_SCROLLED_WINDOW(scrolled_window),  24 * 16* 1.5)   ;
-  gtk_scrolled_window_set_min_content_width(GTK_SCROLLED_WINDOW(scrolled_window),   24 * 16)   ;
-
-  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-
-  gtk_scrolled_window_set_overlay_scrolling(GTK_SCROLLED_WINDOW(scrolled_window), FALSE) ;
-
-  gtk_container_add(GTK_CONTAINER(scrolled_window), source_style_scheme_chooser_widget) ;
-
-  gtk_widget_show_all(scrolled_window) ;
-
-  GtkWidget *dialog_content = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
-
-  gtk_container_add(GTK_CONTAINER(dialog_content), scrolled_window) ;
-
-  gint res = gtk_dialog_run(GTK_DIALOG(dialog)) ;
-
-  if (res == GTK_RESPONSE_APPLY) {
-
-    GtkSourceStyleScheme *scheme_style = gtk_source_style_scheme_chooser_get_style_scheme(GTK_SOURCE_STYLE_SCHEME_CHOOSER(source_style_scheme_chooser_widget)) ;
-
-    scheme_id = (gchar *) gtk_source_style_scheme_get_id(scheme_style) ;
+    gtk_widget_set_state_flags(widget, GTK_STATE_FLAG_NORMAL, TRUE);
 
   }
+  else {
 
-  gtk_widget_destroy(dialog) ;
+    gtk_widget_set_state_flags(widget, GTK_STATE_FLAG_INSENSITIVE, TRUE);
+
+  }
 
   return ;
 
 }
-#endif
+
+static void editor_font_toggled_use_set_state(GtkWidget *toggle_button, GtkWidget *widget) {
+
+  #ifdef DEBUG
+  DEBUG_FUNC_MARK
+  #endif
+
+  if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(toggle_button)) ) {
+
+    gtk_widget_set_state_flags(widget, GTK_STATE_FLAG_INSENSITIVE, TRUE);
+
+  }
+  else {
+
+    gtk_widget_set_state_flags(widget, GTK_STATE_FLAG_NORMAL, TRUE);
+
+  }
+
+  return ;
+
+}
+
+static gboolean editor_font_chooser_filter(PangoFontFamily *family, const PangoFontFace *face, gpointer data) {
+
+  return pango_font_family_is_monospace(family) ;
+
+}
+
+
+
 
 static void update_sidebar_position(GtkSpinButton *spin_button) {
 
@@ -921,32 +910,29 @@ static void set_perm_value(GtkWidget *widget, gint *mask, gint value) {
 
 }
 
-#ifdef GSPELL_SUPPORT
-static gchar *language_code = NULL ;
+static GtkWidget *generate_perm_grid(GtkWidget *grid, const gchar *text, const guint8 row) {
 
-static void get_language_spell_check(GtkWidget *widget)  {
+  GtkWidget *label = gtk_label_new(text) ;
 
-  GtkWidget *spellcheck_language_dialog = gspell_language_chooser_dialog_new(GTK_WINDOW(gui->main_window), gspell_language_lookup(settings.language_code), GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT) ;
+  GtkWidget *checkbutton = gtk_check_button_new() ;
 
-  gtk_dialog_run(GTK_DIALOG(spellcheck_language_dialog)) ;
+  gtk_grid_attach(GTK_GRID(grid),  label,       row, 0, 1, 1);
+  gtk_grid_attach(GTK_GRID(grid),  checkbutton, row, 1, 1, 1);
 
-  if (gspell_language_chooser_get_language_code(GSPELL_LANGUAGE_CHOOSER(spellcheck_language_dialog)) != NULL) {
-
-      g_free(language_code) ;
-
-      /** It cannot be NULL as say in the documentation ! **/
-      language_code = g_strdup(gspell_language_chooser_get_language_code(GSPELL_LANGUAGE_CHOOSER(spellcheck_language_dialog))) ;
-
-  }
-
-  gtk_widget_destroy(spellcheck_language_dialog) ;
-
-  gtk_button_set_label(GTK_BUTTON(widget), language_code) ;
-
-  return ;
+  return checkbutton ;
 
 }
-#endif
+
+static GtkWidget *generate_frame_with_content(const gchar *text, GtkWidget *widget) {
+
+  GtkWidget *frame = gtk_frame_new(text) ;
+
+  gtk_container_set_border_width(GTK_CONTAINER(frame), FRAME_BORDER_SIZE) ;
+
+  gtk_container_add(GTK_CONTAINER(frame), widget) ;
+
+  return frame ;
+}
 
 void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   /** Generate the application configuration dialog window and register changes if some. **/
@@ -954,6 +940,7 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   #ifdef DEBUG
   DEBUG_FUNC_MARK
   #endif
+
 
   GtkWidget *configuration_dialog = gtk_dialog_new_with_buttons( _("Configure program"),
                                                                 GTK_WINDOW(gui->main_window),
@@ -979,117 +966,128 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
 
 
-  GtkSourceStyleScheme *source_style_scheme =  gtk_source_style_scheme_manager_get_scheme(source_style_language_manager, settings.scheme);
 
-  GtkWidget *use_scheme_button = gtk_source_style_scheme_chooser_button_new() ;
 
-  gtk_source_style_scheme_chooser_set_style_scheme(GTK_SOURCE_STYLE_SCHEME_CHOOSER(use_scheme_button),  source_style_scheme) ;
-       
-  GtkWidget *use_scheme_hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0) ;
+  GtkWidget *show_lines_checkbutton   = generate_checkbutton( _("Display lines numbers"), settings.display_line_numbers, NULL) ;
 
-  gtk_container_set_border_width(GTK_CONTAINER(use_scheme_hbox), CONTAINER_PADDING) ;
+  GtkWidget *show_tabs_checkbutton    = generate_checkbutton( _("Display TABS characters"),settings.display_tabs_chars, _("By pressing the TAB key an arrow will be draw "
+                                                                                                                         "at the cursor location indicating a tabulation.\n"
+                                                                                                                         "Else if your document contains other tabulation(s)\n"
+                                                                                                                          "they will be drawn too.") ) ;
 
+  GtkWidget *show_spaces_checkbutton  = generate_checkbutton( _("Display all spaces"),  settings.display_all_spaces, _("All spaces will be draw:\n\n"
+                                                                                                                      "* Line end as a returned arrow.\n"
+                                                                                                                      "* Normal spaces as an point.\n"
+                                                                                                                      "* Tabulations as an forward arrow.\n"
+                                                                                                                      "This feature can be use to visualize your document\n"
+                                                                                                                      "for leading and trailing spaces per example...")) ;
 
-  gtk_container_set_border_width(GTK_CONTAINER(use_scheme_button), CONTAINER_PADDING) ;
+  GtkWidget *grid_background_checkbutton =   generate_checkbutton( _("Display background grid"),  settings.grid_background, _("Display a grid on the background\n"
+                                                                                                                             "for a better visualization of your typing work.") );
 
-  gtk_box_pack_start(GTK_BOX(use_scheme_hbox), use_scheme_button, TRUE, TRUE, CONTAINER_PADDING) ;
+  GtkWidget *display_options_vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0) ;
 
+  gtk_container_set_border_width(GTK_CONTAINER(display_options_vbox), CONTAINER_PADDING) ;
 
-  GtkWidget *use_scheme_frame           = gtk_frame_new( _(" Use scheme ") ) ;
+  gtk_box_pack_start( GTK_BOX(display_options_vbox), show_lines_checkbutton,      FALSE, FALSE, 0) ;
+  gtk_box_pack_start( GTK_BOX(display_options_vbox), show_tabs_checkbutton,       FALSE, FALSE, 0) ;
+  gtk_box_pack_start( GTK_BOX(display_options_vbox), show_spaces_checkbutton,     FALSE, FALSE, 0) ;
+  gtk_box_pack_start( GTK_BOX(display_options_vbox), grid_background_checkbutton, FALSE, FALSE, 0) ;
 
-  gtk_container_set_border_width(GTK_CONTAINER(use_scheme_frame),          FRAME_BORDER_SIZE) ;
 
-  gtk_container_add(GTK_CONTAINER(use_scheme_frame), use_scheme_hbox) ;
+  GtkWidget *displaying_options_frame = generate_frame_with_content(_(" Editor display options "), display_options_vbox) ;
 
 
 
-  GtkWidget *show_lines_checkbutton = generate_checkbuton( _("Display lines numbers"), settings.display_line_numbers) ;
 
-  GtkWidget *display_lines_frame        = gtk_frame_new( _(" Show lines ") ) ;
 
-  gtk_container_set_border_width(GTK_CONTAINER(display_lines_frame),       FRAME_BORDER_SIZE) ;
 
-  gtk_container_add(GTK_CONTAINER(display_lines_frame), show_lines_checkbutton) ;
 
 
 
 
 
 
-  GtkWidget *show_tabs_checkbutton = generate_checkbuton( _("Display TABS characters"),settings.display_tabs_chars) ;
+  GtkWidget *editor_font_button = gtk_font_button_new_with_font(settings.editor_font) ;
 
-  GtkWidget *display_tabs_frame         = gtk_frame_new( _(" Show tabulations ") ) ;
+  g_object_set(G_OBJECT(editor_font_button), "margin", CONTAINER_PADDING*2,  NULL) ;
 
-  gtk_container_set_border_width(GTK_CONTAINER(display_tabs_frame),        FRAME_BORDER_SIZE) ;
+  gtk_font_button_set_show_style(GTK_FONT_BUTTON(editor_font_button),  TRUE) ;
+  gtk_font_button_set_show_size(GTK_FONT_BUTTON(editor_font_button),   TRUE) ;
+  gtk_font_button_set_use_font(GTK_FONT_BUTTON(editor_font_button),    TRUE) ;
+  gtk_font_button_set_use_size(GTK_FONT_BUTTON(editor_font_button),    TRUE) ;
 
-  gtk_container_add(GTK_CONTAINER(display_tabs_frame), show_tabs_checkbutton) ;
+  gtk_font_chooser_set_filter_func(GTK_FONT_CHOOSER(editor_font_button), (GtkFontFilterFunc) editor_font_chooser_filter, NULL,  NULL) ;
 
+  GtkWidget *use_monospace_font_checkbutton = generate_checkbutton( _(" Use default Monospace font "), settings.use_monospace_font, _("Here you can choose to use the default mono-space font.\n"
+                                                                                                                                     "Or to set the wanted font and font-size.")) ;
 
+  g_signal_connect(G_OBJECT(use_monospace_font_checkbutton), "toggled", G_CALLBACK(editor_font_toggled_use_set_state), editor_font_button) ;
 
+  if (settings.use_monospace_font) {
 
+    gtk_widget_set_state_flags(editor_font_button, GTK_STATE_FLAG_INSENSITIVE, TRUE);
 
+  }
+  else {
 
+    gtk_widget_set_state_flags(editor_font_button, GTK_STATE_FLAG_NORMAL, TRUE);
 
+  }
 
 
-  GtkWidget *show_spaces_checkbutton =   generate_checkbuton( _("Show all spaces"),  settings.display_all_spaces) ;
+  GtkWidget *use_font_vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0) ;
 
-  GtkWidget *display_spaces_frame       = gtk_frame_new( _(" Show spaces ") ) ;
+  gtk_container_set_border_width(GTK_CONTAINER(use_font_vbox), CONTAINER_PADDING) ;
 
-  gtk_container_set_border_width(GTK_CONTAINER(display_spaces_frame),      FRAME_BORDER_SIZE) ;
+  gtk_box_pack_start(GTK_BOX(use_font_vbox), use_monospace_font_checkbutton, FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(use_font_vbox), editor_font_button,             TRUE,  TRUE, 0) ;
 
-  gtk_container_add(GTK_CONTAINER(display_spaces_frame), show_spaces_checkbutton) ;
 
+  GtkWidget *editor_font_frame = generate_frame_with_content( _(" Use font "), use_font_vbox) ;
 
 
-  #ifdef GSPELL_SUPPORT
-  GtkWidget *configure_spell_check_vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, CONTAINER_PADDING) ;
+  GtkWidget *right_margin_spinbutton = gtk_spin_button_new_with_range(0, 1000, 1) ;
 
-  GtkWidget *configure_spell_check_label = gtk_label_new( _("Select spell-check language") ) ;
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(right_margin_spinbutton), settings.right_margin_value) ;
+  gtk_spin_button_set_digits(GTK_SPIN_BUTTON(right_margin_spinbutton),                          0) ;
+  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(right_margin_spinbutton),                      TRUE) ;
 
-  GtkWidget *configure_spell_check_button = gtk_button_new_with_label(settings.language_code) ;
+  GtkWidget *right_margin_hbox  = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0) ;
 
-  g_signal_connect(configure_spell_check_button, "clicked", G_CALLBACK(get_language_spell_check), configure_spell_check_button) ;
+  GtkWidget *right_margin_label = gtk_label_new( _("Right-margin width (in characters)") ) ;
 
-  gtk_box_pack_start(GTK_BOX(configure_spell_check_vbox), configure_spell_check_label,    FALSE, FALSE, 0) ;
-  gtk_box_pack_start(GTK_BOX(configure_spell_check_vbox), configure_spell_check_button,   FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(right_margin_hbox), right_margin_label,      TRUE,   TRUE,   0) ;
+  gtk_box_pack_start(GTK_BOX(right_margin_hbox), right_margin_spinbutton, FALSE,  FALSE,  0) ;
 
-  g_object_set(configure_spell_check_vbox, "margin", CONTAINER_PADDING*2+4, NULL) ;
+  GtkWidget *right_margin_checkbutton = generate_checkbutton( _("Use right margin"), settings.use_right_margin, _("The right margin can be useful if you want to limit your document\n"
+                                                                                                                 "to a configured width per example...")) ;
 
-  gtk_container_set_border_width(GTK_CONTAINER(configure_spell_check_vbox), CONTAINER_PADDING) ;
+  g_signal_connect(G_OBJECT(right_margin_checkbutton), "toggled", G_CALLBACK(use_right_margin_toggled_state), right_margin_spinbutton) ;
 
-  GtkWidget *configure_spell_check_frame = gtk_frame_new( _(" Spell check ") ) ;
+  if (! settings.use_right_margin) {
 
-  gtk_container_set_border_width(GTK_CONTAINER(configure_spell_check_frame), FRAME_BORDER_SIZE) ;
+    gtk_widget_set_state_flags(right_margin_spinbutton, GTK_STATE_FLAG_INSENSITIVE, TRUE);
 
-  gtk_container_add(GTK_CONTAINER(configure_spell_check_frame), configure_spell_check_vbox) ;
-  #endif
+  }
+  else {
 
+    gtk_widget_set_state_flags(right_margin_spinbutton, GTK_STATE_FLAG_NORMAL, TRUE);
 
+  }
 
+  GtkWidget *right_margin_vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, CONTAINER_PADDING) ;
 
+  gtk_box_pack_start(GTK_BOX(right_margin_vbox),right_margin_checkbutton,      FALSE, FALSE,  0) ;
+  gtk_box_pack_start(GTK_BOX(right_margin_vbox),right_margin_hbox,             FALSE, FALSE,  0) ;
+  gtk_container_set_border_width(GTK_CONTAINER(right_margin_vbox), CONTAINER_PADDING) ;
 
+  GtkWidget *right_margin_frame = generate_frame_with_content( _(" Right margin "), right_margin_vbox) ;
 
 
+  GtkWidget *indent_settings_hbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0) ;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  GtkWidget *indent_settings_hbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, CONTAINER_PADDING) ;
-
-  GtkWidget *auto_indent_checkbutton = generate_checkbuton( _("Use auto-indent"), settings.use_auto_indent) ;
+  GtkWidget *auto_indent_checkbutton = generate_checkbutton( _("Use auto-indent"), settings.use_auto_indent, NULL) ;
 
   GtkWidget *indent_width_hbox       = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0) ;
 
@@ -1110,20 +1108,17 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
   gtk_box_pack_start(GTK_BOX(indent_settings_hbox), indent_width_hbox, FALSE, FALSE, 0) ;
 
-  gtk_container_set_border_width(GTK_CONTAINER(indent_settings_hbox), CONTAINER_PADDING) ;
-
-  GtkWidget *indent_settings_frame      = gtk_frame_new( _(" Indentation ") ) ;
-
-  gtk_container_set_border_width(GTK_CONTAINER(indent_settings_frame),     FRAME_BORDER_SIZE) ;
-
-  gtk_container_add(GTK_CONTAINER(indent_settings_frame), indent_settings_hbox) ;
+  gtk_container_set_border_width(GTK_CONTAINER(indent_settings_hbox), CONTAINER_PADDING*2) ;
 
 
 
+  GtkWidget *indent_settings_frame = generate_frame_with_content( _(" Indentation "), indent_settings_hbox) ;
 
-  GtkWidget *tabs_settings_hbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, CONTAINER_PADDING) ;
 
-  GtkWidget *use_spaces_instead_of_tabs = generate_checkbuton( _("Use spaces instead of TABS"), settings.use_spaces_as_tabs) ;
+
+  GtkWidget *use_spaces_instead_of_tabs = generate_checkbutton( _("Use spaces instead of TABS"), settings.use_spaces_as_tabs, _("By typing a tabulation no tabulation character\n"
+                                                                                                                                "will be write into your document.\n"
+                                                                                                                                "Instead the number of configured spaces will be written.")  ) ;
 
 
 
@@ -1144,19 +1139,16 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   gtk_box_pack_start(GTK_BOX(tabs_width_hbox),tabs_width_spinbutton, FALSE, FALSE, 0) ;
 
 
+  GtkWidget *tabs_settings_hbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, CONTAINER_PADDING) ;
+
   gtk_box_pack_start(GTK_BOX(tabs_settings_hbox), use_spaces_instead_of_tabs, FALSE, FALSE, 0) ;
   gtk_box_pack_start(GTK_BOX(tabs_settings_hbox), tabs_width_hbox,            FALSE, FALSE, 0) ;
 
-  gtk_container_set_border_width(GTK_CONTAINER(tabs_settings_hbox), CONTAINER_PADDING) ;
+  gtk_container_set_border_width(GTK_CONTAINER(tabs_settings_hbox), CONTAINER_PADDING*2) ;
 
 
-  GtkWidget *tabs_settings_frame        = gtk_frame_new( _(" Tabulations ") ) ;
 
-  gtk_container_set_border_width(GTK_CONTAINER(tabs_settings_frame),       FRAME_BORDER_SIZE) ;
-
-  gtk_container_add(GTK_CONTAINER(tabs_settings_frame), tabs_settings_hbox) ;
-
-
+  GtkWidget *tabs_settings_frame = generate_frame_with_content( _(" Tabulations "), tabs_settings_hbox) ;
 
 
 
@@ -1166,19 +1158,12 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
   gtk_box_set_spacing(GTK_BOX(editor_configuration_vbox), CONTAINER_PADDING) ;
 
-
-  gtk_box_pack_start(GTK_BOX(editor_configuration_vbox), use_scheme_frame,              FALSE, FALSE, 0) ;
-  gtk_box_pack_start(GTK_BOX(editor_configuration_vbox), display_lines_frame,           FALSE, FALSE, 0) ;
-  gtk_box_pack_start(GTK_BOX(editor_configuration_vbox), display_tabs_frame,            FALSE, FALSE, 0) ;
-  gtk_box_pack_start(GTK_BOX(editor_configuration_vbox), display_spaces_frame,          FALSE, FALSE, 0) ;
-  gtk_box_pack_start(GTK_BOX(editor_configuration_vbox), indent_settings_frame,         FALSE, FALSE, 0) ;
-
-  #ifdef GSPELL_SUPPORT
-  gtk_box_pack_start(GTK_BOX(editor_configuration_vbox), tabs_settings_frame,           FALSE, FALSE, 0) ;
-  gtk_box_pack_start(GTK_BOX(editor_configuration_vbox), configure_spell_check_frame,   TRUE,  TRUE,  0) ;
-  #else
+  gtk_box_pack_start(GTK_BOX(editor_configuration_vbox), displaying_options_frame,      FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(editor_configuration_vbox), editor_font_frame,             FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(editor_configuration_vbox), right_margin_frame,            FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(editor_configuration_vbox), indent_settings_frame,         TRUE, TRUE, 0) ;
   gtk_box_pack_start(GTK_BOX(editor_configuration_vbox), tabs_settings_frame,           TRUE,  TRUE, 0) ;
-  #endif
+
 
 
 
@@ -1191,14 +1176,12 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
 
 
-  GtkWidget *open_file_warn_already_in_editor_chkbox = generate_checkbuton( _("Warning by loaded file already into editor"), settings.warn_file_open) ;
-
-  gtk_widget_set_tooltip_text(open_file_warn_already_in_editor_chkbox, _("The program emit a warning by opening a file already contains into the editor.\nIt will let you the choice to open it or not.") ) ;
+  GtkWidget *open_file_warn_already_in_editor_chkbox = generate_checkbutton( _("Warning by loaded file already into editor"), settings.warn_file_open, _("The program emit a warning by opening a file already contains into the editor.\nIt will let you the choice to open it or not.") ) ;
 
 
-  GtkWidget *open_file_warn_readonly_chkbox = generate_checkbuton( _("Warning by loaded file is read-only file"),  settings.warn_read_only) ;
 
-  gtk_widget_set_tooltip_text(open_file_warn_readonly_chkbox, _("The program emit a warning by opening read-only files") ) ;
+  GtkWidget *open_file_warn_readonly_chkbox = generate_checkbutton( _("Warning by loaded file is read-only file"),  settings.warn_read_only, _("The program emit a warning by opening read-only files")) ;
+
 
 
 
@@ -1212,22 +1195,15 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
 
 
-  GtkWidget *open_file_frame = gtk_frame_new(" Open file ") ;
-
-  gtk_container_add(GTK_CONTAINER(open_file_frame), open_file_vbox) ;
-
-  gtk_container_set_border_width(GTK_CONTAINER(open_file_frame), FRAME_BORDER_SIZE) ;
+  GtkWidget *open_file_frame = generate_frame_with_content( _(" Open file "), open_file_vbox) ;
 
 
 
 
 
 
+  GtkWidget *save_file_despite_modification_timestamp = generate_checkbutton( _("Save despite modification time stamp"), settings.overwrite_anyway, _("Allow the program to save a file despite a later time stamp.\nAnother process have change the file.")) ;
 
-
-  GtkWidget *save_file_despite_modification_timestamp = generate_checkbuton( _("Save despite modification time stamp"), settings.overwrite_anyway) ;
-
-  gtk_widget_set_tooltip_text(save_file_despite_modification_timestamp, _("Allow the program to save a file despite a later time stamp.\nAnother process have change the file maybe.") ) ;
 
 
 
@@ -1332,111 +1308,63 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   GtkWidget *save_file_mask_label = gtk_label_new( _("Save file permissions") ) ;
 
 
+
+
   gint mask = settings.save_file_mode ;
 
-  GtkWidget *save_file_mask_ur_label = gtk_label_new( "r" ) ;
-  GtkWidget *save_file_mask_ur_checkbutton = gtk_check_button_new() ;
+  GtkWidget *save_file_user_mask_grid   = gtk_grid_new() ;
 
+  g_object_set(save_file_user_mask_grid, "column-homogeneous", TRUE, "column-spacing", 8,  NULL) ;
+
+  gtk_container_set_border_width(GTK_CONTAINER(save_file_user_mask_grid),  CONTAINER_PADDING) ;
+
+  GtkWidget *save_file_mask_ur_checkbutton = generate_perm_grid(save_file_user_mask_grid, "r", 0) ;
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(save_file_mask_ur_checkbutton), is_perm_value_set(mask, S_IRUSR)) ;
 
-
-
-
-  GtkWidget *save_file_mask_uw_label = gtk_label_new( "w" ) ;
-  GtkWidget *save_file_mask_uw_checkbutton = gtk_check_button_new() ;
-
+  GtkWidget *save_file_mask_uw_checkbutton = generate_perm_grid(save_file_user_mask_grid, "w", 1) ;
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(save_file_mask_uw_checkbutton), is_perm_value_set(mask, S_IWUSR)) ;
 
-  GtkWidget *save_file_mask_ux_label = gtk_label_new( "x" ) ;
-  GtkWidget *save_file_mask_ux_checkbutton = gtk_check_button_new() ;
-
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(save_file_mask_ux_checkbutton), is_perm_value_set(mask, S_IXUSR)) ;
+  GtkWidget *save_file_mask_ux_checkbutton = generate_perm_grid(save_file_user_mask_grid, "x", 2) ;
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(save_file_mask_uw_checkbutton), is_perm_value_set(mask, S_IWUSR)) ;
 
 
+  GtkWidget *save_file_group_mask_grid  = gtk_grid_new() ;
 
-  GtkWidget *save_file_mask_gr_label = gtk_label_new( "r" ) ;
-  GtkWidget *save_file_mask_gr_checkbutton = gtk_check_button_new() ;
+  g_object_set(save_file_group_mask_grid, "column-homogeneous", TRUE, "column-spacing", 8,  NULL) ;
 
+  gtk_container_set_border_width(GTK_CONTAINER(save_file_group_mask_grid), CONTAINER_PADDING) ;
+
+  GtkWidget *save_file_mask_gr_checkbutton = generate_perm_grid(save_file_group_mask_grid, "r", 3) ;
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(save_file_mask_gr_checkbutton), is_perm_value_set(mask, S_IRGRP)) ;
 
-
-  GtkWidget *save_file_mask_gw_label = gtk_label_new( "w" ) ;
-  GtkWidget *save_file_mask_gw_checkbutton = gtk_check_button_new() ;
-
+  GtkWidget *save_file_mask_gw_checkbutton = generate_perm_grid(save_file_group_mask_grid, "w", 4) ;
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(save_file_mask_gw_checkbutton), is_perm_value_set(mask, S_IWGRP)) ;
 
-
-  GtkWidget *save_file_mask_gx_label = gtk_label_new( "x" ) ;
-  GtkWidget *save_file_mask_gx_checkbutton = gtk_check_button_new() ;
-
+  GtkWidget *save_file_mask_gx_checkbutton = generate_perm_grid(save_file_group_mask_grid, "x", 5) ;
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(save_file_mask_gx_checkbutton), is_perm_value_set(mask, S_IXGRP)) ;
 
 
 
-  GtkWidget *save_file_mask_or_label = gtk_label_new( "r" ) ;
-  GtkWidget *save_file_mask_or_checkbutton = gtk_check_button_new() ;
 
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(save_file_mask_or_checkbutton), is_perm_value_set(mask, S_IROTH)) ;
-
-  gint value_or = 0004 ;
-  g_object_set_data( G_OBJECT(save_file_mask_or_checkbutton), "perm_value", &value_or) ;
-
-  GtkWidget *save_file_mask_ow_label = gtk_label_new( "w" ) ;
-  GtkWidget *save_file_mask_ow_checkbutton = gtk_check_button_new() ;
-
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(save_file_mask_ow_checkbutton), is_perm_value_set(mask, S_IWOTH)) ;
-
-  gint value_ow = 0002 ;
-  g_object_set_data( G_OBJECT(save_file_mask_ow_checkbutton), "perm_value", &value_ow) ;
-
-
-  GtkWidget *save_file_mask_ox_label = gtk_label_new( "x" ) ;
-  GtkWidget *save_file_mask_ox_checkbutton = gtk_check_button_new() ;
-
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(save_file_mask_ox_checkbutton), is_perm_value_set(mask, S_IXOTH)) ;
-
-  gint value_ox = 0001 ;
-  g_object_set_data(G_OBJECT(save_file_mask_ox_checkbutton), "perm_value", &value_ox) ;
-
-
-
-  GtkWidget *save_file_user_mask_grid   = gtk_grid_new() ;
-  GtkWidget *save_file_group_mask_grid  = gtk_grid_new() ;
   GtkWidget *save_file_other_mask_grid  = gtk_grid_new() ;
-
-  gtk_grid_attach(GTK_GRID(save_file_user_mask_grid),  save_file_mask_ur_label,       0, 0, 1, 1);
-  gtk_grid_attach(GTK_GRID(save_file_user_mask_grid),  save_file_mask_ur_checkbutton, 0, 1, 1, 1);
-  gtk_grid_attach(GTK_GRID(save_file_user_mask_grid),  save_file_mask_uw_label,       1, 0, 1, 1);
-  gtk_grid_attach(GTK_GRID(save_file_user_mask_grid),  save_file_mask_uw_checkbutton, 1, 1, 1, 1);
-  gtk_grid_attach(GTK_GRID(save_file_user_mask_grid),  save_file_mask_ux_label,       2, 0, 1, 1);
-  gtk_grid_attach(GTK_GRID(save_file_user_mask_grid),  save_file_mask_ux_checkbutton, 2, 1, 1, 1);
-
-  g_object_set(save_file_user_mask_grid, "column-homogeneous", TRUE, "column-spacing", 8,  NULL) ;
-
-  gtk_grid_attach(GTK_GRID(save_file_group_mask_grid),  save_file_mask_gr_label,       3, 0, 1, 1);
-  gtk_grid_attach(GTK_GRID(save_file_group_mask_grid),  save_file_mask_gr_checkbutton, 3, 1, 1, 1);
-  gtk_grid_attach(GTK_GRID(save_file_group_mask_grid),  save_file_mask_gw_label,       4, 0, 1, 1);
-  gtk_grid_attach(GTK_GRID(save_file_group_mask_grid),  save_file_mask_gw_checkbutton, 4, 1, 1, 1);
-  gtk_grid_attach(GTK_GRID(save_file_group_mask_grid),  save_file_mask_gx_label,       5, 0, 1, 1);
-  gtk_grid_attach(GTK_GRID(save_file_group_mask_grid),  save_file_mask_gx_checkbutton, 5, 1, 1, 1);
-
-  g_object_set(save_file_group_mask_grid, "column-homogeneous", TRUE, "column-spacing", 8,  NULL) ;
-
-  gtk_grid_attach(GTK_GRID(save_file_other_mask_grid),  save_file_mask_or_label,       6, 0, 1, 1);
-  gtk_grid_attach(GTK_GRID(save_file_other_mask_grid),  save_file_mask_or_checkbutton, 6, 1, 1, 1);
-  gtk_grid_attach(GTK_GRID(save_file_other_mask_grid),  save_file_mask_ow_label,       7, 0, 1, 1);
-  gtk_grid_attach(GTK_GRID(save_file_other_mask_grid),  save_file_mask_ow_checkbutton, 7, 1, 1, 1);
-  gtk_grid_attach(GTK_GRID(save_file_other_mask_grid),  save_file_mask_ox_label,       8, 0, 1, 1);
-  gtk_grid_attach(GTK_GRID(save_file_other_mask_grid),  save_file_mask_ox_checkbutton, 8, 1, 1, 1);
 
   g_object_set(save_file_other_mask_grid, "column-homogeneous", TRUE, "column-spacing", 8,  NULL) ;
 
+  gtk_container_set_border_width(GTK_CONTAINER(save_file_other_mask_grid), CONTAINER_PADDING) ;
+
+  GtkWidget *save_file_mask_or_checkbutton = generate_perm_grid(save_file_other_mask_grid, "r", 6) ;
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(save_file_mask_or_checkbutton), is_perm_value_set(mask, S_IROTH)) ;
+
+  GtkWidget *save_file_mask_ow_checkbutton = generate_perm_grid(save_file_other_mask_grid, "w", 7) ;
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(save_file_mask_ow_checkbutton), is_perm_value_set(mask, S_IWOTH)) ;
+
+  GtkWidget *save_file_mask_ox_checkbutton = generate_perm_grid(save_file_other_mask_grid, "x", 8) ;
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(save_file_mask_ox_checkbutton), is_perm_value_set(mask, S_IXOTH)) ;
+
+
+
 
   GtkWidget *save_file_mask_hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0) ;
-
-  gtk_container_set_border_width(GTK_CONTAINER(save_file_user_mask_grid),  CONTAINER_PADDING) ;
-  gtk_container_set_border_width(GTK_CONTAINER(save_file_group_mask_grid), CONTAINER_PADDING) ;
-  gtk_container_set_border_width(GTK_CONTAINER(save_file_other_mask_grid), CONTAINER_PADDING) ;
 
   gtk_box_pack_start(GTK_BOX(save_file_mask_hbox), save_file_mask_label,         TRUE,   TRUE,   0) ;
   gtk_box_pack_start(GTK_BOX(save_file_mask_hbox), save_file_user_mask_grid,     FALSE,  FALSE,  4) ;
@@ -1517,22 +1445,11 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
   gtk_container_set_border_width(GTK_CONTAINER(file_saving_rm_trailing_spaces_hbox), 24) ;
 
-  GtkWidget *file_saving_rm_trailing_spaces_frame = gtk_frame_new(" Remove trailing spaces ") ;
 
-  gtk_container_set_border_width(GTK_CONTAINER(file_saving_rm_trailing_spaces_frame), FRAME_BORDER_SIZE) ;
-
-  gtk_container_add(GTK_CONTAINER(file_saving_rm_trailing_spaces_frame), file_saving_rm_trailing_spaces_hbox) ;
+  GtkWidget *file_saving_rm_trailing_spaces_frame = generate_frame_with_content( _(" Remove trailing spaces "),  file_saving_rm_trailing_spaces_hbox) ;
 
 
-
-
-
-  GtkWidget *file_saving_backup_file_frame = gtk_frame_new(" Create backup file ") ;
-
-  gtk_container_set_border_width(GTK_CONTAINER(file_saving_backup_file_frame), FRAME_BORDER_SIZE) ;
-
-  gtk_container_add(GTK_CONTAINER(file_saving_backup_file_frame), file_saving_backup_file_vbox) ;
-
+  GtkWidget *file_saving_backup_file_frame = generate_frame_with_content( _(" Create backup file "), file_saving_backup_file_vbox) ;
 
 
   GtkWidget *save_file_vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0) ;
@@ -1540,35 +1457,17 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   gtk_box_set_spacing(GTK_BOX(save_file_vbox), CONTAINER_PADDING) ;
 
   gtk_box_pack_start(GTK_BOX(save_file_vbox), save_file_despite_modification_timestamp,   FALSE, FALSE, 0) ;
-  //gtk_box_pack_start(GTK_BOX(save_file_vbox), close_file_unsaved_checkbutton,        FALSE, FALSE, 0) ;
   gtk_box_pack_start(GTK_BOX(save_file_vbox), save_file_encoding_hbox,                    FALSE, FALSE, 0) ;
   gtk_box_pack_start(GTK_BOX(save_file_vbox), save_file_newline_hbox,                     FALSE, FALSE, 0) ;
-  gtk_box_pack_start(GTK_BOX(save_file_vbox), save_file_mask_hbox,                       FALSE, FALSE, 0) ;
+  gtk_box_pack_start(GTK_BOX(save_file_vbox), save_file_mask_hbox,                        FALSE, FALSE, 0) ;
+
+  GtkWidget *save_file_frame = generate_frame_with_content( _(" Save file "), save_file_vbox) ;
 
 
-
-  GtkWidget *save_file_frame = gtk_frame_new(" Save file ") ;
-
-  gtk_container_set_border_width(GTK_CONTAINER(save_file_frame), FRAME_BORDER_SIZE) ;
-
-  gtk_container_add(GTK_CONTAINER(save_file_frame), save_file_vbox) ;
+  GtkWidget *close_file_unsaved_checkbutton = generate_checkbutton( _("Warning by closing an unsaved file"), settings.warn_file_save, _("Emit a warning if you attempt to close an unsaved file" )) ;
 
 
-
-
-  GtkWidget *close_file_unsaved_checkbutton = generate_checkbuton( _("Warning by closing an unsaved file"), settings.warn_file_save) ;
-
-  gtk_widget_set_tooltip_text(close_file_unsaved_checkbutton, _("Emit a warning if you attempt to close an unsaved file" )) ;
-
-
-
-  GtkWidget *close_file_frame = gtk_frame_new(" Close file ") ;
-
-  gtk_container_set_border_width(GTK_CONTAINER(close_file_frame), FRAME_BORDER_SIZE) ;
-
-  gtk_container_add(GTK_CONTAINER(close_file_frame), close_file_unsaved_checkbutton) ;
-
-
+  GtkWidget *close_file_frame = generate_frame_with_content( _(" Close file "), close_file_unsaved_checkbutton) ;
 
 
 
@@ -1584,52 +1483,11 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   gtk_box_pack_start(GTK_BOX(files_vbox), file_saving_rm_trailing_spaces_frame,   FALSE,  FALSE,  0) ;
 
 
-
-
-  gtk_notebook_append_page(GTK_NOTEBOOK(notebook_configuration), files_vbox, gtk_label_new( _("Files")) ) ;
-
-
-  /** TODO:
-    *
-    * %1. align the encoding, even translate it in clearer.
-    *
-    * %2. Think at switch buttons for their warnings.
-    *
-    * %3. Add the close section in this notebook page (for the warning).
-    *
-    * %4. Add (u)mask in Save file.
-    *
-    * %5. Set the spellcheck language_code into the "Editor" page.
-    *
-    * FIXME: The sidebar terminal(s) scrollbar is weak after using configure program.
-    *
-    *********************************************************************************/
-
+  gtk_notebook_append_page(GTK_NOTEBOOK(notebook_configuration), files_vbox, gtk_label_new( _("File(s) settings")) ) ;
 
 
 
   GtkWidget *terminal_settings_notebook         = gtk_notebook_new() ;
-
-
-  GtkWidget *terminal_use_scheme_frame         = gtk_frame_new( _("Font settings") ) ;
-
-  GtkWidget *terminal_font_scale_frame          = gtk_frame_new( _("Font scale") ) ;
-
-  GtkWidget *terminal_cursor_frame              = gtk_frame_new( _("Cursor settings") ) ;
-
-  GtkWidget *terminal_colors_frame              = gtk_frame_new( _("Colors settings") ) ;
-
-  GtkWidget *terminal_bold_frame                = gtk_frame_new( _("Bold settings") ) ;
-
-  GtkWidget *terminal_pointer_autohide          = gtk_frame_new( _("Pointer autohide") ) ;
-
-
-  gtk_container_set_border_width(GTK_CONTAINER(terminal_use_scheme_frame),       FRAME_BORDER_SIZE) ;
-  gtk_container_set_border_width(GTK_CONTAINER(terminal_font_scale_frame),        FRAME_BORDER_SIZE) ;
-  gtk_container_set_border_width(GTK_CONTAINER(terminal_cursor_frame),            FRAME_BORDER_SIZE) ;
-  gtk_container_set_border_width(GTK_CONTAINER(terminal_colors_frame),            FRAME_BORDER_SIZE) ;
-  gtk_container_set_border_width(GTK_CONTAINER(terminal_bold_frame),              FRAME_BORDER_SIZE) ;
-  gtk_container_set_border_width(GTK_CONTAINER(terminal_pointer_autohide),        FRAME_BORDER_SIZE) ;
 
   GtkWidget *terminal_use_font_button = gtk_font_button_new_with_font(settings.term_font) ;
 
@@ -1642,7 +1500,7 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   gtk_font_button_set_use_size(GTK_FONT_BUTTON(terminal_use_font_button),    TRUE) ;
 
 
-  gtk_container_add(GTK_CONTAINER(terminal_use_scheme_frame), terminal_use_font_button) ;
+  GtkWidget *terminal_use_scheme_frame         = generate_frame_with_content( _("Font settings"),  terminal_use_font_button) ;
 
   gtk_container_set_border_width(GTK_CONTAINER(terminal_use_font_button), CONTAINER_PADDING) ;
 
@@ -1673,8 +1531,7 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
   gtk_box_pack_start(GTK_BOX(terminal_font_scale_vbox), terminal_font_scale_hbox, FALSE, FALSE, 0) ;
 
-  gtk_container_add(GTK_CONTAINER(terminal_font_scale_frame), terminal_font_scale_vbox) ;
-
+  GtkWidget *terminal_font_scale_frame = generate_frame_with_content( _("Font scale"), terminal_font_scale_vbox) ;
 
 
   GtkWidget *terminal_cursor_vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, CONTAINER_PADDING) ;
@@ -1773,17 +1630,14 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
   gtk_box_pack_start(GTK_BOX(terminal_cursor_vbox), terminal_cursor_blinking_hbox, FALSE, FALSE, 0) ;
 
-
-
-  gtk_container_add(GTK_CONTAINER(terminal_cursor_frame), terminal_cursor_vbox) ;
-
+  GtkWidget *terminal_cursor_frame = generate_frame_with_content( _("Cursor settings"), terminal_cursor_vbox) ;
 
 
 
   GtkWidget *terminal_bold_vbox        = gtk_box_new(GTK_ORIENTATION_VERTICAL,    5) ;
   GtkWidget *terminal_bold_color_hbox  = gtk_box_new(GTK_ORIENTATION_HORIZONTAL,  5) ;
 
-  GtkWidget *terminal_bold_allowed_checkbutton = generate_checkbuton( _("  Allow bold  "), settings.bold_allow ) ;
+  GtkWidget *terminal_bold_allowed_checkbutton = generate_checkbutton( _("  Allow bold  "), settings.bold_allow, NULL) ;
 
   GtkWidget *terminal_bold_color_label  = gtk_label_new( _("  Bold color  ") ) ;
 
@@ -1814,23 +1668,21 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
   gtk_container_set_border_width(GTK_CONTAINER(terminal_bold_color_hbox), CONTAINER_PADDING) ;
 
-  gtk_container_add(GTK_CONTAINER(terminal_bold_frame), terminal_bold_vbox) ;
 
+  GtkWidget *terminal_bold_frame = generate_frame_with_content( _("Bold settings"), terminal_bold_vbox) ;
 
 
 
   GtkWidget *terminal_pointer_autohide_hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, CONTAINER_PADDING) ;
 
-  GtkWidget *terminal_pointer_autohide_chkbox = generate_checkbuton( _("Pointer autohide"), settings.pointer_autohide) ;
+  GtkWidget *terminal_pointer_autohide_chkbox = generate_checkbutton( _("Pointer autohide"), settings.pointer_autohide, NULL) ;
 
   gtk_box_pack_start(GTK_BOX(terminal_pointer_autohide_hbox), terminal_pointer_autohide_chkbox, TRUE, TRUE, 0) ;
 
 
   gtk_container_set_border_width(GTK_CONTAINER(terminal_pointer_autohide_chkbox),        CONTAINER_PADDING) ;
 
-  gtk_container_add(GTK_CONTAINER(terminal_pointer_autohide), terminal_pointer_autohide_hbox) ;
-
-
+  GtkWidget *terminal_pointer_autohide = generate_frame_with_content( _("Pointer autohide"), terminal_pointer_autohide_hbox) ;
 
   GdkRGBA bg_color ;
 
@@ -1869,31 +1721,9 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   gtk_box_pack_start(GTK_BOX(terminal_colors_hbox), terminal_fg_color_hbox, FALSE, FALSE, 0) ;
 
 
-  gtk_container_add(GTK_CONTAINER(terminal_colors_frame), terminal_colors_hbox) ;
+  GtkWidget *terminal_colors_frame = generate_frame_with_content( _("Colors settings"), terminal_colors_hbox) ;
 
   gtk_container_set_border_width(GTK_CONTAINER(terminal_colors_hbox), CONTAINER_PADDING) ;
-
-
-  GtkWidget *terminal_user_shell_frame          = gtk_frame_new( _("User shell") ) ;
-
-  GtkWidget *terminal_start_dir_frame           = gtk_frame_new( _("Start directory") ) ;
-
-  GtkWidget *terminal_audible_bell_frame        = gtk_frame_new( _("Audible bell") ) ;
-
-  GtkWidget *terminal_scrollback_frame          = gtk_frame_new( _("Scrollback lines") ) ;
-
-  GtkWidget *terminal_scrolling_frame           = gtk_frame_new( _("Scrolling") ) ;
-
-  GtkWidget *terminal_erase_binding_frame       = gtk_frame_new( _("Erasing binding") ) ;
-
-
-  gtk_container_set_border_width(GTK_CONTAINER(terminal_user_shell_frame),         FRAME_BORDER_SIZE) ;
-  gtk_container_set_border_width(GTK_CONTAINER(terminal_start_dir_frame),          FRAME_BORDER_SIZE) ;
-  gtk_container_set_border_width(GTK_CONTAINER(terminal_audible_bell_frame),       FRAME_BORDER_SIZE) ;
-  gtk_container_set_border_width(GTK_CONTAINER(terminal_scrollback_frame),         FRAME_BORDER_SIZE) ;
-  gtk_container_set_border_width(GTK_CONTAINER(terminal_scrolling_frame),          FRAME_BORDER_SIZE) ;
-  gtk_container_set_border_width(GTK_CONTAINER(terminal_erase_binding_frame),      FRAME_BORDER_SIZE) ;
-
 
 
   GtkWidget *user_shell_hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0) ;
@@ -1917,8 +1747,7 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
   gtk_box_set_spacing(GTK_BOX(user_shell_hbox), CONTAINER_PADDING) ;
 
-  gtk_container_add(GTK_CONTAINER(terminal_user_shell_frame), user_shell_hbox) ;
-
+  GtkWidget *terminal_user_shell_frame = generate_frame_with_content( _("User shell"), user_shell_hbox) ;
 
 
 
@@ -1940,18 +1769,17 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
   gtk_box_set_spacing(GTK_BOX(start_directory_hbox), CONTAINER_PADDING) ;
 
-  gtk_container_add(GTK_CONTAINER(terminal_start_dir_frame), start_directory_hbox) ;
 
+  GtkWidget *terminal_start_dir_frame = generate_frame_with_content( _("Start directory"), start_directory_hbox) ;
 
 
   GtkWidget *audible_bell_vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0) ;
 
-  GtkWidget *audible_bell_chkbox = generate_checkbuton( _("Audible bell"), settings.audible_bell) ;
+  GtkWidget *audible_bell_chkbox = generate_checkbutton( _("Audible bell"), settings.audible_bell, NULL) ;
 
   gtk_box_pack_start(GTK_BOX(audible_bell_vbox), audible_bell_chkbox,  TRUE, TRUE,   CONTAINER_PADDING) ;
 
-  gtk_container_add(GTK_CONTAINER(terminal_audible_bell_frame), audible_bell_vbox) ;
-
+  GtkWidget *terminal_audible_bell_frame = generate_frame_with_content( _("Audible bell"), audible_bell_vbox) ;
 
 
   GtkWidget *scrollback_lines_vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0) ;
@@ -1996,9 +1824,9 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
   GtkWidget *scrolling_vbox  = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0) ;
 
-  GtkWidget *scroll_on_output_checkbutton = generate_checkbuton( _("Scroll on output"),    settings.scroll_on_output) ;
+  GtkWidget *scroll_on_output_checkbutton = generate_checkbutton( _("Scroll on output"),    settings.scroll_on_output, NULL) ;
 
-  GtkWidget *scroll_on_keystroke_checkbutton = generate_checkbuton( _("Scroll on keystroke"), settings.scroll_on_keystroke) ;
+  GtkWidget *scroll_on_keystroke_checkbutton = generate_checkbutton( _("Scroll on keystroke"), settings.scroll_on_keystroke, NULL) ;
 
 
   gtk_box_pack_start(GTK_BOX(scrolling_vbox), scroll_on_output_checkbutton,    FALSE, FALSE, CONTAINER_PADDING) ;
@@ -2006,7 +1834,7 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
   gtk_container_set_border_width(GTK_CONTAINER(scrolling_vbox), CONTAINER_PADDING) ;
 
-  gtk_container_add(GTK_CONTAINER(terminal_scrolling_frame), scrolling_vbox) ;
+  GtkWidget *terminal_scrolling_frame = generate_frame_with_content( _("Scrolling"), scrolling_vbox) ;
 
 
   GtkWidget *erasing_vbox  = gtk_box_new(GTK_ORIENTATION_VERTICAL, CONTAINER_PADDING) ;
@@ -2056,8 +1884,7 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
   gtk_container_set_border_width(GTK_CONTAINER(erasing_vbox), CONTAINER_PADDING) ;
 
-  gtk_container_add(GTK_CONTAINER(terminal_erase_binding_frame), erasing_vbox) ;
-
+  GtkWidget *terminal_erase_binding_frame = generate_frame_with_content( _("Erasing binding"), erasing_vbox) ;
 
   GtkWidget *terminal_appearance_vbox  = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0) ;
 
@@ -2079,8 +1906,7 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
   gtk_box_pack_start(GTK_BOX(terminal_appearance_vbox), terminal_pointer_autohide,      TRUE,   TRUE, 0) ;
 
-  gtk_container_add(GTK_CONTAINER(terminal_scrollback_frame), scrollback_lines_vbox) ;
-
+  GtkWidget *terminal_scrollback_frame = generate_frame_with_content( _("Scrollback lines"), scrollback_lines_vbox) ;
 
   gtk_notebook_append_page(GTK_NOTEBOOK(terminal_settings_notebook), terminal_appearance_vbox, gtk_label_new( _("Appearance") )) ;
 
@@ -2106,16 +1932,6 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
 
   GtkWidget *files_manager_main_vbox          = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0) ;
-
-
-  GtkWidget *files_manager_list_frame         = gtk_frame_new( _("Files manager list") ) ;
-
-  GtkWidget *files_manager_action_frame       = gtk_frame_new( _("Actions") ) ;
-
-
-  gtk_container_set_border_width(GTK_CONTAINER(files_manager_list_frame),   FRAME_BORDER_SIZE) ;
-
-  gtk_container_set_border_width(GTK_CONTAINER(files_manager_action_frame), FRAME_BORDER_SIZE) ;
 
 
   GtkWidget *files_manager_action_buttonbox  = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL) ;
@@ -2236,11 +2052,9 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
   gtk_container_add(GTK_CONTAINER(link_scrolled_window), files_manager_vbox) ;
 
-  gtk_container_add(GTK_CONTAINER(files_manager_list_frame),  link_scrolled_window ) ;
+  GtkWidget *files_manager_list_frame = generate_frame_with_content( _("Files manager list"), link_scrolled_window) ;
 
-  gtk_container_add(GTK_CONTAINER(files_manager_action_frame), files_manager_action_buttonbox) ;
-
-
+  GtkWidget *files_manager_action_frame = generate_frame_with_content( _("Actions"), files_manager_action_buttonbox) ;
 
   gtk_box_pack_start(GTK_BOX(files_manager_main_vbox), files_manager_list_frame,       TRUE,  TRUE,  0) ;
   gtk_box_pack_start(GTK_BOX(files_manager_main_vbox), files_manager_action_frame,     FALSE, FALSE, 0) ;
@@ -2267,20 +2081,10 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   GtkWidget *gui_application_main_vbox          = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0) ;
 
 
-  GtkWidget *gui_application_programming_frame  = gtk_frame_new( _("Programing") ) ;
-
-  GtkWidget *gui_application_utils_frame        = gtk_frame_new( _("Utils") ) ;
 
   GtkWidget *gui_application_others_frame       = gtk_frame_new( _("Others") ) ;
 
-
-
   GtkWidget *gui_application_action_frame       = gtk_frame_new( _("Actions") ) ;
-
-
-  gtk_container_set_border_width(GTK_CONTAINER(gui_application_programming_frame),  FRAME_BORDER_SIZE) ;
-
-  gtk_container_set_border_width(GTK_CONTAINER(gui_application_utils_frame),        FRAME_BORDER_SIZE) ;
 
   gtk_container_set_border_width(GTK_CONTAINER(gui_application_others_frame),       FRAME_BORDER_SIZE) ;
 
@@ -2334,8 +2138,8 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   gtk_box_pack_start(GTK_BOX(gui_application_programming_vbox), gui_application_programming_devhelp_hbox, FALSE, FALSE, 0) ;
 
 
-  gtk_container_add(GTK_CONTAINER(gui_application_programming_frame), gui_application_programming_vbox) ;
 
+  GtkWidget *gui_application_programming_frame = generate_frame_with_content( _("Programing"), gui_application_programming_vbox) ;
 
 
 
@@ -2387,26 +2191,12 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
   gtk_box_pack_start(GTK_BOX(gui_application_utils_vbox), gui_application_utils_browser_hbox, FALSE, FALSE, 0) ;
 
-
-  gtk_container_add(GTK_CONTAINER(gui_application_utils_frame), gui_application_utils_vbox) ;
-
-
+  GtkWidget *gui_application_utils_frame = generate_frame_with_content( _("Utils"), gui_application_utils_vbox) ;
 
 
 
 
   GtkWidget *gui_application_others_main_vbox          = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0) ;
-
-
-  GtkWidget *gui_application_others_list_frame         = gtk_frame_new( _("User defined applications list") ) ;
-
-  GtkWidget *gui_application_others_action_frame       = gtk_frame_new( _("Actions") ) ;
-
-
-  gtk_container_set_border_width(GTK_CONTAINER(gui_application_others_list_frame),    FRAME_BORDER_SIZE) ;
-
-  gtk_container_set_border_width(GTK_CONTAINER(gui_application_others_action_frame),  FRAME_BORDER_SIZE) ;
-
 
   GtkWidget *gui_application_others_action_buttonbox  = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL) ;
 
@@ -2483,9 +2273,9 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
 
   gtk_container_add(GTK_CONTAINER(gui_application_others_scrolled_window), gui_application_others_vbox) ;
 
-  gtk_container_add(GTK_CONTAINER(gui_application_others_list_frame),  gui_application_others_scrolled_window ) ;
+  GtkWidget *gui_application_others_list_frame = generate_frame_with_content( _("User defined applications list"), gui_application_others_scrolled_window ) ;
 
-  gtk_container_add(GTK_CONTAINER(gui_application_others_action_frame), gui_application_others_action_buttonbox) ;
+  GtkWidget *gui_application_others_action_frame = generate_frame_with_content( _("Actions"), gui_application_others_action_buttonbox) ;
 
 
 
@@ -2512,11 +2302,6 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   GtkWidget *gui_configuration_vbox  = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0) ;
 
   gtk_box_set_spacing(GTK_BOX(gui_configuration_vbox), CONTAINER_PADDING) ;
-
-
-  GtkWidget *gui_sidebar_factor_frame       = gtk_frame_new( _("Editor / Sidebar space factor") ) ;
-
-  gtk_container_set_border_width(GTK_CONTAINER(gui_sidebar_factor_frame),       FRAME_BORDER_SIZE) ;
 
 
   GtkWidget *gui_sidebar_factor_vbox  = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, CONTAINER_PADDING) ;
@@ -2549,29 +2334,19 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   gtk_box_pack_start(GTK_BOX(gui_sidebar_factor_vbox), gui_sidebar_factor_spinbutton, FALSE, FALSE, CONTAINER_PADDING) ;
 
 
-  gtk_container_add(GTK_CONTAINER(gui_sidebar_factor_frame), gui_sidebar_factor_vbox) ;
+  GtkWidget *gui_sidebar_factor_frame = generate_frame_with_content( _("Editor / Sidebar space factor"), gui_sidebar_factor_vbox) ;
 
 
 
+  GtkWidget *show_terminals_sidebar_checkbutton = generate_checkbutton( _("Show Terminals-sidebar at start ?"), settings.side_terms_on, NULL) ;
 
-  GtkWidget *startup_settings_frame = gtk_frame_new( _("Settings at start") ) ;
+  GtkWidget *show_big_term_checkbutton = generate_checkbutton( _("Display Big-terminal at start ?"), settings.big_term_on, NULL) ;
 
-  gtk_container_set_border_width(GTK_CONTAINER(startup_settings_frame),     FRAME_BORDER_SIZE) ;
+  GtkWidget *show_big_term_divided_checkbutton = generate_checkbutton( _("Divide Big-terminal in 4 at start ?"), settings.big_term_div, NULL) ;
 
+  GtkWidget *show_buttonbar_checkbutton = generate_checkbutton( _("Show buttonbar at start ?"), settings.buttonbar_on, NULL) ;
 
-
-
-
-
-  GtkWidget *show_terminals_sidebar_checkbutton = generate_checkbuton( _("Show Terminals-sidebar at start ?"), settings.side_terms_on) ;
-
-  GtkWidget *show_big_term_checkbutton = generate_checkbuton( _("Display Big-terminal at start ?"), settings.big_term_on) ;
-
-  GtkWidget *show_big_term_divided_checkbutton = generate_checkbuton( _("Divide Big-terminal in 4 at start ?"), settings.big_term_div) ;
-
-  GtkWidget *show_buttonbar_checkbutton = generate_checkbuton( _("Show buttonbar at start ?"), settings.buttonbar_on) ;
-
-  GtkWidget *show_fullscreen_checkbutton = generate_checkbuton( _("Toggle to fullscreen at start ?"), settings.fullscreen) ;
+  GtkWidget *show_fullscreen_checkbutton = generate_checkbutton( _("Toggle to fullscreen at start ?"), settings.fullscreen, NULL) ;
 
 
   GtkWidget *startup_settings_vbox  = gtk_box_new(GTK_ORIENTATION_VERTICAL, CONTAINER_PADDING) ;
@@ -2582,12 +2357,7 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   gtk_box_pack_start(GTK_BOX(startup_settings_vbox), show_fullscreen_checkbutton,      TRUE, TRUE, CONTAINER_PADDING) ;
 
 
-  gtk_container_add(GTK_CONTAINER(startup_settings_frame), startup_settings_vbox) ;
-
-
-  GtkWidget *gui_set_as_default_frame       = gtk_frame_new( _("Set as default editor") ) ;
-
-  gtk_container_set_border_width(GTK_CONTAINER(gui_set_as_default_frame),       FRAME_BORDER_SIZE) ;
+  GtkWidget *startup_settings_frame = generate_frame_with_content( _("Settings at start"), startup_settings_vbox) ;
 
   GtkWidget *gui_set_as_default_vbox  = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL) ;
 
@@ -2608,14 +2378,8 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   g_signal_connect(G_OBJECT(gui_set_as_default_button),       "clicked", G_CALLBACK(set_as_default), NULL) ;
   g_signal_connect(G_OBJECT(gui_set_as_default_reset_button), "clicked", G_CALLBACK(reset_default), NULL) ;
 
-  gtk_container_add(GTK_CONTAINER(gui_set_as_default_frame), gui_set_as_default_vbox) ;
+  GtkWidget *gui_set_as_default_frame = generate_frame_with_content( _("Set as default editor"), gui_set_as_default_vbox) ;
 
-
-
-
-  GtkWidget *gui_launch_cmd_frame       = gtk_frame_new( _("Launch command at start") ) ;
-
-  gtk_container_set_border_width(GTK_CONTAINER(gui_launch_cmd_frame),       FRAME_BORDER_SIZE) ;
 
   GtkWidget *gui_launch_cmd_vbox  = gtk_box_new(GTK_ORIENTATION_VERTICAL, CONTAINER_PADDING) ;
 
@@ -2626,9 +2390,9 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   GtkWidget *gui_launch_cmd_label = gtk_label_new( _("Launch a command in all terminals at start:") ) ;
 
   GtkWidget *gui_launch_cmd_entry = gtk_entry_new() ;
- 
+
   gtk_widget_set_tooltip_text(gui_launch_cmd_entry, _("Per example: set -o history ; ls") ) ;
- 
+
   if (settings.command != NULL) {
 
     gtk_entry_set_text(GTK_ENTRY(gui_launch_cmd_entry), settings.command) ;
@@ -2643,16 +2407,8 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   gtk_box_pack_start(GTK_BOX(gui_launch_cmd_vbox), gui_launch_cmd_label, FALSE, FALSE, CONTAINER_PADDING) ;
   gtk_box_pack_start(GTK_BOX(gui_launch_cmd_vbox), gui_launch_cmd_hbox,  FALSE, FALSE, CONTAINER_PADDING) ;
 
-  gtk_container_add(GTK_CONTAINER(gui_launch_cmd_frame), gui_launch_cmd_vbox) ;
 
-
-
-
-
-  GtkWidget *session_configuration_frame       = gtk_frame_new( _("Session management") ) ;
-
-  gtk_container_set_border_width(GTK_CONTAINER(session_configuration_frame),       FRAME_BORDER_SIZE) ;
-
+  GtkWidget *gui_launch_cmd_frame = generate_frame_with_content( _("Launch command at start"), gui_launch_cmd_vbox) ;
 
 
   GtkWidget *session_configuration_asked      = gtk_radio_button_new_with_label(NULL, _("Ask at exit for saving session.") ) ;
@@ -2705,9 +2461,7 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   gtk_box_pack_start(GTK_BOX(session_configuration_vbox), session_configuration_automatic,  FALSE, FALSE, 2) ;
   gtk_box_pack_start(GTK_BOX(session_configuration_vbox), session_configuration_disabled,   FALSE, FALSE, 2) ;
 
-  gtk_container_add(GTK_CONTAINER(session_configuration_frame), session_configuration_vbox) ;
-
-  gtk_container_set_border_width(GTK_CONTAINER(session_configuration_frame), CONTAINER_PADDING) ;
+  GtkWidget *session_configuration_frame = generate_frame_with_content( _("Session management"), session_configuration_vbox) ;
 
 
 
@@ -2718,7 +2472,7 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   gtk_box_pack_start(GTK_BOX(gui_configuration_vbox), session_configuration_frame,      TRUE,  TRUE,  0) ;
 
 
-  gtk_notebook_append_page(GTK_NOTEBOOK(notebook_configuration), gui_configuration_vbox, gtk_label_new( _("Settings") )) ;
+  gtk_notebook_append_page(GTK_NOTEBOOK(notebook_configuration), gui_configuration_vbox, gtk_label_new( _("Main settings") )) ;
 
 
 
@@ -2729,24 +2483,41 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
   if (result ==  GTK_RESPONSE_APPLY) {
 
 
-    g_free(settings.scheme) ;
-    settings.scheme = g_strdup( gtk_source_style_scheme_get_id(gtk_source_style_scheme_chooser_get_style_scheme(GTK_SOURCE_STYLE_SCHEME_CHOOSER(use_scheme_button))) ) ;
 
-    update_scheme_menu_items(settings.scheme) ;
+    settings.grid_background      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(grid_background_checkbutton))    ;
+    settings.display_line_numbers = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(show_lines_checkbutton))         ;
+    settings.display_tabs_chars   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(show_tabs_checkbutton))          ;
+    settings.use_auto_indent      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(auto_indent_checkbutton))        ;
+    settings.use_right_margin     = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(right_margin_checkbutton))       ;
+    settings.use_monospace_font   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(use_monospace_font_checkbutton)) ;
+
+    settings.indent_width         = (gint) gtk_spin_button_get_value(GTK_SPIN_BUTTON(indent_width_spinbutton))    ;
+
+    if (settings.use_right_margin) {
+
+      settings.right_margin_value = (gint) gtk_spin_button_get_value(GTK_SPIN_BUTTON(right_margin_spinbutton))    ;
+
+    }
+
+    settings.use_spaces_as_tabs   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(use_spaces_instead_of_tabs))   ;
+
+    settings.tabs_width           = (gint) gtk_spin_button_get_value(GTK_SPIN_BUTTON(tabs_width_spinbutton))      ;
 
 
-    settings.display_line_numbers = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(show_lines_checkbutton))     ;
-    settings.display_tabs_chars   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(show_tabs_checkbutton))      ;
-    settings.use_auto_indent      = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(auto_indent_checkbutton))    ;
-    settings.indent_width         = (gint) gtk_spin_button_get_value(GTK_SPIN_BUTTON(indent_width_spinbutton))  ;
-    settings.use_spaces_as_tabs   = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(use_spaces_instead_of_tabs)) ;
-    settings.tabs_width           = (gint) gtk_spin_button_get_value(GTK_SPIN_BUTTON(tabs_width_spinbutton))    ;
-    settings.backup_file          = gtk_switch_get_active(GTK_SWITCH(save_file_backup_file_switch))    ;
+    settings.backup_file          = gtk_switch_get_active(GTK_SWITCH(save_file_backup_file_switch))               ;
 
 
     g_free(settings.term_font) ;
 
     settings.term_font = g_strdup(gtk_font_button_get_font_name(GTK_FONT_BUTTON(terminal_use_font_button))) ;
+
+    if (gtk_font_button_get_font_name(GTK_FONT_BUTTON(editor_font_button)) != NULL) {
+
+      g_free(settings.editor_font) ;
+
+      settings.editor_font = g_strdup(gtk_font_button_get_font_name(GTK_FONT_BUTTON(editor_font_button))) ;
+
+    }
 
 
     if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(cursor_shape_block_radiobutton))  ) {
@@ -2841,24 +2612,9 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
     settings.side_terms_factor = gtk_spin_button_get_value(GTK_SPIN_BUTTON(gui_sidebar_factor_spinbutton)) ;
 
 
-    free(bold_color_activated) ;
-    free(cursor_color_activated) ;
+    g_free(bold_color_activated) ;
+    g_free(cursor_color_activated) ;
 
-    #ifdef GSPELL_SUPPORT
-
-    if (language_code != NULL) {
-
-      g_free(settings.language_code) ;
-
-      settings.language_code        =  language_code ;
-    }
-    else {
- 
-      settings.language_code        = g_strdup(gspell_language_get_code((gspell_language_lookup("en") == NULL) ? gspell_language_get_default() : gspell_language_lookup("en"))) ;
-    }
- 
-
-    #endif
 
     g_free(settings.charset) ;
 
@@ -2931,11 +2687,11 @@ void display_configuration_dialog(GtkWidget *widget, gpointer user_data) {
       settings.session_mode = -1 ;
     }
     else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(session_configuration_disabled)) )  {
- 
+
       settings.session_mode = 0 ;
     }
     else {
- 
+
       settings.session_mode = 1 ;
     }
 

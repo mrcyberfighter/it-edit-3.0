@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    ./it-edit_presentation.rst
+   ./Menu.rst
    ./Editor.rst
    ./Terminals.rst
    ./Files.rst

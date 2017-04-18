@@ -21,7 +21,7 @@
 
 @copying
 @quotation
-it-edit 3.0, Mar 19, 2017
+it-edit 3.0, Apr 18, 2017
 
 Brüggemann Eddie
 
@@ -57,9 +57,10 @@ Contents:
 
 @menu
 * it-edit (Integrated Terminal Editor): it-edit Integrated Terminal Editor. 
+* it-edit's menu:: 
 * Editor:: 
 * Terminals:: 
-* Files:: 
+* Files: Files<2>. 
 * Spell check:: 
 * Sessions:: 
 * Shortcuts table:: 
@@ -85,19 +86,35 @@ it-edit spirit
 
 * A programming editor:: 
 
+it-edit's menu
+
+* Files:: 
+* Edition:: 
+* Actions:: 
+* Applications:: 
+* View:: 
+* Settings:: 
+* About:: 
+
 Editor
 
 * Files management.: Files management. 
 * Text edition functionalities.: Text edition functionalities. 
+* Contextual menu from editor:: 
 * Spell-check functionality:: 
 * Go to line number:: 
 * Find and replace:: 
+* Replace in all files:: 
+* Copy to clipboard:: 
+* Order page:: 
+* Editor usage more:: 
 
 Terminals
 
 * A sidebar terminals:: 
 * A full-screen terminal:: 
 * Top-level terminals:: 
+* Contextual menu from the terminals:: 
 
 Files
 
@@ -153,8 +170,8 @@ GtkSmartIconButton
 @end detailmenu
 @end menu
 
-@node it-edit Integrated Terminal Editor,Editor,Top,Top
-@anchor{it-edit_presentation doc}@anchor{1}@anchor{it-edit_presentation welcome-to-it-edit-s-documentation}@anchor{2}@anchor{it-edit_presentation it-edit-integrated-terminal-editor}@anchor{3}
+@node it-edit Integrated Terminal Editor,it-edit's menu,Top,Top
+@anchor{it-edit_presentation it-edit-integrated-terminal-editor}@anchor{1}@anchor{it-edit_presentation welcome-to-it-edit-s-documentation}@anchor{2}@anchor{it-edit_presentation doc}@anchor{3}
 @chapter it-edit (Integrated Terminal Editor)
 
 
@@ -183,7 +200,7 @@ GPLv3
 
 
 @*release: 
-Mar 19, 2017
+Apr 18, 2017
 
 
 @menu
@@ -456,7 +473,7 @@ The file permissions.
 @end itemize
 
 @*warning: 
-:By saving the @code{configured mask} will overwrite your changes.
+By saving the @code{configured mask} will overwrite your changes.
 
 
 
@@ -479,7 +496,7 @@ Last status change time (this one isn't modifiable).
 @end itemize
 
 @item 
-Rename, Copy, Compress (@emph{using the gzip algorithm}), Copy file-path to clipboard.
+Rename, Copy, Compress (@emph{using the gzip algorithm}), Move file.
 @end itemize
 
 @node Terminal integration,it-edit writing spirit,it-edit spirit,it-edit Integrated Terminal Editor
@@ -541,6 +558,10 @@ cache optimizing: so that we get the best cache-hits we can.
 
 @code{it-edit} make usage of @code{/** **/} comments so for commenting out a code section, by hacking it-edit, use the preprocessor: @code{#if 0 ... #endif}.
 
+@*note: 
+The spirit of @code{it-edit} says that you have to do a thing a single time then it's automatize.
+
+
 @node Conclusion,,it-edit writing spirit,it-edit Integrated Terminal Editor
 @anchor{it-edit_presentation conclusion}@anchor{d}
 @section Conclusion
@@ -548,24 +569,330 @@ cache optimizing: so that we get the best cache-hits we can.
 
 Control all your system with @code{it-edit} and show us that you can dialog with it through the best medium: the terminal.
 
-@node Editor,Terminals,it-edit Integrated Terminal Editor,Top
-@anchor{Editor doc}@anchor{e}@anchor{Editor editor}@anchor{f}
+@node it-edit's menu,Editor,it-edit Integrated Terminal Editor,Top
+@anchor{Menu it-edit-s-menu}@anchor{e}@anchor{Menu doc}@anchor{f}
+@chapter @code{it-edit}'s menu
+
+
+@menu
+* Files:: 
+* Edition:: 
+* Actions:: 
+* Applications:: 
+* View:: 
+* Settings:: 
+* About:: 
+
+@end menu
+
+@node Files,Edition,,it-edit's menu
+@anchor{Menu files}@anchor{10}
+@section Files
+
+
+
+@itemize +
+
+@item 
+‣  New file (@code{Ctrl + n})
+
+@item 
+‣  Open file (@code{Ctrl + o})
+
+@item 
+‣  Recent file(s)
+
+@emph{... List of recent files}
+
+@item 
+‣  Save file (@code{Ctrl + s})
+
+@item 
+‣  Save file as
+
+@item 
+‣  Save all file(s) (@code{Ctrl +  Shift + N})
+
+@item 
+‣  Close file (@code{Ctrl +  Alt + c})
+
+@item 
+‣  Close all files (@code{Ctrl +  Shift + C})
+
+@item 
+‣  Reload :ref:`session <session>
+
+
+@itemize +
+
+@item 
+‣  Reload entire session
+
+@item 
+‣  Reload last file(s)
+
+@item 
+‣  Reload last documentation
+
+@item 
+‣  Reload last application(s)
+
+@item 
+‣  Clear session
+@end itemize
+
+@item 
+‣  Reload current file (@code{Ctrl +  r})
+
+@item 
+‣  File informations (@code{Ctrl +  i})
+
+@item 
+‣  Quit (@code{Ctrl +  q})
+@end itemize
+
+@node Edition,Actions,Files,it-edit's menu
+@anchor{Menu edition}@anchor{11}
+@section Edition
+
+
+
+@itemize +
+
+@item 
+‣  Undo (@code{Ctrl +  z})
+
+@item 
+‣  Redo (@code{Ctrl +  Shift + Z})
+
+@item 
+‣  Find text (@code{Ctrl +  f})
+
+@item 
+‣  Find all (@code{Ctrl +  Shift + F})
+
+@item 
+‣  Find previous (@code{Ctrl + -})
+
+@item 
+‣  Find next (@code{Ctrl + +})
+
+@item 
+‣  Replace text (@code{Ctrl +  Enter (KP)})
+
+@item 
+‣  Replace all  (@code{Ctrl +  Shift + Enter (KP)})
+
+@item 
+‣  Replace all in all files  (@code{Ctrl +  Shift + R)})
+
+@item 
+‣  Go to line number  (@code{Ctrl +  g})
+
+@item 
+‣  Cut  (@code{Ctrl +  x})
+
+@item 
+‣  Copy (@code{Ctrl +  c})
+
+@item 
+‣  Paste (@code{Ctrl +  v})
+
+@item 
+‣  Duplicate text (@code{Ctrl + d})
+
+@item 
+‣  Use space instead of tabs (@code{Ctrl +  p})
+
+@item 
+‣  In-line spell check (@code{Ctrl +  w})
+@end itemize
+
+@node Actions,Applications,Edition,it-edit's menu
+@anchor{Menu actions}@anchor{12}
+@section Actions
+
+
+
+@itemize +
+
+@item 
+‣  Execute command (@code{Ctrl +  e})
+
+@item 
+‣  Order pages (@code{Ctrl +  Alt + y})
+
+@item 
+‣  Copy file-path to clipboard (@code{Ctrl +  y})
+
+@item 
+‣  Copy folder-path to clipboard (@code{Ctrl +  Shift + Y})
+
+@item 
+‣  Sidebar terminals add tab (@code{Ctrl +  Shift + T})
+
+@item 
+‣  Big terminals(s) switch (@code{Ctrl +  Shift + B})
+
+@item 
+‣  File(s) handler (@code{Ctrl +  h})
+
+@item 
+‣  Application launcher (@code{Ctrl +  a})
+
+@item 
+‣  Spell check dialog (@code{Ctrl +  Shift + W})
+@end itemize
+
+@node Applications,View,Actions,it-edit's menu
+@anchor{Menu applications}@anchor{13}
+@section Applications
+
+
+
+@itemize +
+
+@item 
+‣  Programming
+
+
+@itemize +
+
+@item 
+‣  Diff G.U.I (Graphical User Interface) tool
+
+@item 
+‣  Debugger G.U.I (Graphical User Interface) tool
+
+@item 
+‣  Python smart interpreter G.U.I (Graphical User Interface) tool
+
+@item 
+‣  G.U.I (Graphical User Interface) designer tool
+
+@item 
+‣  devhelp
+@end itemize
+
+@item 
+‣  Utilities
+@end itemize
+
+@quotation
+
+
+@itemize +
+
+@item 
+‣  Calculator
+
+@item 
+‣  Color picker
+
+@item 
+‣  Dictionary
+
+@item 
+‣  File manager
+
+@item 
+‣  Browser
+@end itemize
+@end quotation
+
+
+@itemize +
+
+@item 
+‣  User defined applications
+@end itemize
+
+@node View,Settings,Applications,it-edit's menu
+@anchor{Menu view}@anchor{14}
+@section View
+
+
+
+@itemize +
+
+@item 
+‣  Big terminal show
+
+@item 
+‣  Sidebar terminals show
+
+@item 
+‣  Button bar show
+
+@item 
+‣  Full screen
+@end itemize
+
+@node Settings,About,View,it-edit's menu
+@anchor{Menu settings}@anchor{15}
+@section Settings
+
+
+
+@itemize +
+
+@item 
+‣  Syntax highlight
+
+@item 
+‣  Editor scheme
+
+@item 
+‣  Configure spell check language
+
+@item 
+‣  Configure program
+@end itemize
+
+@node About,,Settings,it-edit's menu
+@anchor{Menu about}@anchor{16}
+@section About
+
+
+
+@itemize +
+
+@item 
+‣  Uptime
+
+@item 
+‣  Notice
+
+@item 
+‣  License
+
+@item 
+‣  About
+@end itemize
+
+@node Editor,Terminals,it-edit's menu,Top
+@anchor{Editor editor}@anchor{17}@anchor{Editor doc}@anchor{18}
 @chapter Editor
 
 
-The editor has other functionalities like:
+The editor has as functionalities :
 
 @menu
 * Files management.: Files management. 
 * Text edition functionalities.: Text edition functionalities. 
+* Contextual menu from editor:: 
 * Spell-check functionality:: 
 * Go to line number:: 
 * Find and replace:: 
+* Replace in all files:: 
+* Copy to clipboard:: 
+* Order page:: 
+* Editor usage more:: 
 
 @end menu
 
 @node Files management,Text edition functionalities,,Editor
-@anchor{Editor files-management}@anchor{10}
+@anchor{Editor files-management}@anchor{19}
 @section Files management.
 
 
@@ -594,8 +921,8 @@ File informations.
 Reload file (from disk).
 @end itemize
 
-@node Text edition functionalities,Spell-check functionality,Files management,Editor
-@anchor{Editor text-edition-functionalities}@anchor{11}
+@node Text edition functionalities,Contextual menu from editor,Files management,Editor
+@anchor{Editor text-edition-functionalities}@anchor{1a}
 @section Text edition functionalities.
 
 
@@ -624,8 +951,73 @@ Use spaces instead of tabs.
 Enable/Disable in-line spell-check.
 @end itemize
 
-@node Spell-check functionality,Go to line number,Text edition functionalities,Editor
-@anchor{Editor spell-check-functionality}@anchor{12}
+@node Contextual menu from editor,Spell-check functionality,Text edition functionalities,Editor
+@anchor{Editor contextual-menu-from-editor}@anchor{1b}
+@section Contextual menu from editor
+
+
+
+@itemize +
+
+@item 
+Undo
+
+@item 
+Redo
+@end itemize
+
+---
+
+
+@itemize +
+
+@item 
+Cut
+
+@item 
+Copy
+
+@item 
+Paste
+
+@item 
+Erase
+@end itemize
+
+---
+
+
+@itemize +
+
+@item 
+Select all
+
+@item 
+Change case
+
+
+@itemize +
+
+@item 
+All to uppercase
+
+@item 
+All to lowercase
+
+@item 
+Invert case
+
+@item 
+First letter uppercase
+@end itemize
+@end itemize
+
+@*note: 
+If you're using the @code{In-line spell check} functionality an item with a @emph{sub-menu} of @strong{suggestions} is added to the @strong{contextual menu} of the editor.
+
+
+@node Spell-check functionality,Go to line number,Contextual menu from editor,Editor
+@anchor{Editor spell-check-functionality}@anchor{1c}
 @section Spell-check functionality
 
 
@@ -644,7 +1036,7 @@ Install the optional @code{gspell-1} @code{-dev} or @code{-devel} package, befor
 
 
 @node Go to line number,Find and replace,Spell-check functionality,Editor
-@anchor{Editor go-to-line-number}@anchor{13}
+@anchor{Editor go-to-line-number}@anchor{1d}
 @section Go to line number
 
 
@@ -665,8 +1057,8 @@ This is very useful to go to a specific line.
 
 @end itemize
 
-@node Find and replace,,Go to line number,Editor
-@anchor{Editor find-and-replace}@anchor{14}
+@node Find and replace,Replace in all files,Go to line number,Editor
+@anchor{Editor find-and-replace}@anchor{1e}
 @section Find and replace
 
 
@@ -789,8 +1181,127 @@ It will flow through the search terms history but not wrap around, simply end at
 @end quotation
 @end cartouche
 
-@node Terminals,Files,Editor,Top
-@anchor{Terminals doc}@anchor{15}@anchor{Terminals terminals}@anchor{16}
+@node Replace in all files,Copy to clipboard,Find and replace,Editor
+@anchor{Editor replace-in-all-files}@anchor{1f}
+@section Replace in all files
+
+
+You can use the button, menu item or shortcut (@code{Ctrl + Shift + R}),
+
+to replace all occurrence(s) from a pattern according the settings:
+
+
+@itemize +
+
+@item 
+Case sensitive
+
+@item 
+Mode
+
+
+@itemize +
+
+@item 
+Raw text
+
+@item 
+Word boundary
+
+@item 
+REGEX
+@end itemize
+@end itemize
+
+Which are all settable, like the pattern and the replacement text, into the appearing top-level window.
+
+@node Copy to clipboard,Order page,Replace in all files,Editor
+@anchor{Editor copy-to-clipboard}@anchor{20}
+@section Copy to clipboard
+
+
+You can copy to clipboard either :
+
+
+@itemize +
+
+@item 
+The current absolute file-path (@code{Ctrl + y}).
+
+@item 
+The current absolute folder-path (@code{Ctrl + Shift + Y}).
+@end itemize
+
+@node Order page,Editor usage more,Copy to clipboard,Editor
+@anchor{Editor order-page}@anchor{21}
+@section Order page
+
+
+You can use menu item or the shortcut (@code{Ctrl + Shift + O}) to reorder all the pages lexicographically.
+
+@node Editor usage more,,Order page,Editor
+@anchor{Editor editor-usage-more}@anchor{22}
+@section Editor usage more
+
+
+
+@itemize +
+
+@item 
+You can use the page up and page down to scroll faster than with the arrows.
+
+@item 
+You can use the key @code{Insert} for changing the form of the cursor.
+
+@item 
+You can use the combination @code{Control +  Left | Right} to move to previous | next sequence of characters.
+
+@item 
+You can use the Erase key to erase the current selection.
+
+@item 
+You can use the shortcut @code{Ctrl + Backspace} to remove an entire characters sequence.
+
+@item 
+You can use the shortcut @code{Ctrl + Start} and @code{Ctrl + End} to move the cursor to the beginning or end of the document.
+
+@item 
+The search-replace shortcuts are clever set on the keypad:
+
+
+@itemize +
+
+@item 
+Find next : @code{Ctrl + + (KP)}.
+
+@item 
+Find previous : @code{Ctrl + - (KP)}.
+
+@item 
+Replace : @code{Ctrl + Enter (KP)}.
+
+@item 
+Replace all : @code{Ctrl + Shift + Enter (KP)}.
+@end itemize
+
+For a better and faster search and replace feature.
+
+@item 
+By all top-level windows you can use the shortcuts:
+
+
+@itemize +
+
+@item 
+@code{Escape} to close the window.
+
+@item 
+@code{Enter} to confirm.
+@end itemize
+@end itemize
+
+@node Terminals,Files<2>,Editor,Top
+@anchor{Terminals terminals}@anchor{23}@anchor{Terminals doc}@anchor{24}
 @chapter Terminals
 
 
@@ -800,11 +1311,12 @@ It will flow through the search terms history but not wrap around, simply end at
 * A sidebar terminals:: 
 * A full-screen terminal:: 
 * Top-level terminals:: 
+* Contextual menu from the terminals:: 
 
 @end menu
 
 @node A sidebar terminals,A full-screen terminal,,Terminals
-@anchor{Terminals a-sidebar-terminals}@anchor{17}
+@anchor{Terminals a-sidebar-terminals}@anchor{25}
 @section A sidebar terminals
 
 
@@ -813,14 +1325,14 @@ It will flow through the search terms history but not wrap around, simply end at
 You can @strong{add} and @strong{remove} as many terminals as you want to the sidebar.
 
 @node A full-screen terminal,Top-level terminals,A sidebar terminals,Terminals
-@anchor{Terminals a-full-screen-terminal}@anchor{18}
+@anchor{Terminals a-full-screen-terminal}@anchor{26}
 @section A full-screen terminal
 
 
 @code{it-edit} provides a @strong{big terminal} occupying the full interface, @strong{dividable} into @strong{4 re-sizable terminals}, to which you can @strong{easy toggle} from the main window.
 
-@node Top-level terminals,,A full-screen terminal,Terminals
-@anchor{Terminals top-level-terminals}@anchor{19}
+@node Top-level terminals,Contextual menu from the terminals,A full-screen terminal,Terminals
+@anchor{Terminals top-level-terminals}@anchor{27}
 @section Top-level terminals
 
 
@@ -830,8 +1342,62 @@ At first you will be prompt to enter a command.
 
 After the execution of the command the top-level terminal is yours and can continue to enter commands.
 
-@node Files,Spell check,Terminals,Top
-@anchor{Files doc}@anchor{1a}@anchor{Files files}@anchor{1b}@anchor{Files id1}@anchor{1c}
+@node Contextual menu from the terminals,,Top-level terminals,Terminals
+@anchor{Terminals contextual-menu-from-the-terminals}@anchor{28}
+@section Contextual menu from the terminals
+
+
+
+@itemize +
+
+@item 
+Copy from terminal
+
+@item 
+Paste to terminal
+@end itemize
+
+---
+
+
+@itemize +
+
+@item 
+Decrease font
+
+@item 
+Increase font
+@end itemize
+
+---
+
+
+@itemize +
+
+@item 
+Reset terminals
+@end itemize
+
+@cartouche
+@quotation Note 
+By the sidebar terminals the items:
+
+
+@itemize +
+
+@item 
+Open new tab
+
+@item 
+Close tab
+@end itemize
+
+Are added to the contextual menu.
+@end quotation
+@end cartouche
+
+@node Files<2>,Spell check,Terminals,Top
+@anchor{Files id1}@anchor{29}@anchor{Files files}@anchor{2a}@anchor{Files doc}@anchor{2b}
 @chapter Files
 
 
@@ -844,8 +1410,8 @@ After the execution of the command the top-level terminal is yours and can conti
 
 @end menu
 
-@node New file,File s opening,,Files
-@anchor{Files new-file}@anchor{1d}
+@node New file,File s opening,,Files<2>
+@anchor{Files new-file}@anchor{2c}
 @section New file
 
 
@@ -855,8 +1421,8 @@ You will surely write inside the new create buffer and surely save it after (sur
 
 Use the menu item Files ‣ New file or the shortcut @code{Ctrl + N} to create a new buffer as describe above.
 
-@node File s opening,Saving files,New file,Files
-@anchor{Files file-s-opening}@anchor{1e}
+@node File s opening,Saving files,New file,Files<2>
+@anchor{Files file-s-opening}@anchor{2d}
 @section File(s) opening
 
 
@@ -935,8 +1501,8 @@ This can be practice if you work on a single project during some time.
 
 @end itemize
 
-@node Saving files,Reload file,File s opening,Files
-@anchor{Files saving-files}@anchor{1f}
+@node Saving files,Reload file,File s opening,Files<2>
+@anchor{Files saving-files}@anchor{2e}
 @section Saving files
 
 
@@ -1024,8 +1590,12 @@ if their is an @strong{asterisk} '@code{*}' @emph{before} the @strong{file name}
 @end quotation
 @end cartouche
 
-@node Reload file,File informations,Saving files,Files
-@anchor{Files reload-file}@anchor{20}
+@*note: 
+If enabled @code{it-edit} will remove all the trailing spaces from the document after having save it.
+
+
+@node Reload file,File informations,Saving files,Files<2>
+@anchor{Files reload-file}@anchor{2f}
 @section Reload file
 
 
@@ -1045,8 +1615,8 @@ The shortcut @code{Ctrl + R}.
 This can be practice if per example you have redirect you compilation process to a file for debugging compilation errors.
 
 
-@node File informations,,Reload file,Files
-@anchor{Files file-informations}@anchor{21}
+@node File informations,,Reload file,Files<2>
+@anchor{Files file-informations}@anchor{30}
 @section File informations
 
 
@@ -1254,17 +1824,17 @@ Rename file
 Copy file
 
 @item 
-Compress file
+Compress file (using gzip)
 
 @item 
-Copy file-path to clipboard
+Move file.
 @end itemize
 
 The functionalities of this buttons are clear as their name.
 @end quotation
 
-@node Spell check,Sessions,Files,Top
-@anchor{Spell-check doc}@anchor{22}@anchor{Spell-check spell-check}@anchor{6}@anchor{Spell-check id1}@anchor{23}
+@node Spell check,Sessions,Files<2>,Top
+@anchor{Spell-check spell-check}@anchor{6}@anchor{Spell-check id1}@anchor{31}@anchor{Spell-check doc}@anchor{32}
 @chapter Spell check
 
 
@@ -1277,7 +1847,7 @@ The functionalities of this buttons are clear as their name.
 @end menu
 
 @node it-edit spell check features,Using it-edit spell check,,Spell check
-@anchor{Spell-check it-edit-spell-check-features}@anchor{24}
+@anchor{Spell-check it-edit-spell-check-features}@anchor{33}
 @section @code{it-edit} spell check features
 
 
@@ -1307,7 +1877,7 @@ Spell check dialog:
 @end quotation
 
 @node Using it-edit spell check,it-edit spell check support,it-edit spell check features,Spell check
-@anchor{Spell-check using-it-edit-spell-check}@anchor{25}
+@anchor{Spell-check using-it-edit-spell-check}@anchor{34}
 @section Using @code{it-edit} spell check
 
 
@@ -1345,7 +1915,7 @@ The shortcut: @code{Ctrl + Shift + W}.
 @end quotation
 
 @node it-edit spell check support,Thanks,Using it-edit spell check,Spell check
-@anchor{Spell-check it-edit-spell-check-support}@anchor{26}
+@anchor{Spell-check it-edit-spell-check-support}@anchor{35}
 @section @code{it-edit} spell check support
 
 
@@ -1368,7 +1938,7 @@ of @code{gtk-3} you get.
 Because the @code{gspell-1} library is only available with @strong{>=} @code{gtk-+3.20}.
 
 @*note: 
-You can get gtk+-3.22 and gspell-1 currently with the @emph{ppa} @code{gnome3-staging} for debian packages.
+You can get gtk+-3.22 and gspell-1 currently with the @emph{ppa} @code{gnome3-staging} for debian packages or by debian distributions through the "sid" repository.
 
 
 @code{gspell-1} has the advantages:
@@ -1434,7 +2004,7 @@ dictionnaries in the wanted language(s).
 @end quotation
 
 @node Thanks,,it-edit spell check support,Spell check
-@anchor{Spell-check thanks}@anchor{27}
+@anchor{Spell-check thanks}@anchor{36}
 @section Thanks
 
 
@@ -1448,7 +2018,7 @@ is the author of the @code{Texilla} Latex editor and maintainer of the gtksource
 @end quotation
 
 @node Sessions,Shortcuts table,Spell check,Top
-@anchor{Sessions doc}@anchor{28}@anchor{Sessions sessions}@anchor{29}
+@anchor{Sessions sessions}@anchor{37}@anchor{Sessions doc}@anchor{38}
 @chapter Sessions
 
 
@@ -1459,7 +2029,7 @@ is the author of the @code{Texilla} Latex editor and maintainer of the gtksource
 @end menu
 
 @node Configure your sessions recovering,The automatic session mechanism,,Sessions
-@anchor{Sessions configure-your-sessions-recovering}@anchor{2a}
+@anchor{Sessions configure-your-sessions-recovering}@anchor{39}
 @section Configure your sessions recovering
 
 
@@ -1471,7 +2041,7 @@ Their are 3 different modes for registering your session at your convenience.
 @end menu
 
 @node Files documentation applications registering,,,Configure your sessions recovering
-@anchor{Sessions files-documentation-applications-registering}@anchor{2b}
+@anchor{Sessions files-documentation-applications-registering}@anchor{3a}
 @subsection Files, documentation, applications registering:
 
 
@@ -1489,7 +2059,7 @@ Disable session registering.
 @end itemize
 
 @node The automatic session mechanism,,Configure your sessions recovering,Sessions
-@anchor{Sessions the-automatic-session-mechanism}@anchor{2c}
+@anchor{Sessions the-automatic-session-mechanism}@anchor{3b}
 @section The @strong{automatic} @code{session} mechanism
 
 
@@ -1503,7 +2073,7 @@ How does it work ?
 @end menu
 
 @node Registering,Reloading a session,,The automatic session mechanism
-@anchor{Sessions registering}@anchor{2d}
+@anchor{Sessions registering}@anchor{3c}
 @subsection Registering:
 
 
@@ -1539,7 +2109,7 @@ If you reload something it's automatically stored again for next session.
 @end itemize
 
 @node Reloading a session,Clear a session,Registering,The automatic session mechanism
-@anchor{Sessions reloading-a-session}@anchor{2e}
+@anchor{Sessions reloading-a-session}@anchor{3d}
 @subsection Reloading a session
 
 
@@ -1576,7 +2146,7 @@ Applications.
 Or reload the different items singular.
 
 @node Clear a session,,Reloading a session,The automatic session mechanism
-@anchor{Sessions clear-a-session}@anchor{2f}
+@anchor{Sessions clear-a-session}@anchor{3e}
 @subsection Clear a session
 
 
@@ -1607,7 +2177,7 @@ They are are registered because you will use them often with the @code{it-edit} 
 @end cartouche
 
 @node Shortcuts table,Supported charset,Sessions,Top
-@anchor{Shortcuts_memo shortcuts-table}@anchor{a}@anchor{Shortcuts_memo doc}@anchor{30}@anchor{Shortcuts_memo id1}@anchor{31}
+@anchor{Shortcuts_memo id1}@anchor{3f}@anchor{Shortcuts_memo shortcuts-table}@anchor{a}@anchor{Shortcuts_memo doc}@anchor{40}
 @chapter Shortcuts table
 
 
@@ -1618,7 +2188,7 @@ They are are registered because you will use them often with the @code{it-edit} 
 @end menu
 
 @node Application shortcuts,Terminals shortcuts,,Shortcuts table
-@anchor{Shortcuts_memo application-shortcuts}@anchor{32}
+@anchor{Shortcuts_memo application-shortcuts}@anchor{41}
 @section Application shortcuts:
 
 
@@ -1928,6 +2498,18 @@ e = execute
 
 @item
 
+Ctrl + Alt + o
+
+@tab
+
+Order pages
+
+@tab
+
+o = order
+
+@item
+
 Ctrl + y
 
 @tab
@@ -2063,7 +2645,7 @@ q = quit
 @end quotation
 
 @node Terminals shortcuts,,Application shortcuts,Shortcuts table
-@anchor{Shortcuts_memo terminals-shortcuts}@anchor{33}
+@anchor{Shortcuts_memo terminals-shortcuts}@anchor{42}
 @section Terminals shortcuts:
 
 
@@ -2152,7 +2734,7 @@ Else you can close a tab and reset the terminal from the terminals contextual me
 @end quotation
 
 @node Supported charset,Supported languages,Shortcuts table,Top
-@anchor{charset supported-charset}@anchor{34}@anchor{charset doc}@anchor{35}
+@anchor{charset supported-charset}@anchor{43}@anchor{charset doc}@anchor{44}
 @chapter Supported charset
 
 
@@ -2837,7 +3419,7 @@ WINDOWS-1258
 @end itemize
 
 @node Supported languages,it-edit smart widgets,Supported charset,Top
-@anchor{languages doc}@anchor{36}@anchor{languages supported-languages}@anchor{37}
+@anchor{languages supported-languages}@anchor{45}@anchor{languages doc}@anchor{46}
 @chapter Supported languages
 
 
@@ -5014,7 +5596,7 @@ application/x-yaml
 @end quotation
 
 @node it-edit smart widgets,Indices and tables,Supported languages,Top
-@anchor{it-edit_widgets doc}@anchor{38}@anchor{it-edit_widgets it-edit-smart-widgets}@anchor{39}
+@anchor{it-edit_widgets it-edit-smart-widgets}@anchor{47}@anchor{it-edit_widgets doc}@anchor{48}
 @chapter it-edit smart widgets
 
 
@@ -5036,7 +5618,7 @@ you can broad the source to understand How-To build GtkWidget(s) for Gtk-3 from 
 @end menu
 
 @node GtkSmartMenuItem,GtkSmartIconButton,,it-edit smart widgets
-@anchor{it-edit_widgets gtksmartmenuitem}@anchor{3a}
+@anchor{it-edit_widgets gtksmartmenuitem}@anchor{49}
 @section GtkSmartMenuItem
 
 
@@ -5062,7 +5644,7 @@ An universal shortcut text.
 @end menu
 
 @node Constructors,Getters,,GtkSmartMenuItem
-@anchor{it-edit_widgets constructors}@anchor{3b}
+@anchor{it-edit_widgets constructors}@anchor{4a}
 @subsection Constructors
 
 
@@ -5162,7 +5744,7 @@ You can build others constructors if you have understand How-To build this kind 
 
 
 @node Getters,,Constructors,GtkSmartMenuItem
-@anchor{it-edit_widgets getters}@anchor{3c}
+@anchor{it-edit_widgets getters}@anchor{4b}
 @subsection Getters
 
 
@@ -5251,7 +5833,7 @@ A pointer to the @code{GtkAccelLabel} widget.
 @end deffn
 
 @node GtkSmartIconButton,GtkItTerm,GtkSmartMenuItem,it-edit smart widgets
-@anchor{it-edit_widgets gtksmarticonbutton}@anchor{3d}
+@anchor{it-edit_widgets gtksmarticonbutton}@anchor{4c}
 @section GtkSmartIconButton
 
 
@@ -5264,7 +5846,7 @@ A simple button with an icon without label and tool-tip which embed an universal
 @end menu
 
 @node Constructors<2>,Getters<2>,,GtkSmartIconButton
-@anchor{it-edit_widgets id1}@anchor{3e}
+@anchor{it-edit_widgets id1}@anchor{4d}
 @subsection Constructors
 
 
@@ -5329,7 +5911,7 @@ A pointer to the @code{GtkSmartIconButton} toggle button widget.
 @end deffn
 
 @node Getters<2>,,Constructors<2>,GtkSmartIconButton
-@anchor{it-edit_widgets id2}@anchor{3f}
+@anchor{it-edit_widgets id2}@anchor{4e}
 @subsection Getters
 
 
@@ -5355,7 +5937,7 @@ A pointer to the @code{GtkImage} widget.
 @end deffn
 
 @node GtkItTerm,,GtkSmartIconButton,it-edit smart widgets
-@anchor{it-edit_widgets gtkitterm}@anchor{40}
+@anchor{it-edit_widgets gtkitterm}@anchor{4f}
 @section GtkItTerm
 
 
@@ -5370,7 +5952,7 @@ If you get interest in building widgets take a look at the source for basics.
 @end cartouche
 
 @node Indices and tables,,it-edit smart widgets,Top
-@anchor{index indices-and-tables}@anchor{41}
+@anchor{index indices-and-tables}@anchor{50}
 @unnumbered Indices and tables
 
 

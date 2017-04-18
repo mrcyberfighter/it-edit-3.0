@@ -224,6 +224,7 @@ SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
+TOUCH = @TOUCH@
 UPDATE_DESKTOP_DATABASE = @UPDATE_DESKTOP_DATABASE@
 VERSION = @VERSION@
 VTE_2_91_CFLAGS = @VTE_2_91_CFLAGS@
@@ -285,11 +286,11 @@ target_vendor = @target_vendor@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-nobase_dist_pkgdata_DATA = ./Files_handler/Files_handler.conf  \
-                            ./Icons/64x64/mimetypes/*.png       \
+nobase_dist_pkgdata_DATA = ./Icons/64x64/mimetypes/*.png       \
                             ./Icons/22x22/*.png                 \
-                            ./Icons/it-edit_icon.png            \
+                            ./Icons/*.png                       \
                             ./Icons/16x16/*.png                 \
+                            ./Icons/16x16/*.svg                 \
                             ./Icons/16x16/mimetypes/*.png       \
                             ./Icons/16x16/*.png                 \
                             ./License/*.txt                     \
@@ -303,7 +304,9 @@ nobase_dist_pkgdata_DATA = ./Files_handler/Files_handler.conf  \
                             ./Notice/_static/*.js               \
                             ./Notice/_static/*.gif              \
                             ./Notice/.buildinfo                 \
-                            ./Styles/*.xml      
+                            ./Styles/*.xml                      \
+                            ./Styles/*.rng                      \
+                            ./Styles/*.sh   
 
 all: all-am
 

@@ -35,7 +35,7 @@ else if XDG_UTILS
 	- $(XDG_DESKTOP_MENU) forceupdate --mode system ;
 endif
 
-  
+
 unupdate-desktop:
 if DESTOP_FILE_UTILS
 	- $(XDG_DESKTOP_MENU) forceupdate --mode system ;
@@ -49,7 +49,7 @@ install-data-hook:
 	- $(MAKE) desktop
 	- $(MAKE) update-desktop
 	$(CHMOD) -R a+rx "$(DESTDIR)$(pkgdatadir)"
-	- if `test -f "$(DESTDIR)$(pkgdatadir)/Configuration/it-edit.conf"` ; then $(RM) "$(DESTDIR)$(pkgdatadir)/Configuration/it-edit.conf" ; fi 
+	- if `test -f "$(DESTDIR)$(pkgdatadir)/Configuration/it-edit.conf"` ; then $(RM) "$(DESTDIR)$(pkgdatadir)/Configuration/it-edit.conf" ; fi
 	- if `test ! -d "$(DESTDIR)$(pkgdatadir)/Configuration"` ; then $(MKDIR_P) "$(DESTDIR)$(pkgdatadir)/Configuration" ; fi
 	$(CHMOD) -R a+rwx "$(DESTDIR)$(pkgdatadir)/Configuration"
 	- if `test ! -d "$(DESTDIR)$(pkgdatadir)/Files_handler"` ; then $(MKDIR_P) "$(DESTDIR)$(pkgdatadir)/Files_handler" ; fi
@@ -62,6 +62,9 @@ install-data-hook:
 	$(CHMOD) -R a+rwx "$(DESTDIR)$(pkgdatadir)/src"
 	- if `test ! -d "$(DESTDIR)$(pkgdatadir)/bin"` ; then $(MKDIR_P) "$(DESTDIR)$(pkgdatadir)/bin" ; fi
 	$(CHMOD) -R a+rwx "$(DESTDIR)$(pkgdatadir)/bin"
+	@echo "***********************"
+	@echo "Enjoy using it-edit !!!"
+	@echo "***********************"
 
 
 

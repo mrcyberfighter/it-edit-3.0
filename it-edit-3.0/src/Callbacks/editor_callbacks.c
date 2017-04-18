@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -49,7 +49,7 @@ static void set_inline_spellcheck(GspellTextView *gspell_view) {
   /** This is never defined by a normal compilation but you can define it !
    *  But the language is not stored.
    *  For further informations read the notice.
-  **/ 
+  **/
   gspell_text_view_set_enable_language_menu(todo_content->gspell_view, TRUE);
   #endif
 
@@ -428,9 +428,9 @@ void update_rows_cols_info(GtkWidget *widget, GdkEvent  *event) {
       current_row_col_text = g_strdup_printf( _("Line: %d ; Column: %d ;"), gtk_text_iter_get_line(rows_iter) + 1, gtk_text_iter_get_line_offset(cols_iter) ) ;
 
       if (current_row_col_text != NULL) {
- 
+
         if (gui->bottom_bar->current_row_col != NULL) {
- 
+
           gtk_label_set_text(GTK_LABEL(gui->bottom_bar->current_row_col), current_row_col_text) ;
 
         }
@@ -511,9 +511,9 @@ void textbuffer_changed_modified(GtkTextBuffer *textbuffer, GtkWidget *tab_label
 
           /** The tab is already mark as changed with an asterix. **/
           remove_searching_tag() ;
-       
+        
           gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(textbuffer), TRUE) ;
-       
+        
           return ;
       }
       else {
@@ -524,16 +524,17 @@ void textbuffer_changed_modified(GtkTextBuffer *textbuffer, GtkWidget *tab_label
               /** The default New named file. **/
 
               gtk_label_set_text(GTK_LABEL(tab_label),"*New") ;
-              
-              gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(textbuffer), TRUE) ;
-           
+
               remove_searching_tag() ;
+            
+              gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(textbuffer), TRUE) ;
+            
               return ;
           }
           else {
 
               /** File opened in the program. **/
-              
+            
               if (filepath != NULL) {
 
 
@@ -542,9 +543,9 @@ void textbuffer_changed_modified(GtkTextBuffer *textbuffer, GtkWidget *tab_label
                 g_free(basename) ;
                 gtk_label_set_text(GTK_LABEL(tab_label), tab_label_text) ;
                 g_free(tab_label_text) ;
-                
+              
                 gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(textbuffer), TRUE) ;
-               
+
               }
 
 
@@ -576,11 +577,11 @@ void textbuffer_changed_modified(GtkTextBuffer *textbuffer, GtkWidget *tab_label
               /** The default New named file. **/
 
               gtk_label_set_text(GTK_LABEL(tab_label),"New") ;
-                
-              gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(textbuffer), FALSE) ;
-         
-              remove_searching_tag() ;
 
+              remove_searching_tag() ;
+            
+              gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(textbuffer), FALSE) ;
+            
               return ;
 
         }
@@ -595,7 +596,7 @@ void textbuffer_changed_modified(GtkTextBuffer *textbuffer, GtkWidget *tab_label
             gtk_label_set_text(GTK_LABEL(tab_label),tab_label_text) ;
 
             g_free(tab_label_text) ;
-            
+          
             gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(textbuffer), FALSE) ;
 
           }

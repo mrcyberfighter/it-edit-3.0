@@ -193,7 +193,7 @@ You will be able to see and to modify:
 
 + The file permissions.
 
-:warning: :By saving the ``configured mask`` will overwrite your changes.
+:warning: By saving the ``configured mask`` will overwrite your changes.
 
 + The last
 
@@ -203,7 +203,7 @@ You will be able to see and to modify:
 
   + Last status change time (this one isn't modifiable).
 
-+ :guilabel:`&Rename`, :guilabel:`&Copy`, :guilabel:`&Compress` (*using the gzip algorithm*), :guilabel:`&Copy file-path to clipboard`.
++ :guilabel:`&Rename`, :guilabel:`&Copy`, :guilabel:`&Compress` (*using the gzip algorithm*), :guilabel:`&Move file`.
 
 --------------------
 Terminal integration
@@ -243,6 +243,8 @@ All this terminals have a good contextual menu and I had problems to add some it
 :program:`it-edit` provide an optional spell checker useful for writing documentation or simply comments.
 
 :program:`it-edit` make usage of ``/** **/`` comments so for commenting out a code section, by hacking it-edit, use the preprocessor: ``#if 0 ... #endif``.
+
+:note: The spirit of :program:`it-edit` says that you have to do a thing a single time then it's automatize.
 
 ----------
 Conclusion

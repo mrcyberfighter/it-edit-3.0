@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -181,13 +181,6 @@ typedef struct {
 
     GtkWidget *save_file_all_image ;
 
-
-    #ifdef MINI_MULTIPURPOSE_EDITOR_SUPPORT  /** This feature is too much unstable. **/
-    GtkWidget *todo_window_button ;
-
-    GtkWidget *todo_window_image ;
-    #endif
- 
     #ifdef GSPELL_SUPPORT
     GtkWidget *inline_spellcheck_button ;
 
@@ -227,7 +220,8 @@ typedef struct {
     GtkWidget *search_and_replace_button ;
 
     GtkWidget *search_and_replace_image  ;
-
+  
+    GtkWidget *replace_all_in_all_files ;
 
     GtkWidget *exec_button ;
 
@@ -365,6 +359,20 @@ typedef struct {
 
 typedef struct {
 
+  GtkWidget *pattern_entry ;
+
+  GtkWidget *replace_entry ;
+
+  GtkWidget *mode_combobox ;
+
+  GtkWidget *case_sensitiv ;
+
+  GtkWidget *window ;
+
+} Replace_In_All_Files ;
+
+typedef struct {
+
     /** Main GUI structure **/
 
     GtkWidget *main_window ;
@@ -408,7 +416,9 @@ typedef struct {
     GtkWidget *editor_vbox       ;
 
     Search_And_Replace *search_and_replace ;
-
+  
+    Replace_In_All_Files *replacing_in_all_files ;
+  
     BottomBar *bottom_bar        ;
 
 

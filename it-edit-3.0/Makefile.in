@@ -198,8 +198,8 @@ CTAGS = ctags
 CSCOPE = cscope
 DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in AUTHORS \
-	COPYING ChangeLog INSTALL README THANKS compile config.guess \
-	config.sub depcomp install-sh missing
+	COPYING ChangeLog INSTALL NEWS README THANKS compile \
+	config.guess config.sub depcomp install-sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -307,6 +307,7 @@ SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
+TOUCH = @TOUCH@
 UPDATE_DESKTOP_DATABASE = @UPDATE_DESKTOP_DATABASE@
 VERSION = @VERSION@
 VTE_2_91_CFLAGS = @VTE_2_91_CFLAGS@
@@ -927,9 +928,7 @@ uninstall-am: uninstall-nobase_dist_pkgdataDATA
 
 install-data-hook:
 	$(MV) $(DESTDIR)$(pkgdatadir)/Makefile.mk $(DESTDIR)$(pkgdatadir)/Makefile
-	@echo "***********************"
-	@echo "Enjoy using it-edit !!!"
-	@echo "***********************"
+	- if `test ! -d $(HOME)/.local/share` ; then $(MKDIR_P) $(HOME)/.local/share ; $(TOUCH) $(HOME)/.local/share/recently-used.xbel ; fi
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

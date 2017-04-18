@@ -8,7 +8,7 @@ New file
 
 You can open a New file, this will create a random named ``New_XXXXXX`` file into your **TEMPDIR** folder, and erase it immediately but the file-path is kept.
 
-You will surely write inside the new create buffer and surely save it after (surely not into the **TEMPDIR** folder). 
+You will surely write inside the new create buffer and surely save it after (surely not into the **TEMPDIR** folder).
 
 Use the menu item :menuselection:`Files --> New file` or the shortcut :kbd:`Ctrl + N` to create a new buffer as describe above.
 
@@ -34,7 +34,7 @@ This will present you a file selector to open the wanted file(s).
     Because the file-selector will be launched into the folder from the current edited file location.
 
       You can held the mouse over the tab (which content the current filename) to sea the absolute file path in a tool-tip.
- 
+
       The same mechanic is by placing the mouse over the filename into the bottom bar.
 
   + You can configure to get the current edited file selected (highlighted into the file-selector) into the editor or not.
@@ -72,7 +72,7 @@ They are several ways of saving files into :program:`it-edit`:
 
   + The button.
 
-  :warning: They is no shortcut for this purpose, but if you save (:menuselection:`Save file` :kbd:`Ctrl + S`) simply a "``New``" file this will act as a :menuselection:`Save file as`.    
+  :warning: They is no shortcut for this purpose, but if you save (:menuselection:`Save file` :kbd:`Ctrl + S`) simply a "``New``" file this will act as a :menuselection:`Save file as`.   
 
 3. You can save all the open files using:
 
@@ -89,6 +89,8 @@ They are several ways of saving files into :program:`it-edit`:
   You can distinguish if a file is currently save or modified by looking at the **name** *in the tab*:
 
   if their is an **asterisk** '``*``' *before* the **file name** this mean that the *file* is currently **not saved** on the *disk*.
+
+:note: If enabled :program:`it-edit` will remove all the trailing spaces from the document after having save it.
 
 Reload file
 -----------
@@ -144,7 +146,7 @@ This will display a **top-level window** presenting following **informations** a
   By simply (un)checking the **check-boxes** you change the **permissions** of the file on disk.
 
   .. Put a link to the configuration Notice page.
- 
+
   :warning: By saving your file you will set the permissions according to your configuration into :program:`it-edit` for files saving.
 
 3. A frame named: ``File counts`` display some few statistics of the file:
@@ -168,7 +170,7 @@ This will display a **top-level window** presenting following **informations** a
   + **Last access** *date and time*.
 
   + **Last modification** *date and time*.
-     
+    
   Of the file on the disk.
 
   Near of every information is a button named ``Modify`` which permit you to change the timestamps.
@@ -200,7 +202,7 @@ This will display a **top-level window** presenting following **informations** a
   of your file.
 
   :note: The *checksums* are displayed into **hexadecimal** values.
- 
+
 6. A frame named: ``File actions`` will present you:
 
   The file name and 4 buttons, named:
@@ -209,10 +211,10 @@ This will display a **top-level window** presenting following **informations** a
 
   + Copy file
 
-  + Compress file
+  + Compress file (using gzip)
 
-  + Copy file-path to clipboard
+  + Move file.
 
   The functionalities of this buttons are clear as their name.
 
-      
+     

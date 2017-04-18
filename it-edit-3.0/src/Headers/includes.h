@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -62,7 +62,7 @@
 #include <fcntl.h>
 #include <utime.h>
 
-#ifdef MACOSX
+#ifdef __APPLE__
 // For Mac OS X menu and dock support.
 #include <gtkmacintegration/gtkosxapplication.h>
 #endif

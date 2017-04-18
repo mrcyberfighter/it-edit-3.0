@@ -1,0 +1,46 @@
+New into it-edit 3.0.
+=====================
+
++ Spell check support.
+
+  + in-line spell check (the misspelled words are underlined).
+ 
+  + Spell check dialog (for correcting all the document).
+
++ Replace all in all file(s) functionality.
+
++ Sessions feature:
+ 
+  You can reload last used:
+ 
+  + Files.
+ 
+  + Documentation.    
+ 
+  + Applications.
+ 
++ Copy file or folder path to clipboard with a simple shortcut.
+
++ Order lexicographically the pages.
+
++ Setting the files mask at saving 0766 per default.
+
++ Many warnings to the user - by:
+
+  + Attempt to load a file already into the editor.
+ 
+  + Attempt to close an unsaved file.
+ 
+  + Loading a read-only file.
+ 
++ Now you can save your file(s) into the wanted encoding.
+
++ You can choose the newline character:
+
+  + linefeed.
+ 
+  + carriage-return.
+ 
+  + linefeed + carriage-return.
+ 
++ Display a background grid and display all spaces possibilities.        

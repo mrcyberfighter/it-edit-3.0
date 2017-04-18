@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -181,11 +181,17 @@ void set_default_settings_main_conf(void) {
 
   settings.session_mode         = -1 ;
 
+  settings.use_monospace_font   = TRUE ;
 
-  #if 0
-  /** @No proposal into the window for this stupid option ! **/
+  settings.grid_background      = TRUE ;
+
+  settings.use_right_margin     = FALSE ;
+
+  settings.right_margin_value   = 80 ;
+
+
+  /** @No proposal into the window for this stupid option, but you can set it to TRUE before compiling ! **/
   settings.notifications        = FALSE;
-  #endif
 
 
   /** Terminal settings **/
@@ -207,7 +213,7 @@ void set_default_settings_main_conf(void) {
   settings.command              = g_strdup("set -o history ; ls") ;
 
   settings.cursor_color         = g_strdup("#FFFFFF") ;
-  settings.cursor_blink         = 1 ;
+  settings.cursor_blink         = 0 ;
 
   settings.bold_allow           = TRUE ;
   settings.bold_color           = g_strdup("#FFFFFF") ;
@@ -229,32 +235,6 @@ void set_default_settings_main_conf(void) {
 
   settings.charset              =  g_strdup(gtk_source_encoding_get_charset(gtk_source_encoding_get_utf8())) ;
 
-  #if 0
-  settings.spellcheck_inline    = FALSE ;
-  #endif
-
-  /** To-do window settings, which can be different from the editor settings **/
-
-
-  #ifdef MINI_MULTIPURPOSE_EDITOR_SUPPORT  /** This feature is too much unstable. **/
-  todo_settings->scheme               = g_strdup("kate") ;
-  todo_settings->lang_id              = g_strdup("text") ;
-  todo_settings->editor_font          = g_strdup("Monospace 10") ;
-  todo_settings->backup_file          = TRUE ;
-  todo_settings->display_line_numbers = TRUE ;
-  todo_settings->display_tabs_chars   = TRUE ;
-  todo_settings->use_spaces_as_tabs   = TRUE ;
-  todo_settings->tabs_width           = 2    ;
-  todo_settings->use_auto_indent      = TRUE ;
-  todo_settings->indent_width         = 2    ;
-  todo_settings->rm_trailing_spaces   = TRUE ;
-  todo_settings->charset              = g_strdup(gtk_source_encoding_get_charset(gtk_source_encoding_get_utf8())) ;
-
-  #ifdef GSPELL_SUPPORT
-  todo_settings->language_code        = g_strdup(gspell_language_get_code((gspell_language_lookup("en") == NULL) ? gspell_language_get_default() : gspell_language_lookup("en"))) ;
-  #endif
-  #endif
-
   GError *error = NULL ;
 
   apply_configuration_change(conf_file) ;
@@ -273,103 +253,19 @@ void set_default_settings_main_conf(void) {
 
   g_key_file_unref(conf_file) ;
 
-  return ;
-
-}
-
-#ifdef MINI_MULTIPURPOSE_EDITOR_SUPPORT  /** This feature is too much unstable. **/
-void get_todo_configuration(gint calls) {
-
-  #ifdef DEBUG
-  DEBUG_FUNC_MARK
-  #endif
-
-  if (! g_file_test(PATH_TO_CONF_FILE, G_FILE_TEST_EXISTS)) {
-
-    /** create the configuration folder if doesn't exist. **/
-
-    char *config_dirpath = g_path_get_dirname(PATH_TO_CONF_FILE) ;
-
-    g_mkdir_with_parents(config_dirpath, 0777) ;
-
-    free(config_dirpath) ;
-
-  }
-
-  if (! g_file_test(PATH_TO_CONF_FILE, G_FILE_TEST_EXISTS) ) {
-
-    int fd = g_creat(PATH_TO_CONF_FILE, 00777) ;
-
-    g_close(fd, NULL) ;
-
-  }
-
-  /** Program configuration file. **/
-  GKeyFile *conf_file = g_key_file_new() ;
-
-  GError *error = NULL ;
-
-  g_key_file_load_from_file(conf_file, PATH_TO_CONF_FILE, G_KEY_FILE_NONE, &error) ;
-
-  if (error != NULL) {
-
-    display_message_dialog(_("Error configuration file"), error->message, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE) ;
-
-    g_error_free(error) ;
-
-    return ;
-
-  }
-
-
-  if (calls) {
-
-    g_free(todo_settings->scheme) ;
-
-    g_free(todo_settings->lang_id) ;
-
-    g_free(todo_settings->editor_font) ;
-
-    g_free(todo_settings->charset) ;
-
-  }
-
-
-  todo_settings->scheme               = g_key_file_get_string(conf_file,  "Todo", "scheme",                   NULL)  ;
-  todo_settings->lang_id              = g_key_file_get_string(conf_file,  "Todo", "lang_id",                  NULL)  ;
-  todo_settings->editor_font          = g_key_file_get_string(conf_file,  "Todo", "font",                     NULL)  ;
-  todo_settings->backup_file          = g_key_file_get_boolean(conf_file, "Todo", "backup",                   NULL) ;
-  todo_settings->display_line_numbers = g_key_file_get_boolean(conf_file, "Todo", "display_line_numbers",     NULL) ;
-  todo_settings->display_tabs_chars   = g_key_file_get_boolean(conf_file, "Todo", "display_tabs_chars",       NULL) ;
-  todo_settings->use_spaces_as_tabs   = g_key_file_get_boolean(conf_file, "Todo", "use_spaces_as_tabs",       NULL) ;
-  todo_settings->tabs_width           = g_key_file_get_integer(conf_file, "Todo", "tabs_width",               NULL)  ;
-  todo_settings->use_auto_indent      = g_key_file_get_boolean(conf_file, "Todo", "use_auto_indent",          NULL) ;
-  todo_settings->indent_width         = g_key_file_get_integer(conf_file, "Todo", "indent_width",             NULL)  ;
-  todo_settings->rm_trailing_spaces   = g_key_file_get_boolean(conf_file, "Todo", "rm_trailing_spaces",       NULL) ;
-  todo_settings->charset              = g_key_file_get_string(conf_file,  "Todo", "charset",                  NULL)  ;
-  #ifdef GSPELL_SUPPORT
-
-  if (calls) {
-
-    g_free(todo_settings->language_code) ;
-
-  }
-
-  todo_settings->language_code        = g_key_file_get_string(conf_file,  "Todo", "language_code",            NULL)  ;
-  #endif
-
-  g_key_file_unref(conf_file) ;
+  configuration_file_exists(PATH_TO_LINKS_FILE) ;
 
   return ;
 
 }
-#endif
 
 void get_main_configuration(void) {
 
   #ifdef DEBUG
   DEBUG_FUNC_MARK
   #endif
+
+
 
   if (configuration_file_exists(PATH_TO_CONF_FILE)) {
 
@@ -393,69 +289,79 @@ void get_main_configuration(void) {
 
 
   /** Read the configuration file:  getting strings values: **/
-  settings.scheme                 = g_key_file_get_string(conf_file,  "Editor",  "scheme",            NULL)  ;
-  settings.editor_font            = g_key_file_get_string(conf_file,  "Editor",  "font",              NULL)  ;
-  settings.term_font              = g_key_file_get_string(conf_file,  "Terminal", "font",             NULL)  ;
-  settings.term_bg                = g_key_file_get_string(conf_file,  "Terminal", "background",       NULL)  ;
-  settings.term_fg                = g_key_file_get_string(conf_file,  "Terminal", "foreground",       NULL)  ;
+  settings.scheme                 = g_key_file_get_string(conf_file,  "Editor",     "scheme",               NULL)  ;
+  settings.editor_font            = g_key_file_get_string(conf_file,  "Editor",     "font",                 NULL)  ;
+  settings.term_font              = g_key_file_get_string(conf_file,  "Terminal",   "font",                 NULL)  ;
+  settings.term_bg                = g_key_file_get_string(conf_file,  "Terminal",   "background",           NULL)  ;
+  settings.term_fg                = g_key_file_get_string(conf_file,  "Terminal",   "foreground",           NULL)  ;
 
-  settings.user_shell             = g_key_file_get_string(conf_file,  "Terminal", "user_shell",       NULL)  ;
-  settings.start_dir              = g_key_file_get_string(conf_file,  "Terminal", "start_dir",        NULL)  ;
-  settings.command                = g_key_file_get_string(conf_file,  "Terminal", "command",          NULL)  ;
+  settings.user_shell             = g_key_file_get_string(conf_file,  "Terminal",   "user_shell",           NULL)  ;
+  settings.start_dir              = g_key_file_get_string(conf_file,  "Terminal",   "start_dir",            NULL)  ;
+  settings.command                = g_key_file_get_string(conf_file,  "Terminal",   "command",              NULL)  ;
 
 
   /** Read the configuration file: getting boolean or integer values. **/
-  settings.backup_file            = g_key_file_get_boolean(conf_file,  "Editor",   "backup",               NULL) ;
-  settings.display_line_numbers   = g_key_file_get_boolean(conf_file,  "Editor",   "display_line_numbers", NULL) ;
-  settings.display_tabs_chars     = g_key_file_get_boolean(conf_file,  "Editor",   "display_tabs_chars",   NULL) ;
-  settings.use_spaces_as_tabs     = g_key_file_get_boolean(conf_file,  "Editor",   "use_spaces_as_tabs",   NULL) ;
-  settings.tabs_width             = g_key_file_get_integer(conf_file,  "Editor",   "tabs_width",           NULL) ;
-  settings.use_auto_indent        = g_key_file_get_boolean(conf_file,  "Editor",   "use_auto_indent",      NULL) ;
-  settings.rm_trailing_spaces     = g_key_file_get_boolean(conf_file,  "Editor",   "rm_trailing_spaces",   NULL) ;
-  settings.indent_width           = g_key_file_get_integer(conf_file,  "Editor",   "indent_width",         NULL) ;
+  settings.backup_file            = g_key_file_get_boolean(conf_file,  "Editor",    "backup",               NULL) ;
+  settings.display_line_numbers   = g_key_file_get_boolean(conf_file,  "Editor",    "display_line_numbers", NULL) ;
+  settings.display_tabs_chars     = g_key_file_get_boolean(conf_file,  "Editor",    "display_tabs_chars",   NULL) ;
+  settings.use_spaces_as_tabs     = g_key_file_get_boolean(conf_file,  "Editor",    "use_spaces_as_tabs",   NULL) ;
+  settings.tabs_width             = g_key_file_get_integer(conf_file,  "Editor",    "tabs_width",           NULL) ;
+  settings.use_auto_indent        = g_key_file_get_boolean(conf_file,  "Editor",    "use_auto_indent",      NULL) ;
+  settings.rm_trailing_spaces     = g_key_file_get_boolean(conf_file,  "Editor",    "rm_trailing_spaces",   NULL) ;
+  settings.indent_width           = g_key_file_get_integer(conf_file,  "Editor",    "indent_width",         NULL) ;
 
-  settings.save_file_mode         = g_key_file_get_integer(conf_file,  "Editor",   "save_file_mode",       NULL) ;
-  settings.session_mode           = g_key_file_get_integer(conf_file,  "Editor",   "session_mode",         NULL) ;
+  settings.save_file_mode         = g_key_file_get_integer(conf_file,  "Editor",    "save_file_mode",       NULL) ;
+  settings.session_mode           = g_key_file_get_integer(conf_file,  "Editor",    "session_mode",         NULL) ;
 
-  settings.newline_type           = g_key_file_get_integer(conf_file,  "Editor",   "newline_type",         NULL) ;
-  settings.display_all_spaces     = g_key_file_get_boolean(conf_file,  "Editor",   "display_all_spaces",   NULL) ;
-  settings.overwrite_anyway       = g_key_file_get_boolean(conf_file,  "Editor",   "overwrite_anyway",     NULL) ;
-  settings.warn_read_only         = g_key_file_get_boolean(conf_file,  "Editor",   "warn_read_only",       NULL) ;
-  settings.warn_file_open         = g_key_file_get_boolean(conf_file,  "Editor",   "warn_file_open",       NULL) ;
-  settings.warn_file_save         = g_key_file_get_boolean(conf_file,  "Editor",   "warn_file_save",       NULL) ;
-  settings.notifications          = g_key_file_get_boolean(conf_file,  "Editor",   "notifications",        NULL) ;
+  settings.newline_type           = g_key_file_get_integer(conf_file,  "Editor",    "newline_type",         NULL) ;
+  settings.display_all_spaces     = g_key_file_get_boolean(conf_file,  "Editor",    "display_all_spaces",   NULL) ;
+  settings.overwrite_anyway       = g_key_file_get_boolean(conf_file,  "Editor",    "overwrite_anyway",     NULL) ;
+  settings.warn_read_only         = g_key_file_get_boolean(conf_file,  "Editor",    "warn_read_only",       NULL) ;
+  settings.warn_file_open         = g_key_file_get_boolean(conf_file,  "Editor",    "warn_file_open",       NULL) ;
+  settings.warn_file_save         = g_key_file_get_boolean(conf_file,  "Editor",    "warn_file_save",       NULL) ;
+  settings.notifications          = g_key_file_get_boolean(conf_file,  "Editor",    "notifications",        NULL) ;
+  settings.use_monospace_font     = g_key_file_get_boolean(conf_file,  "Editor",    "use_monospace_font",   NULL) ;
 
+  settings.right_margin_value     = g_key_file_get_integer(conf_file,   "Editor",    "right_margin_value",   NULL)  ;
 
-  settings.cursor_shape           = g_key_file_get_integer(conf_file,  "Terminal", "cursor_shape",         NULL) ;
-  settings.scrollback_lines       = g_key_file_get_integer(conf_file,  "Terminal", "scrollback_lines",     NULL) ;
-  settings.backspace_binding      = g_key_file_get_integer(conf_file,  "Terminal", "backspace_binding",    NULL) ;
-  settings.delete_binding         = g_key_file_get_integer(conf_file,  "Terminal", "delete_binding",       NULL) ;
-  settings.scroll_on_output       = g_key_file_get_boolean(conf_file,  "Terminal", "scroll_on_output",     NULL) ;
-  settings.scroll_on_keystroke    = g_key_file_get_boolean(conf_file,  "Terminal", "scroll_on_keystroke",  NULL) ;
-
-  settings.audible_bell           = g_key_file_get_boolean(conf_file,  "Terminal", "audible_bell",         NULL) ;
-  settings.pointer_autohide       = g_key_file_get_boolean(conf_file,  "Terminal", "pointer_autohide",     NULL) ;
-
-  settings.side_terms_factor      = g_key_file_get_double(conf_file,   "GUI",      "side_terms_factor",    NULL) ;
-  settings.side_terms_on          = g_key_file_get_boolean(conf_file,  "GUI",      "side_terms_on",        NULL) ;
-  settings.buttonbar_on           = g_key_file_get_boolean(conf_file,  "GUI",      "buttonbar_on",         NULL) ;
-  settings.big_term_on            = g_key_file_get_boolean(conf_file,  "GUI",      "big_term_on",          NULL) ;
-  settings.big_term_div           = g_key_file_get_boolean(conf_file,  "GUI",      "big_term_div",         NULL) ;
-  settings.fullscreen             = g_key_file_get_boolean(conf_file,  "GUI",      "fullscreen",           NULL) ;
-  #ifdef GSPELL_SUPPORT
-  settings.language_code          = g_key_file_get_string(conf_file,   "GUI",      "language_code",        NULL) ;
+  #if 0
+  settings.smart_backspace        = g_key_file_get_boolean(conf_file,  "Editor",   "smart_backspace",      NULL) ;
   #endif
-  settings.charset                = g_key_file_get_string(conf_file,   "GUI",       "charset",             NULL) ;
+
+  settings.grid_background        = g_key_file_get_boolean(conf_file,  "Editor",    "grid_background",      NULL) ;
+
+  settings.use_right_margin       = g_key_file_get_boolean(conf_file,  "Editor",    "use_right_margin",     NULL) ;
+
+  settings.cursor_shape           = g_key_file_get_integer(conf_file,  "Terminal",  "cursor_shape",         NULL) ;
+  settings.scrollback_lines       = g_key_file_get_integer(conf_file,  "Terminal",  "scrollback_lines",     NULL) ;
+  settings.backspace_binding      = g_key_file_get_integer(conf_file,  "Terminal",  "backspace_binding",    NULL) ;
+  settings.delete_binding         = g_key_file_get_integer(conf_file,  "Terminal",  "delete_binding",       NULL) ;
+  settings.scroll_on_output       = g_key_file_get_boolean(conf_file,  "Terminal",  "scroll_on_output",     NULL) ;
+  settings.scroll_on_keystroke    = g_key_file_get_boolean(conf_file,  "Terminal",  "scroll_on_keystroke",  NULL) ;
+
+  settings.audible_bell           = g_key_file_get_boolean(conf_file,  "Terminal",  "audible_bell",         NULL) ;
+  settings.pointer_autohide       = g_key_file_get_boolean(conf_file,  "Terminal",  "pointer_autohide",     NULL) ;
+
+  settings.side_terms_factor      = g_key_file_get_double(conf_file,   "GUI",       "side_terms_factor",    NULL) ;
+  settings.side_terms_on          = g_key_file_get_boolean(conf_file,  "GUI",       "side_terms_on",        NULL) ;
+  settings.buttonbar_on           = g_key_file_get_boolean(conf_file,  "GUI",       "buttonbar_on",         NULL) ;
+  settings.big_term_on            = g_key_file_get_boolean(conf_file,  "GUI",       "big_term_on",          NULL) ;
+  settings.big_term_div           = g_key_file_get_boolean(conf_file,  "GUI",       "big_term_div",         NULL) ;
+  settings.fullscreen             = g_key_file_get_boolean(conf_file,  "GUI",       "fullscreen",           NULL) ;
+  #ifdef GSPELL_SUPPORT
+  settings.language_code          = g_key_file_get_string(conf_file,   "GUI",       "language_code",        NULL) ;
+  #endif
+  settings.charset                = g_key_file_get_string(conf_file,   "GUI",       "charset",              NULL) ;
 
   #if 0
   settings.spellcheck_inline      = g_key_file_get_boolean(conf_file,  "GUI",        "spellcheck_inline",  NULL) ;
   #endif
 
-  settings.font_scale             = g_key_file_get_double(conf_file,    "Terminal", "font_scale",          NULL)  ;
-  settings.cursor_color           = g_key_file_get_string(conf_file,    "Terminal", "cursor_color",        NULL)  ;
-  settings.cursor_blink           = g_key_file_get_integer(conf_file,   "Terminal", "cursor_blink",        NULL)  ;
-  settings.bold_allow             = g_key_file_get_boolean(conf_file,   "Terminal", "bold_allow",          NULL)  ;
-  settings.bold_color             = g_key_file_get_string(conf_file,    "Terminal", "bold_color",          NULL)  ;
+  settings.font_scale             = g_key_file_get_double(conf_file,    "Terminal",   "font_scale",         NULL)  ;
+  settings.cursor_color           = g_key_file_get_string(conf_file,    "Terminal",   "cursor_color",       NULL)  ;
+  settings.cursor_blink           = g_key_file_get_integer(conf_file,   "Terminal",   "cursor_blink",       NULL)  ;
+  settings.bold_allow             = g_key_file_get_boolean(conf_file,   "Terminal",   "bold_allow",         NULL)  ;
+  settings.bold_color             = g_key_file_get_string(conf_file,    "Terminal",   "bold_color",         NULL)  ;
 
 
   g_key_file_unref(conf_file) ;

@@ -29,7 +29,7 @@ Using :program:`it-edit` spell check
 
   You can enable or disable the in-line spell check by using:
 
-  + The menu item: :menuselection:`Edition --> Inline spell check`.      
+  + The menu item: :menuselection:`Edition --> Inline spell check`.     
 
   + The button.
 
@@ -37,7 +37,7 @@ Using :program:`it-edit` spell check
 
   You can display the spell check dialog window using the:
 
-  + The menu item: :menuselection:`Actions --> Spell check dialog`.      
+  + The menu item: :menuselection:`Actions --> Spell check dialog`.     
 
   + The button.
 
@@ -58,7 +58,7 @@ Using :program:`it-edit` spell check
 
     Because the :program:`gspell-1` library is only available with **>=** :program:`gtk-+3.20`.
 
-    :note: You can get gtk+-3.22 and gspell-1 currently with the *ppa* ``gnome3-staging`` for debian packages.
+    :note: You can get gtk+-3.22 and gspell-1 currently with the *ppa* ``gnome3-staging`` for debian packages or by debian distributions through the "sid" repository.
 
     :program:`gspell-1` has the advantages:
 
@@ -108,5 +108,5 @@ Thanks
   Big Thanks to the author of the gpsell-1 library **Sébastien Wilmet** which I get some form of familiarity within.
 
   :Sébastien Wilmet: is the author of the :program:`Texilla` Latex editor and maintainer of the gtksourceview-3 library and participate in many other projects like :program:`gedit`.
- 
+
 

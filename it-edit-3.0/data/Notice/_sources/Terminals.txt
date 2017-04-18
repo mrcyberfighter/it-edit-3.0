@@ -3,7 +3,7 @@ Terminals
 
 :program:`it-edit` provides:
 
-A sidebar terminals  
+A sidebar terminals 
 -------------------
 :program:`it-edit` provides **terminals in the same window as the editor**, as a sidebar, which can easily **shown**, **hidden** and **pull** as you want.
 
@@ -22,3 +22,30 @@ Top-level terminals
 At first you will be prompt to enter a command.
 
 After the execution of the command the top-level terminal is yours and can continue to enter commands.
+
+Contextual menu from the terminals
+-----------------------------------
+
++ Copy from terminal
+
++ Paste to terminal
+
+---
+
++ Decrease font
+
++ Increase font
+
+---
+
++ Reset terminals
+
+.. note:: By the sidebar terminals the items:
+
+  + Open new tab
+ 
+  + Close tab 
+ 
+  Are added to the contextual menu.
+ 
+ 

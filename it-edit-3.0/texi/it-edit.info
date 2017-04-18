@@ -1,7 +1,7 @@
 This is it-edit.info, produced by makeinfo version 6.1 from
 it-edit.texi.
 
-     it-edit 3.0, Mar 19, 2017
+     it-edit 3.0, Apr 18, 2017
 
      Brüggemann Eddie
 
@@ -21,7 +21,7 @@ File: it-edit.info,  Node: Top,  Next: it-edit Integrated Terminal Editor,  Up: 
 it-edit Documentation
 *********************
 
-     it-edit 3.0, Mar 19, 2017
+     it-edit 3.0, Apr 18, 2017
 
      Brüggemann Eddie
 
@@ -32,9 +32,10 @@ Contents:
 * Menu:
 
 * it-edit (Integrated Terminal Editor): it-edit Integrated Terminal Editor. 
+* it-edit's menu:: 
 * Editor:: 
 * Terminals:: 
-* Files:: 
+* Files: Files<2>. 
 * Spell check:: 
 * Sessions:: 
 * Shortcuts table:: 
@@ -59,19 +60,35 @@ it-edit spirit
 
 * A programming editor:: 
 
+it-edit’s menu
+
+* Files:: 
+* Edition:: 
+* Actions:: 
+* Applications:: 
+* View:: 
+* Settings:: 
+* About:: 
+
 Editor
 
 * Files management.: Files management. 
 * Text edition functionalities.: Text edition functionalities. 
+* Contextual menu from editor:: 
 * Spell-check functionality:: 
 * Go to line number:: 
 * Find and replace:: 
+* Replace in all files:: 
+* Copy to clipboard:: 
+* Order page:: 
+* Editor usage more:: 
 
 Terminals
 
 * A sidebar terminals:: 
 * A full-screen terminal:: 
 * Top-level terminals:: 
+* Contextual menu from the terminals:: 
 
 Files
 
@@ -126,7 +143,7 @@ GtkSmartIconButton
 
 
 
-File: it-edit.info,  Node: it-edit Integrated Terminal Editor,  Next: Editor,  Prev: Top,  Up: Top
+File: it-edit.info,  Node: it-edit Integrated Terminal Editor,  Next: it-edit's menu,  Prev: Top,  Up: Top
 
 1 it-edit (Integrated Terminal Editor)
 **************************************
@@ -150,7 +167,7 @@ license: GPLv3
 website: <‘http://www.open-source-projects.net/it-edit/it-edit’>
 
 
-release: Mar 19, 2017
+release: Apr 18, 2017
 
 * Menu:
 
@@ -370,7 +387,7 @@ You will be able to see and to modify:
    + The file permissions.
 
 
-warning: :By saving the ‘configured mask’ will overwrite your changes.
+warning: By saving the ‘configured mask’ will overwrite your changes.
 
    + The last
 
@@ -381,8 +398,7 @@ warning: :By saving the ‘configured mask’ will overwrite your changes.
 
         + Last status change time (this one isn’t modifiable).
 
-   + Rename, Copy, Compress (`using the gzip algorithm'), Copy file-path
-     to clipboard.
+   + Rename, Copy, Compress (`using the gzip algorithm'), Move file.
 
 
 File: it-edit.info,  Node: Terminal integration,  Next: it-edit writing spirit,  Prev: it-edit spirit,  Up: it-edit Integrated Terminal Editor
@@ -436,6 +452,10 @@ documentation or simply comments.
 ‘it-edit’ make usage of ‘/** **/’ comments so for commenting out a code
 section, by hacking it-edit, use the preprocessor: ‘#if 0 ... #endif’.
 
+
+note: The spirit of ‘it-edit’ says that you have to do a thing a single
+time then it’s automatize.
+
 
 File: it-edit.info,  Node: Conclusion,  Prev: it-edit writing spirit,  Up: it-edit Integrated Terminal Editor
 
@@ -446,25 +466,225 @@ Control all your system with ‘it-edit’ and show us that you can dialog
 with it through the best medium: the terminal.
 
 
-File: it-edit.info,  Node: Editor,  Next: Terminals,  Prev: it-edit Integrated Terminal Editor,  Up: Top
+File: it-edit.info,  Node: it-edit's menu,  Next: Editor,  Prev: it-edit Integrated Terminal Editor,  Up: Top
 
-2 Editor
+2 ‘it-edit’’s menu
+******************
+
+* Menu:
+
+* Files:: 
+* Edition:: 
+* Actions:: 
+* Applications:: 
+* View:: 
+* Settings:: 
+* About:: 
+
+
+File: it-edit.info,  Node: Files,  Next: Edition,  Up: it-edit's menu
+
+2.1 Files
+=========
+
+   + ‣ New file (‘Ctrl + n’)
+
+   + ‣ Open file (‘Ctrl + o’)
+
+   + ‣ Recent file(s)
+
+     `...  List of recent files'
+
+   + ‣ Save file (‘Ctrl + s’)
+
+   + ‣ Save file as
+
+   + ‣ Save all file(s) (‘Ctrl + Shift + N’)
+
+   + ‣ Close file (‘Ctrl + Alt + c’)
+
+   + ‣ Close all files (‘Ctrl + Shift + C’)
+
+   + ‣ Reload :ref:‘session <session>
+
+        + ‣ Reload entire session
+
+        + ‣ Reload last file(s)
+
+        + ‣ Reload last documentation
+
+        + ‣ Reload last application(s)
+
+        + ‣ Clear session
+
+   + ‣ Reload current file (‘Ctrl + r’)
+
+   + ‣ File informations (‘Ctrl + i’)
+
+   + ‣ Quit (‘Ctrl + q’)
+
+
+File: it-edit.info,  Node: Edition,  Next: Actions,  Prev: Files,  Up: it-edit's menu
+
+2.2 Edition
+===========
+
+   + ‣ Undo (‘Ctrl + z’)
+
+   + ‣ Redo (‘Ctrl + Shift + Z’)
+
+   + ‣ Find text (‘Ctrl + f’)
+
+   + ‣ Find all (‘Ctrl + Shift + F’)
+
+   + ‣ Find previous (‘Ctrl + -’)
+
+   + ‣ Find next (‘Ctrl + +’)
+
+   + ‣ Replace text (‘Ctrl + Enter (KP)’)
+
+   + ‣ Replace all (‘Ctrl + Shift + Enter (KP)’)
+
+   + ‣ Replace all in all files (‘Ctrl + Shift + R)’)
+
+   + ‣ Go to line number (‘Ctrl + g’)
+
+   + ‣ Cut (‘Ctrl + x’)
+
+   + ‣ Copy (‘Ctrl + c’)
+
+   + ‣ Paste (‘Ctrl + v’)
+
+   + ‣ Duplicate text (‘Ctrl + d’)
+
+   + ‣ Use space instead of tabs (‘Ctrl + p’)
+
+   + ‣ In-line spell check (‘Ctrl + w’)
+
+
+File: it-edit.info,  Node: Actions,  Next: Applications,  Prev: Edition,  Up: it-edit's menu
+
+2.3 Actions
+===========
+
+   + ‣ Execute command (‘Ctrl + e’)
+
+   + ‣ Order pages (‘Ctrl + Alt + y’)
+
+   + ‣ Copy file-path to clipboard (‘Ctrl + y’)
+
+   + ‣ Copy folder-path to clipboard (‘Ctrl + Shift + Y’)
+
+   + ‣ Sidebar terminals add tab (‘Ctrl + Shift + T’)
+
+   + ‣ Big terminals(s) switch (‘Ctrl + Shift + B’)
+
+   + ‣ File(s) handler (‘Ctrl + h’)
+
+   + ‣ Application launcher (‘Ctrl + a’)
+
+   + ‣ Spell check dialog (‘Ctrl + Shift + W’)
+
+
+File: it-edit.info,  Node: Applications,  Next: View,  Prev: Actions,  Up: it-edit's menu
+
+2.4 Applications
+================
+
+   + ‣ Programming
+
+        + ‣ Diff G.U.I (Graphical User Interface) tool
+
+        + ‣ Debugger G.U.I (Graphical User Interface) tool
+
+        + ‣ Python smart interpreter G.U.I (Graphical User Interface)
+          tool
+
+        + ‣ G.U.I (Graphical User Interface) designer tool
+
+        + ‣ devhelp
+
+   + ‣ Utilities
+
+        + ‣ Calculator
+
+        + ‣ Color picker
+
+        + ‣ Dictionary
+
+        + ‣ File manager
+
+        + ‣ Browser
+
+   + ‣ User defined applications
+
+
+File: it-edit.info,  Node: View,  Next: Settings,  Prev: Applications,  Up: it-edit's menu
+
+2.5 View
+========
+
+   + ‣ Big terminal show
+
+   + ‣ Sidebar terminals show
+
+   + ‣ Button bar show
+
+   + ‣ Full screen
+
+
+File: it-edit.info,  Node: Settings,  Next: About,  Prev: View,  Up: it-edit's menu
+
+2.6 Settings
+============
+
+   + ‣ Syntax highlight
+
+   + ‣ Editor scheme
+
+   + ‣ Configure spell check language
+
+   + ‣ Configure program
+
+
+File: it-edit.info,  Node: About,  Prev: Settings,  Up: it-edit's menu
+
+2.7 About
+=========
+
+   + ‣ Uptime
+
+   + ‣ Notice
+
+   + ‣ License
+
+   + ‣ About
+
+
+File: it-edit.info,  Node: Editor,  Next: Terminals,  Prev: it-edit's menu,  Up: Top
+
+3 Editor
 ********
 
-The editor has other functionalities like:
+The editor has as functionalities :
 
 * Menu:
 
 * Files management.: Files management. 
 * Text edition functionalities.: Text edition functionalities. 
+* Contextual menu from editor:: 
 * Spell-check functionality:: 
 * Go to line number:: 
 * Find and replace:: 
+* Replace in all files:: 
+* Copy to clipboard:: 
+* Order page:: 
+* Editor usage more:: 
 
 
 File: it-edit.info,  Node: Files management,  Next: Text edition functionalities,  Up: Editor
 
-2.1 Files management.
+3.1 Files management.
 =====================
 
    + New file.
@@ -482,9 +702,9 @@ File: it-edit.info,  Node: Files management,  Next: Text edition functionalities
    + Reload file (from disk).
 
 
-File: it-edit.info,  Node: Text edition functionalities,  Next: Spell-check functionality,  Prev: Files management,  Up: Editor
+File: it-edit.info,  Node: Text edition functionalities,  Next: Contextual menu from editor,  Prev: Files management,  Up: Editor
 
-2.2 Text edition functionalities.
+3.2 Text edition functionalities.
 =================================
 
    + Undo/Redo.
@@ -502,9 +722,48 @@ File: it-edit.info,  Node: Text edition functionalities,  Next: Spell-check func
    + Enable/Disable in-line spell-check.
 
 
-File: it-edit.info,  Node: Spell-check functionality,  Next: Go to line number,  Prev: Text edition functionalities,  Up: Editor
+File: it-edit.info,  Node: Contextual menu from editor,  Next: Spell-check functionality,  Prev: Text edition functionalities,  Up: Editor
 
-2.3 Spell-check functionality
+3.3 Contextual menu from editor
+===============================
+
+   + Undo
+
+   + Redo
+
+—
+
+   + Cut
+
+   + Copy
+
+   + Paste
+
+   + Erase
+
+—
+
+   + Select all
+
+   + Change case
+
+        + All to uppercase
+
+        + All to lowercase
+
+        + Invert case
+
+        + First letter uppercase
+
+
+note: If you’re using the ‘In-line spell check’ functionality an item
+with a `sub-menu' of `suggestions' is added to the `contextual menu' of
+the editor.
+
+
+File: it-edit.info,  Node: Spell-check functionality,  Next: Go to line number,  Prev: Contextual menu from editor,  Up: Editor
+
+3.4 Spell-check functionality
 =============================
 
    + In-line spell-check (‘Ctrl + w’) : the misspelled words are
@@ -520,7 +779,7 @@ before installing ‘it-edit’.
 
 File: it-edit.info,  Node: Go to line number,  Next: Find and replace,  Prev: Spell-check functionality,  Up: Editor
 
-2.4 Go to line number
+3.5 Go to line number
 =====================
 
    + Use the menu item, the button or the shortcut: ‘Ctrl + g’.
@@ -536,9 +795,9 @@ File: it-edit.info,  Node: Go to line number,  Next: Find and replace,  Prev: Sp
      note: This is very useful to go to a specific line.
 
 
-File: it-edit.info,  Node: Find and replace,  Prev: Go to line number,  Up: Editor
+File: it-edit.info,  Node: Find and replace,  Next: Replace in all files,  Prev: Go to line number,  Up: Editor
 
-2.5 Find and replace
+3.6 Find and replace
 ====================
 
    + You can `show' | `hide' the ‘Find and replace’ bar by using the
@@ -643,9 +902,93 @@ note: The search will begin at your selection position if you hit the
      simply end at the other end.
 
 
-File: it-edit.info,  Node: Terminals,  Next: Files,  Prev: Editor,  Up: Top
+File: it-edit.info,  Node: Replace in all files,  Next: Copy to clipboard,  Prev: Find and replace,  Up: Editor
 
-3 Terminals
+3.7 Replace in all files
+========================
+
+You can use the button, menu item or shortcut (‘Ctrl + Shift + R’),
+
+to replace all occurrence(s) from a pattern according the settings:
+
+   + Case sensitive
+
+   + Mode
+
+        + Raw text
+
+        + Word boundary
+
+        + REGEX
+
+Which are all settable, like the pattern and the replacement text, into
+the appearing top-level window.
+
+
+File: it-edit.info,  Node: Copy to clipboard,  Next: Order page,  Prev: Replace in all files,  Up: Editor
+
+3.8 Copy to clipboard
+=====================
+
+You can copy to clipboard either :
+
+   + The current absolute file-path (‘Ctrl + y’).
+
+   + The current absolute folder-path (‘Ctrl + Shift + Y’).
+
+
+File: it-edit.info,  Node: Order page,  Next: Editor usage more,  Prev: Copy to clipboard,  Up: Editor
+
+3.9 Order page
+==============
+
+You can use menu item or the shortcut (‘Ctrl + Shift + O’) to reorder
+all the pages lexicographically.
+
+
+File: it-edit.info,  Node: Editor usage more,  Prev: Order page,  Up: Editor
+
+3.10 Editor usage more
+======================
+
+   + You can use the page up and page down to scroll faster than with
+     the arrows.
+
+   + You can use the key ‘Insert’ for changing the form of the cursor.
+
+   + You can use the combination ‘Control + Left | Right’ to move to
+     previous | next sequence of characters.
+
+   + You can use the Erase key to erase the current selection.
+
+   + You can use the shortcut ‘Ctrl + Backspace’ to remove an entire
+     characters sequence.
+
+   + You can use the shortcut ‘Ctrl + Start’ and ‘Ctrl + End’ to move
+     the cursor to the beginning or end of the document.
+
+   + The search-replace shortcuts are clever set on the keypad:
+
+        + Find next : ‘Ctrl + + (KP)’.
+
+        + Find previous : ‘Ctrl + - (KP)’.
+
+        + Replace : ‘Ctrl + Enter (KP)’.
+
+        + Replace all : ‘Ctrl + Shift + Enter (KP)’.
+
+     For a better and faster search and replace feature.
+
+   + By all top-level windows you can use the shortcuts:
+
+        + ‘Escape’ to close the window.
+
+        + ‘Enter’ to confirm.
+
+
+File: it-edit.info,  Node: Terminals,  Next: Files<2>,  Prev: Editor,  Up: Top
+
+4 Terminals
 ***********
 
 ‘it-edit’ provides:
@@ -655,11 +998,12 @@ File: it-edit.info,  Node: Terminals,  Next: Files,  Prev: Editor,  Up: Top
 * A sidebar terminals:: 
 * A full-screen terminal:: 
 * Top-level terminals:: 
+* Contextual menu from the terminals:: 
 
 
 File: it-edit.info,  Node: A sidebar terminals,  Next: A full-screen terminal,  Up: Terminals
 
-3.1 A sidebar terminals
+4.1 A sidebar terminals
 =======================
 
 ‘it-edit’ provides `terminals in the same window as the editor', as a
@@ -670,7 +1014,7 @@ You can `add' and `remove' as many terminals as you want to the sidebar.
 
 File: it-edit.info,  Node: A full-screen terminal,  Next: Top-level terminals,  Prev: A sidebar terminals,  Up: Terminals
 
-3.2 A full-screen terminal
+4.2 A full-screen terminal
 ==========================
 
 ‘it-edit’ provides a `big terminal' occupying the full interface,
@@ -678,9 +1022,9 @@ File: it-edit.info,  Node: A full-screen terminal,  Next: Top-level terminals,  
 toggle' from the main window.
 
 
-File: it-edit.info,  Node: Top-level terminals,  Prev: A full-screen terminal,  Up: Terminals
+File: it-edit.info,  Node: Top-level terminals,  Next: Contextual menu from the terminals,  Prev: A full-screen terminal,  Up: Terminals
 
-3.3 Top-level terminals
+4.3 Top-level terminals
 =======================
 
 ‘it-edit’ provides a `top-level terminal window' (so it can be `resize',
@@ -692,9 +1036,37 @@ After the execution of the command the top-level terminal is yours and
 can continue to enter commands.
 
 
-File: it-edit.info,  Node: Files,  Next: Spell check,  Prev: Terminals,  Up: Top
+File: it-edit.info,  Node: Contextual menu from the terminals,  Prev: Top-level terminals,  Up: Terminals
 
-4 Files
+4.4 Contextual menu from the terminals
+======================================
+
+   + Copy from terminal
+
+   + Paste to terminal
+
+—
+
+   + Decrease font
+
+   + Increase font
+
+—
+
+   + Reset terminals
+
+     Note: By the sidebar terminals the items:
+
+        + Open new tab
+
+        + Close tab
+
+     Are added to the contextual menu.
+
+
+File: it-edit.info,  Node: Files<2>,  Next: Spell check,  Prev: Terminals,  Up: Top
+
+5 Files
 *******
 
 * Menu:
@@ -706,9 +1078,9 @@ File: it-edit.info,  Node: Files,  Next: Spell check,  Prev: Terminals,  Up: Top
 * File informations:: 
 
 
-File: it-edit.info,  Node: New file,  Next: File s opening,  Up: Files
+File: it-edit.info,  Node: New file,  Next: File s opening,  Up: Files<2>
 
-4.1 New file
+5.1 New file
 ============
 
 You can open a New file, this will create a random named ‘New_XXXXXX’
@@ -722,9 +1094,9 @@ Use the menu item Files ‣ New file or the shortcut ‘Ctrl + N’ to create
 a new buffer as describe above.
 
 
-File: it-edit.info,  Node: File s opening,  Next: Saving files,  Prev: New file,  Up: Files
+File: it-edit.info,  Node: File s opening,  Next: Saving files,  Prev: New file,  Up: Files<2>
 
-4.2 File(s) opening
+5.2 File(s) opening
 ===================
 
 They are several ways for opening file(s) into ‘it-edit’:
@@ -774,9 +1146,9 @@ This will present you a file selector to open the wanted file(s).
      some time.
 
 
-File: it-edit.info,  Node: Saving files,  Next: Reload file,  Prev: File s opening,  Up: Files
+File: it-edit.info,  Node: Saving files,  Next: Reload file,  Prev: File s opening,  Up: Files<2>
 
-4.3 Saving files
+5.3 Saving files
 ================
 
 They are several ways of saving files into ‘it-edit’:
@@ -819,10 +1191,14 @@ They are several ways of saving files into ‘it-edit’:
      if their is an `asterisk' ’‘*’’ `before' the `file name' this mean
      that the `file' is currently `not saved' on the `disk'.
 
-
-File: it-edit.info,  Node: Reload file,  Next: File informations,  Prev: Saving files,  Up: Files
 
-4.4 Reload file
+note: If enabled ‘it-edit’ will remove all the trailing spaces from the
+document after having save it.
+
+
+File: it-edit.info,  Node: Reload file,  Next: File informations,  Prev: Saving files,  Up: Files<2>
+
+5.4 Reload file
 ===============
 
 You can reload a file from disk with ‘it-edit’ by using:
@@ -836,9 +1212,9 @@ note: This can be practice if per example you have redirect you
 compilation process to a file for debugging compilation errors.
 
 
-File: it-edit.info,  Node: File informations,  Prev: Reload file,  Up: Files
+File: it-edit.info,  Node: File informations,  Prev: Reload file,  Up: Files<2>
 
-4.5 File informations
+5.5 File informations
 =====================
 
 You can get and change files informations by using the menu item Files ‣
@@ -956,16 +1332,16 @@ This will display a `top-level window' presenting following
 
         + Copy file
 
-        + Compress file
+        + Compress file (using gzip)
 
-        + Copy file-path to clipboard
+        + Move file.
 
      The functionalities of this buttons are clear as their name.
 
 
-File: it-edit.info,  Node: Spell check,  Next: Sessions,  Prev: Files,  Up: Top
+File: it-edit.info,  Node: Spell check,  Next: Sessions,  Prev: Files<2>,  Up: Top
 
-5 Spell check
+6 Spell check
 *************
 
 * Menu:
@@ -978,7 +1354,7 @@ File: it-edit.info,  Node: Spell check,  Next: Sessions,  Prev: Files,  Up: Top
 
 File: it-edit.info,  Node: it-edit spell check features,  Next: Using it-edit spell check,  Up: Spell check
 
-5.1 ‘it-edit’ spell check features
+6.1 ‘it-edit’ spell check features
 ==================================
 
      ‘it-edit’ provide 2 different spell check methods:
@@ -1005,7 +1381,7 @@ File: it-edit.info,  Node: it-edit spell check features,  Next: Using it-edit sp
 
 File: it-edit.info,  Node: Using it-edit spell check,  Next: it-edit spell check support,  Prev: it-edit spell check features,  Up: Spell check
 
-5.2 Using ‘it-edit’ spell check
+6.2 Using ‘it-edit’ spell check
 ===============================
 
      You can enable or disable the in-line spell check by using:
@@ -1027,7 +1403,7 @@ File: it-edit.info,  Node: Using it-edit spell check,  Next: it-edit spell check
 
 File: it-edit.info,  Node: it-edit spell check support,  Next: Thanks,  Prev: Using it-edit spell check,  Up: Spell check
 
-5.3 ‘it-edit’ spell check support
+6.3 ‘it-edit’ spell check support
 =================================
 
      ‘it-edit’ use the ‘gspell-1’ library for providing spell check.
@@ -1050,7 +1426,8 @@ File: it-edit.info,  Node: it-edit spell check support,  Next: Thanks,  Prev: Us
 
 
      note: You can get gtk+-3.22 and gspell-1 currently with the `ppa'
-     ‘gnome3-staging’ for debian packages.
+     ‘gnome3-staging’ for debian packages or by debian distributions
+     through the "sid" repository.
 
      ‘gspell-1’ has the advantages:
 
@@ -1097,7 +1474,7 @@ File: it-edit.info,  Node: it-edit spell check support,  Next: Thanks,  Prev: Us
 
 File: it-edit.info,  Node: Thanks,  Prev: it-edit spell check support,  Up: Spell check
 
-5.4 Thanks
+6.4 Thanks
 ==========
 
      Big Thanks to the author of the gpsell-1 library `Sébastien Wilmet'
@@ -1111,7 +1488,7 @@ File: it-edit.info,  Node: Thanks,  Prev: it-edit spell check support,  Up: Spel
 
 File: it-edit.info,  Node: Sessions,  Next: Shortcuts table,  Prev: Spell check,  Up: Top
 
-6 Sessions
+7 Sessions
 **********
 
 * Menu:
@@ -1122,7 +1499,7 @@ File: it-edit.info,  Node: Sessions,  Next: Shortcuts table,  Prev: Spell check,
 
 File: it-edit.info,  Node: Configure your sessions recovering,  Next: The automatic session mechanism,  Up: Sessions
 
-6.1 Configure your sessions recovering
+7.1 Configure your sessions recovering
 ======================================
 
 Their are 3 different modes for registering your session at your
@@ -1135,7 +1512,7 @@ convenience.
 
 File: it-edit.info,  Node: Files documentation applications registering,  Up: Configure your sessions recovering
 
-6.1.1 Files, documentation, applications registering:
+7.1.1 Files, documentation, applications registering:
 -----------------------------------------------------
 
    + Asked for registering the current session at quitting.
@@ -1147,7 +1524,7 @@ File: it-edit.info,  Node: Files documentation applications registering,  Up: Co
 
 File: it-edit.info,  Node: The automatic session mechanism,  Prev: Configure your sessions recovering,  Up: Sessions
 
-6.2 The `automatic' ‘session’ mechanism
+7.2 The `automatic' ‘session’ mechanism
 =======================================
 
 How does it work ?
@@ -1161,7 +1538,7 @@ How does it work ?
 
 File: it-edit.info,  Node: Registering,  Next: Reloading a session,  Up: The automatic session mechanism
 
-6.2.1 Registering:
+7.2.1 Registering:
 ------------------
 
    + Every time you open or close a file into the editor the registered
@@ -1191,7 +1568,7 @@ File: it-edit.info,  Node: Registering,  Next: Reloading a session,  Up: The aut
 
 File: it-edit.info,  Node: Reloading a session,  Next: Clear a session,  Prev: Registering,  Up: The automatic session mechanism
 
-6.2.2 Reloading a session
+7.2.2 Reloading a session
 -------------------------
 
 You can reload the entire session by activating the menu item:
@@ -1211,7 +1588,7 @@ Or reload the different items singular.
 
 File: it-edit.info,  Node: Clear a session,  Prev: Reloading a session,  Up: The automatic session mechanism
 
-6.2.3 Clear a session
+7.2.3 Clear a session
 ---------------------
 
 
@@ -1245,7 +1622,7 @@ session registering mechanism.
 
 File: it-edit.info,  Node: Shortcuts table,  Next: Supported charset,  Prev: Sessions,  Up: Top
 
-7 Shortcuts table
+8 Shortcuts table
 *****************
 
 * Menu:
@@ -1256,7 +1633,7 @@ File: it-edit.info,  Node: Shortcuts table,  Next: Supported charset,  Prev: Ses
 
 File: it-edit.info,  Node: Application shortcuts,  Next: Terminals shortcuts,  Up: Shortcuts table
 
-7.1 Application shortcuts:
+8.1 Application shortcuts:
 ==========================
 
      Shortcut                   functionality                       Mnemonic
@@ -1335,6 +1712,9 @@ File: it-edit.info,  Node: Application shortcuts,  Next: Terminals shortcuts,  U
      Ctrl + e                   Execute command                     e = execute
                                                                     
                                                                     
+     Ctrl + Alt + o             Order pages                         o = order
+                                                                    
+                                                                    
      Ctrl + y                   Copy file-path to clipboard         None
                                                                     
                                                                     
@@ -1371,7 +1751,7 @@ File: it-edit.info,  Node: Application shortcuts,  Next: Terminals shortcuts,  U
 
 File: it-edit.info,  Node: Terminals shortcuts,  Prev: Application shortcuts,  Up: Shortcuts table
 
-7.2 Terminals shortcuts:
+8.2 Terminals shortcuts:
 ========================
 
      Shortcut                    functionality              Mnemonic
@@ -1400,7 +1780,7 @@ File: it-edit.info,  Node: Terminals shortcuts,  Prev: Application shortcuts,  U
 
 File: it-edit.info,  Node: Supported charset,  Next: Supported languages,  Prev: Shortcuts table,  Up: Top
 
-8 Supported charset
+9 Supported charset
 *******************
 
 Unicode
@@ -1776,8 +2156,8 @@ Vietnamese
 
 File: it-edit.info,  Node: Supported languages,  Next: it-edit smart widgets,  Prev: Supported charset,  Up: Top
 
-9 Supported languages
-*********************
+10 Supported languages
+**********************
 
 ActionScript:
 
@@ -2903,7 +3283,7 @@ YAML:
 
 File: it-edit.info,  Node: it-edit smart widgets,  Next: Indices and tables,  Prev: Supported languages,  Up: Top
 
-10 it-edit smart widgets
+11 it-edit smart widgets
 ************************
 
 ‘it-edit’ implement some few self build widget:
@@ -2922,7 +3302,7 @@ File: it-edit.info,  Node: it-edit smart widgets,  Next: Indices and tables,  Pr
 
 File: it-edit.info,  Node: GtkSmartMenuItem,  Next: GtkSmartIconButton,  Up: it-edit smart widgets
 
-10.1 GtkSmartMenuItem
+11.1 GtkSmartMenuItem
 =====================
 
 A simple menu item containing:
@@ -2941,7 +3321,7 @@ A simple menu item containing:
 
 File: it-edit.info,  Node: Constructors,  Next: Getters,  Up: GtkSmartMenuItem
 
-10.1.1 Constructors
+11.1.1 Constructors
 -------------------
 
  -- C Function: GtkWidget* gtk_smart_menu_item_new_all(const gchar
@@ -3019,7 +3399,7 @@ build this kind of widgets.
 
 File: it-edit.info,  Node: Getters,  Prev: Constructors,  Up: GtkSmartMenuItem
 
-10.1.2 Getters
+11.1.2 Getters
 --------------
 
  -- C Function: GtkWidget* gtk_smart_menu_item_get_image(GtkWidget
@@ -3085,7 +3465,7 @@ File: it-edit.info,  Node: Getters,  Prev: Constructors,  Up: GtkSmartMenuItem
 
 File: it-edit.info,  Node: GtkSmartIconButton,  Next: GtkItTerm,  Prev: GtkSmartMenuItem,  Up: it-edit smart widgets
 
-10.2 GtkSmartIconButton
+11.2 GtkSmartIconButton
 =======================
 
 A simple button with an icon without label and tool-tip which embed an
@@ -3099,7 +3479,7 @@ universal short-cut text.
 
 File: it-edit.info,  Node: Constructors<2>,  Next: Getters<2>,  Up: GtkSmartIconButton
 
-10.2.1 Constructors
+11.2.1 Constructors
 -------------------
 
  -- C Function: GtkWidget* gtk_smart_icon_button_new_all(const gchar
@@ -3154,7 +3534,7 @@ File: it-edit.info,  Node: Constructors<2>,  Next: Getters<2>,  Up: GtkSmartIcon
 
 File: it-edit.info,  Node: Getters<2>,  Prev: Constructors<2>,  Up: GtkSmartIconButton
 
-10.2.2 Getters
+11.2.2 Getters
 --------------
 
  -- C Function: GtkWidget* gtk_smart_icon_button_get_image(GtkWidget
@@ -3175,7 +3555,7 @@ File: it-edit.info,  Node: Getters<2>,  Prev: Constructors<2>,  Up: GtkSmartIcon
 
 File: it-edit.info,  Node: GtkItTerm,  Prev: GtkSmartIconButton,  Up: it-edit smart widgets
 
-10.3 GtkItTerm
+11.3 GtkItTerm
 ==============
 
 Not reusable like this.
@@ -3203,189 +3583,233 @@ Tag Table:
 Node: Top343
 Ref: index doc581
 Ref: 0581
-Node: it-edit Integrated Terminal Editor2353
-Ref: it-edit_presentation doc2455
-Ref: 12455
-Ref: it-edit_presentation welcome-to-it-edit-s-documentation2455
-Ref: 22455
-Ref: it-edit_presentation it-edit-integrated-terminal-editor2455
-Ref: 32455
-Node: Motivation for writing it-edit2944
-Ref: it-edit_presentation motivation-for-writing-it-edit3077
-Ref: 43077
-Ref: Motivation for writing it-edit-Footnote-14552
-Ref: Motivation for writing it-edit-Footnote-24618
-Node: Requirement of it-edit4684
-Ref: it-edit_presentation requirement-of-it-edit4852
-Ref: 54852
-Node: What it-edit does for me !5272
-Ref: it-edit_presentation what-it-edit-does-for-me5424
-Ref: 75424
-Node: it-edit spirit7446
-Ref: it-edit_presentation it-edit-spirit7596
-Ref: 87596
-Node: A programming editor7702
-Ref: it-edit_presentation a-programming-editor7774
-Ref: 97774
-Node: Terminal integration9280
-Ref: it-edit_presentation terminal-integration9426
-Ref: b9426
-Node: it-edit writing spirit10330
-Ref: it-edit_presentation it-edit-writing-spirit10472
-Ref: c10472
-Node: Conclusion11144
-Ref: it-edit_presentation conclusion11257
-Ref: d11257
-Node: Editor11411
-Ref: Editor doc11519
-Ref: e11519
-Ref: Editor editor11519
-Ref: f11519
-Node: Files management11772
-Ref: Editor files-management11869
-Ref: 1011869
-Node: Text edition functionalities12086
-Ref: Editor text-edition-functionalities12217
-Ref: 1112217
-Node: Spell-check functionality12474
-Ref: Editor spell-check-functionality12606
-Ref: 1212606
-Node: Go to line number13017
-Ref: Editor go-to-line-number13137
-Ref: 1313137
-Node: Find and replace13554
-Ref: Editor find-and-replace13640
-Ref: 1413640
-Node: Terminals16958
-Ref: Terminals doc17037
-Ref: 1517037
-Ref: Terminals terminals17037
-Ref: 1617037
-Node: A sidebar terminals17175
-Ref: Terminals a-sidebar-terminals17272
-Ref: 1717272
-Node: A full-screen terminal17538
-Ref: Terminals a-full-screen-terminal17663
-Ref: 1817663
-Node: Top-level terminals17885
-Ref: Terminals top-level-terminals17982
-Ref: 1917982
-Node: Files18300
-Ref: Files doc18384
-Ref: 1a18384
-Ref: Files files18384
-Ref: 1b18384
-Ref: Files id118384
-Ref: 1c18384
-Node: New file18519
-Ref: Files new-file18593
-Ref: 1d18593
-Node: File s opening19008
-Ref: Files file-s-opening19103
-Ref: 1e19103
-Node: Saving files20646
-Ref: Files saving-files20744
-Ref: 1f20744
-Node: Reload file21879
-Ref: Files reload-file21980
-Ref: 2021980
-Node: File informations22292
-Ref: Files file-informations22372
-Ref: 2122372
-Node: Spell check25317
-Ref: Spell-check doc25400
-Ref: 2225400
-Ref: Spell-check spell-check25400
-Ref: 625400
-Ref: Spell-check id125400
-Ref: 2325400
-Node: it-edit spell check features25549
-Ref: Spell-check it-edit-spell-check-features25660
-Ref: 2425660
-Node: Using it-edit spell check26444
-Ref: Spell-check using-it-edit-spell-check26591
-Ref: 2526591
-Node: it-edit spell check support27041
-Ref: Spell-check it-edit-spell-check-support27166
-Ref: 2627166
-Node: Thanks29172
-Ref: Spell-check thanks29263
-Ref: 2729263
-Node: Sessions29598
-Ref: Sessions doc29691
-Ref: 2829691
-Ref: Sessions sessions29691
-Ref: 2929691
-Node: Configure your sessions recovering29801
-Ref: Sessions configure-your-sessions-recovering29921
-Ref: 2a29921
-Node: Files documentation applications registering30187
-Ref: Sessions files-documentation-applications-registering30303
-Ref: 2b30303
-Node: The automatic session mechanism30537
-Ref: Sessions the-automatic-session-mechanism30657
-Ref: 2c30657
-Node: Registering30848
-Ref: Sessions registering30956
-Ref: 2d30956
-Node: Reloading a session31600
-Ref: Sessions reloading-a-session31732
-Ref: 2e31732
-Node: Clear a session32098
-Ref: Sessions clear-a-session32210
-Ref: 2f32210
-Node: Shortcuts table33147
-Ref: Shortcuts_memo shortcuts-table33246
-Ref: a33246
-Ref: Shortcuts_memo doc33246
-Ref: 3033246
-Ref: Shortcuts_memo id133246
-Ref: 3133246
-Node: Application shortcuts33389
-Ref: Shortcuts_memo application-shortcuts33491
-Ref: 3233491
-Node: Terminals shortcuts41297
-Ref: Shortcuts_memo terminals-shortcuts41399
-Ref: 3341399
-Node: Supported charset42721
-Ref: charset supported-charset42831
-Ref: 3442831
-Ref: charset doc42831
-Ref: 3542831
-Node: Supported languages44811
-Ref: languages doc44927
-Ref: 3644927
-Ref: languages supported-languages44927
-Ref: 3744927
-Node: it-edit smart widgets53192
-Ref: it-edit_widgets doc53309
-Ref: 3853309
-Ref: it-edit_widgets it-edit-smart-widgets53309
-Ref: 3953309
-Node: GtkSmartMenuItem53644
-Ref: it-edit_widgets gtksmartmenuitem53746
-Ref: 3a53746
-Node: Constructors53928
-Ref: it-edit_widgets constructors54010
-Ref: 3b54010
-Node: Getters56075
-Ref: it-edit_widgets getters56157
-Ref: 3c56157
-Node: GtkSmartIconButton57477
-Ref: it-edit_widgets gtksmarticonbutton57597
-Ref: 3d57597
-Node: Constructors<2>57812
-Ref: it-edit_widgets id157902
-Ref: 3e57902
-Node: Getters<2>59395
-Ref: it-edit_widgets id259485
-Ref: 3f59485
-Node: GtkItTerm59869
-Ref: it-edit_widgets gtkitterm59964
-Ref: 4059964
-Node: Indices and tables60180
-Ref: index indices-and-tables60269
-Ref: 4160269
+Node: it-edit Integrated Terminal Editor2652
+Ref: it-edit_presentation it-edit-integrated-terminal-editor2762
+Ref: 12762
+Ref: it-edit_presentation welcome-to-it-edit-s-documentation2762
+Ref: 22762
+Ref: it-edit_presentation doc2762
+Ref: 32762
+Node: Motivation for writing it-edit3251
+Ref: it-edit_presentation motivation-for-writing-it-edit3384
+Ref: 43384
+Ref: Motivation for writing it-edit-Footnote-14859
+Ref: Motivation for writing it-edit-Footnote-24925
+Node: Requirement of it-edit4991
+Ref: it-edit_presentation requirement-of-it-edit5159
+Ref: 55159
+Node: What it-edit does for me !5579
+Ref: it-edit_presentation what-it-edit-does-for-me5731
+Ref: 75731
+Node: it-edit spirit7753
+Ref: it-edit_presentation it-edit-spirit7903
+Ref: 87903
+Node: A programming editor8009
+Ref: it-edit_presentation a-programming-editor8081
+Ref: 98081
+Node: Terminal integration9563
+Ref: it-edit_presentation terminal-integration9709
+Ref: b9709
+Node: it-edit writing spirit10613
+Ref: it-edit_presentation it-edit-writing-spirit10755
+Ref: c10755
+Node: Conclusion11534
+Ref: it-edit_presentation conclusion11647
+Ref: d11647
+Node: it-edit's menu11801
+Ref: Menu it-edit-s-menu11914
+Ref: e11914
+Ref: Menu doc11914
+Ref: f11914
+Node: Files12059
+Ref: Menu files12132
+Ref: 1012132
+Node: Edition12843
+Ref: Menu edition12932
+Ref: 1112932
+Node: Actions13637
+Ref: Menu actions13733
+Ref: 1213733
+Node: Applications14231
+Ref: Menu applications14324
+Ref: 1314324
+Node: View14861
+Ref: Menu view14955
+Ref: 1414955
+Node: Settings15083
+Ref: Menu settings15170
+Ref: 1515170
+Node: About15317
+Ref: Menu about15391
+Ref: 1615391
+Node: Editor15480
+Ref: Editor editor15568
+Ref: 1715568
+Ref: Editor doc15568
+Ref: 1815568
+Node: Files management15935
+Ref: Editor files-management16032
+Ref: 1916032
+Node: Text edition functionalities16249
+Ref: Editor text-edition-functionalities16382
+Ref: 1a16382
+Node: Contextual menu from editor16639
+Ref: Editor contextual-menu-from-editor16781
+Ref: 1b16781
+Node: Spell-check functionality17233
+Ref: Editor spell-check-functionality17364
+Ref: 1c17364
+Node: Go to line number17775
+Ref: Editor go-to-line-number17895
+Ref: 1d17895
+Node: Find and replace18312
+Ref: Editor find-and-replace18427
+Ref: 1e18427
+Node: Replace in all files21745
+Ref: Editor replace-in-all-files21860
+Ref: 1f21860
+Node: Copy to clipboard22252
+Ref: Editor copy-to-clipboard22361
+Ref: 2022361
+Node: Order page22562
+Ref: Editor order-page22668
+Ref: 2122668
+Node: Editor usage more22807
+Ref: Editor editor-usage-more22887
+Ref: 2222887
+Node: Terminals23974
+Ref: Terminals terminals24056
+Ref: 2324056
+Ref: Terminals doc24056
+Ref: 2424056
+Node: A sidebar terminals24234
+Ref: Terminals a-sidebar-terminals24331
+Ref: 2524331
+Node: A full-screen terminal24597
+Ref: Terminals a-full-screen-terminal24722
+Ref: 2624722
+Node: Top-level terminals24944
+Ref: Terminals top-level-terminals25084
+Ref: 2725084
+Node: Contextual menu from the terminals25402
+Ref: Terminals contextual-menu-from-the-terminals25511
+Ref: 2825511
+Node: Files<2>25844
+Ref: Files id125931
+Ref: 2925931
+Ref: Files files25931
+Ref: 2a25931
+Ref: Files doc25931
+Ref: 2b25931
+Node: New file26066
+Ref: Files new-file26143
+Ref: 2c26143
+Node: File s opening26558
+Ref: Files file-s-opening26656
+Ref: 2d26656
+Node: Saving files28199
+Ref: Files saving-files28300
+Ref: 2e28300
+Node: Reload file29544
+Ref: Files reload-file29648
+Ref: 2f29648
+Node: File informations29960
+Ref: Files file-informations30043
+Ref: 3030043
+Node: Spell check32984
+Ref: Spell-check spell-check33070
+Ref: 633070
+Ref: Spell-check id133070
+Ref: 3133070
+Ref: Spell-check doc33070
+Ref: 3233070
+Node: it-edit spell check features33219
+Ref: Spell-check it-edit-spell-check-features33330
+Ref: 3333330
+Node: Using it-edit spell check34114
+Ref: Spell-check using-it-edit-spell-check34261
+Ref: 3434261
+Node: it-edit spell check support34711
+Ref: Spell-check it-edit-spell-check-support34836
+Ref: 3534836
+Node: Thanks36903
+Ref: Spell-check thanks36994
+Ref: 3636994
+Node: Sessions37329
+Ref: Sessions sessions37422
+Ref: 3737422
+Ref: Sessions doc37422
+Ref: 3837422
+Node: Configure your sessions recovering37532
+Ref: Sessions configure-your-sessions-recovering37652
+Ref: 3937652
+Node: Files documentation applications registering37918
+Ref: Sessions files-documentation-applications-registering38034
+Ref: 3a38034
+Node: The automatic session mechanism38268
+Ref: Sessions the-automatic-session-mechanism38388
+Ref: 3b38388
+Node: Registering38579
+Ref: Sessions registering38687
+Ref: 3c38687
+Node: Reloading a session39331
+Ref: Sessions reloading-a-session39463
+Ref: 3d39463
+Node: Clear a session39829
+Ref: Sessions clear-a-session39941
+Ref: 3e39941
+Node: Shortcuts table40878
+Ref: Shortcuts_memo id140977
+Ref: 3f40977
+Ref: Shortcuts_memo shortcuts-table40977
+Ref: a40977
+Ref: Shortcuts_memo doc40977
+Ref: 4040977
+Node: Application shortcuts41120
+Ref: Shortcuts_memo application-shortcuts41222
+Ref: 4141222
+Node: Terminals shortcuts49244
+Ref: Shortcuts_memo terminals-shortcuts49346
+Ref: 4249346
+Node: Supported charset50668
+Ref: charset supported-charset50778
+Ref: 4350778
+Ref: charset doc50778
+Ref: 4450778
+Node: Supported languages52758
+Ref: languages supported-languages52874
+Ref: 4552874
+Ref: languages doc52874
+Ref: 4652874
+Node: it-edit smart widgets61141
+Ref: it-edit_widgets it-edit-smart-widgets61258
+Ref: 4761258
+Ref: it-edit_widgets doc61258
+Ref: 4861258
+Node: GtkSmartMenuItem61593
+Ref: it-edit_widgets gtksmartmenuitem61695
+Ref: 4961695
+Node: Constructors61877
+Ref: it-edit_widgets constructors61959
+Ref: 4a61959
+Node: Getters64024
+Ref: it-edit_widgets getters64106
+Ref: 4b64106
+Node: GtkSmartIconButton65426
+Ref: it-edit_widgets gtksmarticonbutton65546
+Ref: 4c65546
+Node: Constructors<2>65761
+Ref: it-edit_widgets id165851
+Ref: 4d65851
+Node: Getters<2>67344
+Ref: it-edit_widgets id267434
+Ref: 4e67434
+Node: GtkItTerm67818
+Ref: it-edit_widgets gtkitterm67913
+Ref: 4f67913
+Node: Indices and tables68129
+Ref: index indices-and-tables68218
+Ref: 5068218
 
 End Tag Table
 

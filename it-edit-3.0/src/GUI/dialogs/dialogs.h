@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015,2016 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -56,5 +56,9 @@ extern void display_about_dialog(GtkWidget *widget) ;
 #ifdef GSPELL_SUPPORT
 extern void select_spellcheck_language(GtkWidget *widget) ;
 #endif
+
+extern void activate_replace_all_in_all_files(GtkWidget *widget) ;
+
+extern void user_salutation(GtkWidget *widget) ;
 
 #endif

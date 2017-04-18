@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -41,11 +41,11 @@ static bool toggle_sidebar_terminals_echo = true ;
 static guint8 active_big_terminal = 1 ;
 
 static void show_hide_sidebar_terminals(void) {
-  
+ 
   #ifdef DEBUG
   DEBUG_FUNC_MARK
   #endif
-  
+ 
   if (! gtk_widget_get_visible(gui->terminal_notebook)) {
 
     /** Make the terminals side bar visible and give the focus to the terminal. **/
@@ -212,11 +212,11 @@ static void update_toggle_button_state(GtkWidget *widget) {
 
 
 void toggle_big_terminal_main_interface_menuitem(GtkWidget *widget) {
- 
+
   #ifdef DEBUG
   DEBUG_FUNC_MARK
   #endif
- 
+
   if (! toggle_big_terminals_echo) {
 
     toggle_big_terminals_echo = true ;
@@ -711,7 +711,7 @@ void launch_application(GtkWidget *widget, const char *cmdline) {
   g_object_unref(app) ;
 
   if (! settings.session_mode) {
- 
+
     return ;
   }
 

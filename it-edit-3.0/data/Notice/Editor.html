@@ -24,11 +24,12 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/utilities-terminal.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="it-edit 3.0 documentation" href="index.html" />
     <link rel="next" title="Terminals" href="Terminals.html" />
-    <link rel="prev" title="it-edit (Integrated Terminal Editor)" href="it-edit_presentation.html" /> 
+    <link rel="prev" title="it-edit‘s menu" href="Menu.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -41,7 +42,7 @@
           <a href="Terminals.html" title="Terminals"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="it-edit_presentation.html" title="it-edit (Integrated Terminal Editor)"
+          <a href="Menu.html" title="it-edit‘s menu"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">it-edit 3.0 documentation</a> &#187;</li> 
       </ul>
@@ -54,7 +55,7 @@
             
   <div class="section" id="editor">
 <h1>Editor<a class="headerlink" href="#editor" title="Permalink to this headline">¶</a></h1>
-<p>The editor has other functionalities like:</p>
+<p>The editor has as functionalities :</p>
 <div class="section" id="files-management">
 <h2><a class="reference internal" href="Files.html#files"><span class="std std-ref">Files management</span></a>.<a class="headerlink" href="#files-management" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -78,6 +79,39 @@
 <li>Use spaces instead of tabs.</li>
 <li>Enable/Disable in-line spell-check.</li>
 </ul>
+</div>
+<div class="section" id="contextual-menu-from-editor">
+<h2>Contextual menu from editor<a class="headerlink" href="#contextual-menu-from-editor" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Undo</li>
+<li>Redo</li>
+</ul>
+<p>&#8212;</p>
+<ul class="simple">
+<li>Cut</li>
+<li>Copy</li>
+<li>Paste</li>
+<li>Erase</li>
+</ul>
+<p>&#8212;</p>
+<ul class="simple">
+<li>Select all</li>
+<li>Change case<ul>
+<li>All to uppercase</li>
+<li>All to lowercase</li>
+<li>Invert case</li>
+<li>First letter uppercase</li>
+</ul>
+</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">note:</th><td class="field-body">If you&#8217;re using the <code class="docutils literal"><span class="pre">In-line</span> <span class="pre">spell</span> <span class="pre">check</span></code> functionality an item with a <em>sub-menu</em> of <strong>suggestions</strong> is added to the <strong>contextual menu</strong> of the editor.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="spell-check-functionality">
 <h2><a class="reference internal" href="Spell-check.html#spell-check"><span class="std std-ref">Spell-check</span></a> functionality<a class="headerlink" href="#spell-check-functionality" title="Permalink to this headline">¶</a></h2>
@@ -219,6 +253,65 @@
 <p class="last">It will flow through the search terms history but not wrap around, simply end at the other end.</p>
 </div>
 </div>
+<div class="section" id="replace-in-all-files">
+<h2>Replace in all files<a class="headerlink" href="#replace-in-all-files" title="Permalink to this headline">¶</a></h2>
+<p>You can use the button, menu item or shortcut (<code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">R</span></code>),</p>
+<p>to replace all occurrence(s) from a pattern according the settings:</p>
+<ul class="simple">
+<li>Case sensitive</li>
+<li>Mode<ul>
+<li>Raw text</li>
+<li>Word boundary</li>
+<li>REGEX</li>
+</ul>
+</li>
+</ul>
+<p>Which are all settable, like the pattern and the replacement text, into the appearing top-level window.</p>
+</div>
+<div class="section" id="copy-to-clipboard">
+<h2>Copy to clipboard<a class="headerlink" href="#copy-to-clipboard" title="Permalink to this headline">¶</a></h2>
+<p>You can copy to clipboard either :</p>
+<ul class="simple">
+<li>The current absolute file-path (<code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">y</span></code>).</li>
+<li>The current absolute folder-path (<code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">Y</span></code>).</li>
+</ul>
+</div>
+<div class="section" id="order-page">
+<h2>Order page<a class="headerlink" href="#order-page" title="Permalink to this headline">¶</a></h2>
+<p>You can use menu item or the shortcut (<code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">O</span></code>) to reorder all the pages lexicographically.</p>
+</div>
+<div class="section" id="editor-usage-more">
+<h2>Editor usage more<a class="headerlink" href="#editor-usage-more" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">You can use the page up and page down to scroll faster than with the arrows.</p>
+</li>
+<li><p class="first">You can use the key <code class="kbd docutils literal"><span class="pre">Insert</span></code> for changing the form of the cursor.</p>
+</li>
+<li><p class="first">You can use the combination <code class="kbd docutils literal"><span class="pre">Control</span> <span class="pre">+</span>&#160; <span class="pre">Left</span> <span class="pre">|</span> <span class="pre">Right</span></code> to move to previous | next sequence of characters.</p>
+</li>
+<li><p class="first">You can use the Erase key to erase the current selection.</p>
+</li>
+<li><p class="first">You can use the shortcut <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Backspace</span></code> to remove an entire characters sequence.</p>
+</li>
+<li><p class="first">You can use the shortcut <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Start</span></code> and <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">End</span></code> to move the cursor to the beginning or end of the document.</p>
+</li>
+<li><p class="first">The search-replace shortcuts are clever set on the keypad:</p>
+<ul class="simple">
+<li>Find next : <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">+</span> <span class="pre">(KP)</span></code>.</li>
+<li>Find previous : <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">-</span> <span class="pre">(KP)</span></code>.</li>
+<li>Replace : <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Enter</span> <span class="pre">(KP)</span></code>.</li>
+<li>Replace all : <code class="kbd docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">Enter</span> <span class="pre">(KP)</span></code>.</li>
+</ul>
+<p>For a better and faster search and replace feature.</p>
+</li>
+<li><p class="first">By all top-level windows you can use the shortcuts:</p>
+<ul class="simple">
+<li><code class="kbd docutils literal"><span class="pre">Escape</span></code> to close the window.</li>
+<li><code class="kbd docutils literal"><span class="pre">Enter</span></code> to confirm.</li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 
 
@@ -235,16 +328,21 @@
 <li><a class="reference internal" href="#">Editor</a><ul>
 <li><a class="reference internal" href="#files-management"><code class="docutils literal"><span class="pre">Files</span> <span class="pre">management</span></code>.</a></li>
 <li><a class="reference internal" href="#text-edition-functionalities">Text edition functionalities.</a></li>
+<li><a class="reference internal" href="#contextual-menu-from-editor">Contextual menu from editor</a></li>
 <li><a class="reference internal" href="#spell-check-functionality"><code class="docutils literal"><span class="pre">Spell-check</span></code> functionality</a></li>
 <li><a class="reference internal" href="#go-to-line-number">Go to line number</a></li>
 <li><a class="reference internal" href="#find-and-replace">Find and replace</a></li>
+<li><a class="reference internal" href="#replace-in-all-files">Replace in all files</a></li>
+<li><a class="reference internal" href="#copy-to-clipboard">Copy to clipboard</a></li>
+<li><a class="reference internal" href="#order-page">Order page</a></li>
+<li><a class="reference internal" href="#editor-usage-more">Editor usage more</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="it-edit_presentation.html"
-                        title="previous chapter">it-edit (Integrated Terminal Editor)</a></p>
+  <p class="topless"><a href="Menu.html"
+                        title="previous chapter"><strong class="program">it-edit</strong>&#8216;s menu</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="Terminals.html"
                         title="next chapter">Terminals</a></p>
@@ -279,7 +377,7 @@
           <a href="Terminals.html" title="Terminals"
              >next</a> |</li>
         <li class="right" >
-          <a href="it-edit_presentation.html" title="it-edit (Integrated Terminal Editor)"
+          <a href="Menu.html" title="it-edit‘s menu"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">it-edit 3.0 documentation</a> &#187;</li> 
       </ul>

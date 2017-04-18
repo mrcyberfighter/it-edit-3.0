@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -150,7 +150,7 @@ static void gtk_itterm_finalize(GObject *object) {
     }
 
   }
-  
+ 
   g_clear_object(&priv->clipboard_menu);
 
   /** Private datas destructor if necessary. **/
@@ -372,7 +372,7 @@ void gtk_itterm_configure_terminal(GtkWidget *itterm, gboolean initialize) {
 
   /** Configure the (vte) terminal according to the configuration. **/
 
-  if ( itterm == NULL || ! IS_GTK_ITTERM(itterm) ) {                                 
+  if ( itterm == NULL || ! IS_GTK_ITTERM(itterm) ) {                                
 
     g_printerr("%s(...) error: *itterm is not a valid pointer on a GtkItTerm object.\n", __func__);
 

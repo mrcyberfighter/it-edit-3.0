@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -27,69 +27,9 @@ static GError *errors = NULL ;
 
 static gboolean is_close_all_files = FALSE ;
 
-static gboolean doc_loader_success = FALSE ;
+static void reload_last_documentation_thread(gpointer data) ;
 
-static gboolean doc_loader_as_finished = FALSE ;
-
-#if (GLIB_MINOR_VERSION >= 50)
-
-static void doc_loader_gasync_ready(GObject *source_object, GAsyncResult *res, gpointer user_data) {
-
-  #ifdef DEBUG
-  DEBUG_FUNC_MARK
-  #endif
-
-  GError *error = NULL ;
-
-  doc_loader_success = g_app_info_launch_default_for_uri_finish(res, &error);
-
-  if (error != NULL) {
-
-    display_message_dialog( _("Error open documentation !!!"), error->message, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE) ;
-
-    g_error_free(error) ;
-
-  }
-
-  if (g_main_context_pending(g_main_context_get_thread_default())) {
-
-    g_main_context_iteration(g_main_context_get_thread_default(), FALSE) ;
-
-  }
-
-
-  if (user_data != NULL) {
-
-    if (*(gboolean *)user_data) {
-
-      /** Sleeping so long to be sure the browser is open for the next HTML files. **/
-      g_usleep(12000000) ;
-
-      *(gboolean *)user_data = FALSE ;
-
-    }
-  }
-  else {
-
-    /** Enough sleeping **/
-
-    g_usleep(2250000) ;
-
-  }
-
-  if (G_IS_OBJECT(source_object)) {
-
-    g_object_unref(source_object) ;
-
-  }
-
-  doc_loader_as_finished = TRUE ;
-
-  return ;
-
-}
-#endif
-
+static void reload_last_applications_thread(gpointer *user_data) ;
 
 
 static void reset_file_selector_curdirpath(gchar *new_value) {
@@ -129,7 +69,7 @@ static void reset_file_selector_curdirpath(gchar *new_value) {
 }
 
 
-static gboolean check_if_file_into_editor(GtkWidget *notebook, const char *new_filepath) {
+static gboolean check_if_file_into_editor(GtkWidget *notebook, const char *filepath) {
 
   #ifdef DEBUG
   DEBUG_FUNC_MARK
@@ -149,7 +89,7 @@ static gboolean check_if_file_into_editor(GtkWidget *notebook, const char *new_f
 
     const gchar *filepath_stored = g_object_get_data(G_OBJECT(buffer), "filepath") ;
 
-    if (g_strcmp0(filepath_stored, new_filepath) == 0) {
+    if (g_strcmp0(filepath_stored, filepath) == 0) {
 
       return TRUE ;
     }
@@ -202,9 +142,9 @@ void register_files(void) {
     gchar *dirpath = g_path_get_dirname(filepath) ;
 
     if (g_strcmp0(dirpath, g_get_tmp_dir()) == 0) {
- 
+
         g_free(dirpath) ;
- 
+
         continue ;
     }
 
@@ -287,13 +227,11 @@ void reload_last_files(GtkWidget *widget) {
 
   GKeyFile *conf_file = g_key_file_new() ;
 
-  GError *error = NULL ;
+  g_key_file_load_from_file(conf_file, PATH_TO_SESSION_FILE, G_KEY_FILE_NONE, &errors) ;
 
-  g_key_file_load_from_file(conf_file, PATH_TO_SESSION_FILE, G_KEY_FILE_NONE, &error) ;
+  if (errors != NULL) {
 
-  if (error != NULL) {
-
-    g_error_free(error) ;
+    g_clear_error(&errors) ;
 
     if (conf_file != NULL) {
 
@@ -341,7 +279,10 @@ void reload_last_files(GtkWidget *widget) {
 
 }
 
-void reload_last_documentation(GtkWidget *widget) {
+
+
+static void reload_last_documentation_thread(gpointer data) {
+
 
   #ifdef DEBUG
   DEBUG_FUNC_MARK
@@ -372,9 +313,7 @@ void reload_last_documentation(GtkWidget *widget) {
 
   if (errors != NULL) {
 
-    g_error_free(errors) ;
-
-    errors = NULL ;
+    g_clear_error(&errors) ;
 
     if (conf_file != NULL) {
 
@@ -400,25 +339,26 @@ void reload_last_documentation(GtkWidget *widget) {
 
   g_key_file_unref(conf_file) ;
 
-  gboolean is_start_file = TRUE ;
+
+
+
+
+
+  gboolean doc_have_html = FALSE ;
+
+  gchar **cmdline_strv = calloc(nb_of_doc+2, sizeof(gchar *)) ;
+
+  gint16 cc = 0 ;
+
+  g_free(cmdline_strv[cc]) ;
+
+  GAppInfo *appinfo_html = g_app_info_get_default_for_type("text/html", TRUE);
+
+  cmdline_strv[cc++] = g_strdup(g_app_info_get_executable(appinfo_html)) ;
 
   guint16 c = 0 ;
 
-  #if (GLIB_MINOR_VERSION < 50)
-
-  static gboolean counter = 0 ;
-
-  #endif
-
   for ( ; c < nb_of_doc ; ++c) {
-
-    #if (GLIB_MINOR_VERSION >= 50)
-
-    doc_loader_as_finished = FALSE ;
-
-    doc_loader_success = FALSE ;
-
-    #endif
 
     GFile *g_file = g_file_new_for_uri(doc_list[c]);
 
@@ -428,88 +368,70 @@ void reload_last_documentation(GtkWidget *widget) {
 
     gchar *mimetype = g_content_type_get_mime_type(attribute_str_value) ;
 
-
-
     if (g_strcmp0(mimetype, "text/html") == 0) {
+    
+      g_free(cmdline_strv[cc]) ;
+    
+      cmdline_strv[cc++] = g_strdup(doc_list[c]) ;
+    
+      if (! doc_have_html) {
 
-
-      #if (GLIB_MINOR_VERSION >= 50)
-
-      g_app_info_launch_default_for_uri_async(doc_list[c], NULL, NULL, &doc_loader_gasync_ready, &is_start_file) ;
-
-      #else
-
-
-      g_app_info_launch_default_for_uri(doc_list[c], NULL, NULL) ;
-
-      if (! counter) {
-
-        g_usleep(12000000) ;
-
-        ++counter ;
-
-      }
-      else {
-
-        g_usleep(2250000) ;
-      }
-      #endif
-
-      while (! doc_loader_as_finished) {
-
-        /** Waiting the async call has completed. **/
-
-        gtk_main_iteration_do(FALSE) ;
-
-        g_main_context_iteration(NULL, FALSE) ;
-
+        doc_have_html = TRUE ;
       }
 
-      if (! doc_loader_success) {
-
-        g_printerr("error launching start HTML file !\n") ;
-
-      }
     }
     else {
 
-
-      #if (GLIB_MINOR_VERSION >= 50)
-
-      g_app_info_launch_default_for_uri_async(doc_list[c], NULL, NULL, &doc_loader_gasync_ready, NULL) ;
-
-      #else
-
-
       g_app_info_launch_default_for_uri(doc_list[c], NULL, NULL) ;
-
-      #endif
-
-      while (! doc_loader_as_finished) {
-
-        /** Waiting the asynchron call has completed. **/
-
-        gtk_main_iteration_do(FALSE) ;
-
-        g_main_context_iteration(NULL, FALSE) ;
-
-      }
-
-      if (! doc_loader_success) {
-
-        g_printerr("error launching start HTML file !\n") ;
-
-      }
-
 
     }
 
-
     g_free(mimetype) ;
+
+    g_object_unref(g_file_info) ;
 
     g_object_unref(g_file) ;
 
+
   }
+
+
+
+  GMainContext *this_thread_main_context = g_main_context_get_thread_default() ;
+
+  if (doc_have_html) {
+ 
+    while (g_main_context_pending(this_thread_main_context)) {
+
+      g_main_context_iteration(this_thread_main_context, FALSE) ;
+
+    }
+     
+    gchar *cmdline_str = g_strjoinv(" ", cmdline_strv) ;
+  
+    g_spawn_command_line_sync(cmdline_str, NULL, NULL, NULL, &errors) ;
+  
+    while (g_main_context_pending(this_thread_main_context)) {
+
+      g_main_context_iteration(this_thread_main_context, FALSE) ;
+
+    }
+
+    if (errors != NULL) {
+
+      display_message_dialog( _("Error launching HTML files !"), errors->message, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE) ;
+
+      g_clear_error(&errors) ;
+
+      return ;
+
+    }
+   
+    g_free(cmdline_str) ;
+   
+  }
+
+  g_strfreev(cmdline_strv) ;
 
   if (! settings.session_mode) {
 
@@ -542,8 +464,51 @@ void reload_last_documentation(GtkWidget *widget) {
 
 }
 
+void reload_last_documentation(GtkWidget *widget) {
+
+  GThread *thread = g_thread_try_new(NULL, (GThreadFunc) reload_last_documentation_thread, NULL, &errors) ;
+
+  if (errors != NULL) {
+
+    display_message_dialog( _("Error launching documentation !"), errors->message, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE) ;
+
+    g_clear_error(&errors) ;
+
+  }
+
+  if (thread != NULL) {
+
+    g_thread_unref(thread) ;
+
+  }
+
+  return ;
+
+}
 
 void reload_last_applications(GtkWidget *widget) {
+
+  GThread *thread = g_thread_try_new(NULL, (GThreadFunc) reload_last_applications_thread, NULL, &errors) ;
+
+  if (errors != NULL) {
+
+    display_message_dialog( _("Error launching application(s) !"), errors->message, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE) ;
+
+    g_clear_error(&errors) ;
+
+  }
+
+  if (thread != NULL) {
+
+    g_thread_unref(thread) ;
+
+  }
+
+  return ;
+
+}
+
+static void reload_last_applications_thread(gpointer *user_data) {
 
   #ifdef DEBUG
   DEBUG_FUNC_MARK
@@ -747,7 +712,6 @@ void open_file(GtkWidget *widget) {
   }
 
   gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(file_chooser), TRUE) ;
-
 
   gint res = gtk_dialog_run (GTK_DIALOG (file_chooser));
 

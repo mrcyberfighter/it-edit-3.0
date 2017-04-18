@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -123,9 +123,9 @@ gboolean source_file_saver(GtkSourceBuffer *buffer, GtkSourceFile *file) {
     g_main_context_iteration(NULL, FALSE) ;
 
   }
-  
+
   gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(buffer), FALSE) ;
- 
+
   return source_view_saver_success ;
 
 }
@@ -163,9 +163,9 @@ gboolean source_file_saver_with_target(GtkSourceBuffer *buffer, GtkSourceFile *f
   if (compress) {
 
     gtk_source_file_saver_set_compression_type(saver, GTK_SOURCE_COMPRESSION_TYPE_GZIP) ;
- 
+
   }
-  
+
 
   gtk_source_file_saver_set_flags(saver, flags) ;
 
@@ -185,9 +185,9 @@ gboolean source_file_saver_with_target(GtkSourceBuffer *buffer, GtkSourceFile *f
     g_main_context_iteration(NULL, FALSE) ;
 
   }
-  
+
   gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(buffer), FALSE) ;
- 
+
   return source_view_saver_success ;
 
 }

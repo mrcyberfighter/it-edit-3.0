@@ -1,6 +1,6 @@
 /** ***********************************************************************************
   * it-edit the Integrated Terminal Editor: a text editor with severals               *
-  * integrated functionalities.                                                      *
+  * integrated functionalities.                                                       *
   *                                                                                   *
   * Copyright (C) 2015-2017 Brüggemann Eddie.                                         *
   *                                                                                   *
@@ -43,9 +43,6 @@ extern GUI *gui         ;
 /** Program settings: **/
 extern Settings settings ;
 
-#ifdef MINI_MULTIPURPOSE_EDITOR_SUPPORT /** This feature is too much unstable. **/
-extern Todo_Settings *todo_settings ;
-#endif
 
 extern Session *session ;
 
@@ -78,6 +75,6 @@ extern GtkSourceLanguageManager *source_language_manager ;
 
 extern GtkSourceStyleSchemeManager *source_style_language_manager ;
 
-//extern GDateTime *program_time ;
+extern GDateTime *program_time ;
 
 #endif
